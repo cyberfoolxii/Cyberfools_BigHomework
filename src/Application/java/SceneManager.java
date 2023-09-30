@@ -3,7 +3,7 @@ package Application.java;
 import javafx.scene.Scene;
 import java.util.ArrayList;
 
-public class SceneManager {
+public final class SceneManager {
     private final ArrayList<Scene> sceneList = new ArrayList<>();
     public Scene getSceneInSceneList(SceneIndex index) {
         if (index.ordinal() < sceneList.size()) {
