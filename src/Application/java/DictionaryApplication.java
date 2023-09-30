@@ -28,8 +28,7 @@ public class DictionaryApplication extends Application {
         primaryStage.setResizable(false);
         primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitHint("test");
-        Image appIcon = new Image("Application//resources//AppIcon.jpg");
-        primaryStage.getIcons().add(appIcon);
+        Image appIcon = new Image("file:resources/AppIcon.jpg");
         primaryStage.setScene(sceneManager.getSceneInSceneList(SceneIndex.FIRST));
         primaryStage.show();
     }
