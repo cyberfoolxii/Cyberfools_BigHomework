@@ -6,10 +6,18 @@ public class Word implements Comparable<Word> {
     private String vietnameseMeaning;
     private String wordType; // verb, noun, adjective ...
 
+    // normal constructor
     public Word(String englishMeaning, String vietnameseMeaning, String wordType) {
         this.englishMeaning = englishMeaning;
         this.vietnameseMeaning = vietnameseMeaning;
         this.wordType = "(" + wordType + ")";
+    }
+
+    // copy constructor
+    public Word(Word w) {
+        this.englishMeaning = w.englishMeaning;
+        this.vietnameseMeaning = w.vietnameseMeaning;
+        this.wordType = w.wordType;
     }
 
     public String getEnglishMeaning() {
@@ -67,5 +75,15 @@ public class Word implements Comparable<Word> {
             }
         }
         return 0;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Word w) {
+            return this.englishMeaning.equals(w.englishMeaning)
+                    && this.vietnameseMeaning.equals(w.vietnameseMeaning)
+                    && this.wordType.equals(w.wordType);
+        }
+        return false;
     }
 }
