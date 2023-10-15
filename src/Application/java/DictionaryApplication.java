@@ -19,7 +19,8 @@ import javafx.stage.Stage;
 import javafx.event.Event;
 public class DictionaryApplication extends Application {
     public void start(Stage primaryStage) throws Exception {
-        RootManager rootManager = new RootManager();
+
+/*        RootManager rootManager = new RootManager();
         SceneManager sceneManager = new SceneManager();
         sceneManager.setSceneToList(new Scene(rootManager.getFXMLInsertedRoot("DictionaryApplicationScene.fxml")));
         primaryStage.setTitle("Dictionary Application");
@@ -29,8 +30,8 @@ public class DictionaryApplication extends Application {
         primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitHint("test");
         Image appIcon = new Image("file:resources/AppIcon.jpg");
-        primaryStage.setScene(sceneManager.getSceneInSceneList(SceneIndex.FIRST));
-        primaryStage.show();
+        primaryStage.setScene(sceneManager.getSceneInSceneList(SceneIndex.HOMEINDEX));
+        primaryStage.show();*/
     }
     public static void main(String[] args) {
         launch(args);
