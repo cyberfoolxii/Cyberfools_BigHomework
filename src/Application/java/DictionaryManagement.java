@@ -1,5 +1,9 @@
 package Application.java;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Scanner;
 
@@ -16,6 +20,14 @@ public class DictionaryManagement {
     private void sortEnglish() {
         Collections.sort(dictionary.getEnglishWordsArrayList());
     }
+
+    private void insertWordToDictionary(Word word) {
+        if (word instanceof VietnameseWord) {
+            dictionary.addToVietnameseWordArrayList((VietnameseWord) word);
+        } else if (word instanceof EnglishWord) {
+            dictionary.addToEnglishWordArrayList((EnglishWord) word);
+        }
+    }
     public void insertWordFromCommandline() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Insert new English word : ");
@@ -31,14 +43,34 @@ public class DictionaryManagement {
             vietnameseWord.addToEnglishMeaningsList(newEnglishWord);
             newEnglishWord.addToVietnameseMeaningsList(vietnameseWord);
         }
-        dictionary.addToEnglishWordArrayList(newEnglishWord);
+        insertWordToDictionary(newEnglishWord);
         for (VietnameseWord vietnameseWord : newEnglishWord.getVietnameseMeaningsList()) {
-            dictionary.addToVietnameseWordArrayList(vietnameseWord);
+            insertWordToDictionary(vietnameseWord);
         }
     }
 
     public void insertWordFromFile() {
-
+        try {
+            File file = new File("src\\Application\\resources\\dictionaries.txt");
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String s = null;
+            while ((s = bufferedReader.readLine()) != null) {
+                String[] separate = s.split("\t");
+                EnglishWord englishWord = new EnglishWord(separate[0], separate[1]);
+                for (int i = 2; i < separate.length; i++) {
+                    VietnameseWord vietnameseWord = new VietnameseWord(separate[i], separate[1]);
+                    vietnameseWord.addToEnglishMeaningsList(englishWord);
+                    englishWord.addToVietnameseMeaningsList(vietnameseWord);
+                    insertWordToDictionary(vietnameseWord);
+                }
+                insertWordToDictionary(englishWord);
+            }
+            bufferedReader.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void showAllEnglishWords() {
