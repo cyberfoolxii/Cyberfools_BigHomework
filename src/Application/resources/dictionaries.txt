@@ -1,1 +1,5 @@
-superman	noun	sieu nhan	sieu anh hung
+superman	noun	siêu nhân	siêu anh hùng
+dictionary	noun	từ điển
+owl	noun	con cú
+hero	noun	siêu anh hùng
+hero	noun	anh hùng
