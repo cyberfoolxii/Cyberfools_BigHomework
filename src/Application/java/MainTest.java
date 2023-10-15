@@ -14,10 +14,11 @@ public class MainTest {
             System.out.println("[2] Insert New Word");
             System.out.println("[3] Show All English Words");
             System.out.println("[4] Show All Vietnamese Words");
-            System.out.println("[5] Exit");
+            System.out.println("[5] Look Something Up?");
+            System.out.println("[6] Exit");
             System.out.print("Type Your Option : ");
             Scanner scanner = new Scanner(System.in);
-            switch (scanner.next()) {
+            switch (scanner.nextLine()) {
                 case "1":
                     manager.insertWordFromFile();
                     break;
@@ -25,12 +26,17 @@ public class MainTest {
                     manager.insertWordFromCommandline();
                     break;
                 case "3":
+                    manager.removeWordDuplicates();
                     manager.showAllEnglishWords();
                     break;
                 case "4":
                     manager.showAllVietnameseWords();
                     break;
                 case "5":
+                    System.out.println("Find what? : ");
+                    manager.dictionaryLookup(scanner.nextLine());
+                    break;
+                case "6":
                     isRunning = false;
                     break;
             }

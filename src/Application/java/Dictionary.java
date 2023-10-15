@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public final class Dictionary {
     private static Dictionary instance;
-    private final ArrayList<VietnameseWord> vietnameseWordsArrayList;
-    private final ArrayList<EnglishWord> englishWordsArrayList;
+    private ArrayList<VietnameseWord> vietnameseWordsArrayList;
+    private ArrayList<EnglishWord> englishWordsArrayList;
 
     private Dictionary() {
         vietnameseWordsArrayList = new ArrayList<>();
@@ -33,5 +33,13 @@ public final class Dictionary {
 
     public void addToEnglishWordArrayList(EnglishWord word) {
         englishWordsArrayList.add(word);
+    }
+
+    public void setEnglishWordsArrayList(ArrayList<EnglishWord> englishWordsArrayList) {
+        this.englishWordsArrayList = englishWordsArrayList;
+    }
+
+    public void setVietnameseWordsArrayList(ArrayList<VietnameseWord> vietnameseWordsArrayList) {
+        this.vietnameseWordsArrayList = vietnameseWordsArrayList;
     }
 }

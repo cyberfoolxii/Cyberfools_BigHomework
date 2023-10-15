@@ -1,12 +1,14 @@
 package Application.java;
 
 import Application.java.CustomExceptions.InappropriateInputException;
-
 import java.util.ArrayList;
 
-public class EnglishWord extends Word implements Comparable<EnglishWord> {
+/** EnglishWord đại diện cho một từ tiếng anh
+ * thật vậy, một từ tiếng anh có thể dịch sang tiếng việt theo nhiều nghĩa
+ */
+public class EnglishWord extends Word {
     private String english;
-    private final ArrayList<VietnameseWord> vietnameseMeaningsList;
+    private ArrayList<VietnameseWord> vietnameseMeaningsList;
     public EnglishWord(String english, String wordType) {
         super(wordType);
         this.english = english;
@@ -29,8 +31,25 @@ public class EnglishWord extends Word implements Comparable<EnglishWord> {
         return vietnameseMeaningsList;
     }
 
+    public void setVietnameseMeaningsList(ArrayList<VietnameseWord> vietnameseMeaningsList) {
+        if (!vietnameseMeaningsList.isEmpty()) {
+            this.vietnameseMeaningsList = vietnameseMeaningsList;
+        }
+    }
+
     @Override
-    public int compareTo(EnglishWord englishWord) {
-        return english.compareTo(englishWord.english);
+    public int compareTo(Word englishWord) {
+        EnglishWord e = (EnglishWord) englishWord;
+        return english.compareTo(e.english);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder vietnameseResults = new StringBuilder();
+        for (VietnameseWord v : vietnameseMeaningsList) {
+            vietnameseResults.append(v.getVietnamese()).append(",");
+        }
+        return english + " | " + getWordType() + " | "
+                + vietnameseResults + "\n";
     }
 }
