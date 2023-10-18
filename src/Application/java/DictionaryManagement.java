@@ -16,13 +16,8 @@ public class DictionaryManagement {
         this.dictionary = dictionary;
     }
 
-    /** sắp xếp danh sách tiếng việt theo thứ tự từ điển. */
-    private void sortVietnamese() {
+    private void sortDictionary() {
         Collections.sort(dictionary.getVietnameseWordsArrayList());
-    }
-
-    /** sắp xếp danh sách tiếng anh theo thứ tự từ điển. */
-    private void sortEnglish() {
         Collections.sort(dictionary.getEnglishWordsArrayList());
     }
 
@@ -32,7 +27,7 @@ public class DictionaryManagement {
      *  tuy nhiên những từ giống nhau thì phải gộp giải nghĩa của chúng
      *  trước khi xóa đi
      */
-    public void removeWordDuplicates() {
+/*    public void removeWordDuplicates() {
         sortEnglish();
         sortVietnamese();
         HashSet<Integer> deleteWordIndex = new HashSet<>();
@@ -78,7 +73,7 @@ public class DictionaryManagement {
             }
         }
         dictionary.setEnglishWordsArrayList(englishWordsResult);
-    }
+    }*/
     /** thêm từ mới vào từ điển.
      *  tự động phân loại đối tượng word tiếng anh hay tiếng việt
      */
@@ -88,6 +83,7 @@ public class DictionaryManagement {
         } else if (word instanceof EnglishWord) {
             dictionary.addToEnglishWordArrayList((EnglishWord) word);
         }
+        sortDictionary();
     }
 
     /** phương thức này sẽ được tiếp tục chỉnh sửa
@@ -113,6 +109,7 @@ public class DictionaryManagement {
         for (VietnameseWord vietnameseWord : newEnglishWord.getVietnameseMeaningsList()) {
             insertWordToDictionary(vietnameseWord);
         }
+        sortDictionary();
     }
 
     /** nạp từ trong file dictionaries.txt cố định vào từ điển.
@@ -136,6 +133,7 @@ public class DictionaryManagement {
                 }
                 insertWordToDictionary(englishWord);
             }
+            sortDictionary();
             bufferedReader.close();
         }
         catch (IOException e) {
@@ -145,9 +143,8 @@ public class DictionaryManagement {
 
     /** hiển thị hết mọi từ tiếng anh đã thêm vào từ điển. */
     public void showAllEnglishWords() {
-        sortEnglish();
         int wordPos = 1;
-        for (EnglishWord e : dictionary.getEnglishWordsArrayList()) {
+        for (Word e : dictionary.getEnglishWordsArrayList()) {
             System.out.print(wordPos + " | " + e.toString());
             wordPos++;
         }
@@ -155,9 +152,8 @@ public class DictionaryManagement {
 
     /** hiển thị hết mọi từ tiếng việt đã thêm vào từ điển. */
     public void showAllVietnameseWords() {
-        sortVietnamese();
         int wordPos = 1;
-        for (VietnameseWord v : dictionary.getVietnameseWordsArrayList()) {
+        for (Word v : dictionary.getVietnameseWordsArrayList()) {
             System.out.print(wordPos + " | " + v.toString());
             wordPos++;
         }
@@ -166,39 +162,24 @@ public class DictionaryManagement {
     /** muốn tìm từ tiếng việt hay tiếng anh?, đây là phương thức viết chung chung cho tìm cả 2 loại
      *  nên cải tiến lại sau nếu có tùy chọn tìm tiếng việt hoặc tiếng anh riêng rẽ
      */
-    public Word dictionaryLookupWord(String whatToLook) {
-        /** tìm trong tập tiếng anh của từ điển. */
-        int indexFound = Collections.binarySearch(dictionary.getEnglishWordsArrayList(),
-                new EnglishWord(whatToLook, null));
-        if (indexFound >= 0) {
-            return dictionary.getEnglishWordsArrayList().get(indexFound);
-        }
-
-        /** nếu không thấy trong tập tiếng anh thì tìm tiếp trong tập tiếng việt. */
-        indexFound = Collections.binarySearch(dictionary.getVietnameseWordsArrayList(),
-                new VietnameseWord(whatToLook, null));
-        if (indexFound >= 0) {
-            return dictionary.getVietnameseWordsArrayList().get(indexFound);
-        }
-        return null;
-    }
 
     /** tương tự
      *  phương thức này chịu ảnh hưởng từ dictionaryLookupWord()
      *  cần được chỉnh sửa lại sau
+     *  lưu ý rằng dữ liệu PHẢI được sắp xếp trước khi gọi binarySearch
      */
-    public void dictionaryLookup(String whatToLook) {
-        Word wordFound = dictionaryLookupWord(whatToLook);
-        if (wordFound == null) {
-            System.out.println("không tìm thấy từ cần tra!");
-            return;
+    public String dictionaryLookup(String whatToLook, boolean isEnglish) {
+        if (isEnglish) {
+            int indexFound = Collections.binarySearch(dictionary.getEnglishWordsArrayList(), new EnglishWord(whatToLook, null));
+            if (indexFound >= 0) {
+                return dictionary.getEnglishWordsArrayList().get(indexFound).toString();
+            }
+        } else {
+            int indexFound = Collections.binarySearch(dictionary.getVietnameseWordsArrayList(), new VietnameseWord(whatToLook, null));
+            if (indexFound >= 0) {
+                return dictionary.getVietnameseWordsArrayList().get(indexFound).toString();
+            }
         }
-        if (wordFound instanceof EnglishWord) {
-            EnglishWord e = (EnglishWord) wordFound;
-            System.out.println(e.toString());
-            return;
-        }
-        VietnameseWord v = (VietnameseWord) wordFound;
-        System.out.println(v.toString());
+        return "không tìm thấy từ cần tra!";
     }
 }

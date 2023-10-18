@@ -14,7 +14,7 @@ public class VietnameseWord extends Word {
         englishMeaningsList = new ArrayList<>();
     }
 
-    public String getVietnamese() {
+    public String getWordContent() {
         return vietnamese;
     }
 
@@ -46,9 +46,8 @@ public class VietnameseWord extends Word {
     public String toString() {
         StringBuilder englishResults = new StringBuilder();
         for (EnglishWord v : englishMeaningsList) {
-            englishResults.append(v.getEnglish()).append(",");
+            englishResults.append(v.getWordContent()).append("\n");
         }
-        return vietnamese + " | " + getWordType() + " | "
-                + englishResults + "\n";
+        return englishResults.toString();
     }
 }

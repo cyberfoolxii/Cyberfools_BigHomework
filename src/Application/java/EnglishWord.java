@@ -1,6 +1,5 @@
 package Application.java;
 
-import Application.java.CustomExceptions.InappropriateInputException;
 import java.util.ArrayList;
 
 /** EnglishWord đại diện cho một từ tiếng anh
@@ -15,7 +14,7 @@ public class EnglishWord extends Word {
         vietnameseMeaningsList = new ArrayList<>();
     }
 
-    public String getEnglish() {
+    public String getWordContent() {
         return english;
     }
 
@@ -47,9 +46,8 @@ public class EnglishWord extends Word {
     public String toString() {
         StringBuilder vietnameseResults = new StringBuilder();
         for (VietnameseWord v : vietnameseMeaningsList) {
-            vietnameseResults.append(v.getVietnamese()).append(",");
+            vietnameseResults.append(v.getWordContent()).append("\n");
         }
-        return english + " | " + getWordType() + " | "
-                + vietnameseResults + "\n";
+        return vietnameseResults.toString();
     }
 }
