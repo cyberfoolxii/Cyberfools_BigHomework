@@ -1,5 +1,6 @@
-superman	noun	siêu nhân	siêu anh hùng
+superman	noun	siêu nhân
 dictionary	noun	từ điển
 owl	noun	con cú
 hero	noun	siêu anh hùng
-hero	noun	anh hùng
+cock	noun	cặc
+pervert	noun	biến thái
