@@ -1,6 +1,9 @@
 package Application.java;
 
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+import java.io.File;
 
 /** StageManager cung cấp các tiện ích thao tác với Stage. */
 public class StageManager {
@@ -44,9 +47,10 @@ public class StageManager {
         stage.setHeight(CommonConstants.MAX_SCREEN_HEIGHT/1.5);
         stage.setX((CommonConstants.MAX_SCREEN_WIDTH - CommonConstants.MAX_SCREEN_WIDTH/1.5)/2);
         stage.setY((CommonConstants.MAX_SCREEN_HEIGHT - CommonConstants.MAX_SCREEN_HEIGHT/1.5)/2);
-        /*        Image appIcon = new Image("AppIcon.jpg");
-        primaryStage.getIcons().add(appIcon);
-        RootManager rootManager = new RootManager();
+        File file = new File("src\\Application\\resources\\AppIcon\\AppIcon.jpg");
+        Image appIcon = new Image(file.toURI().toString());
+        stage.getIcons().add(appIcon);
+/*        RootManager rootManager = new RootManager();
         SceneManager sceneManager = new SceneManager();
         primaryStage.setTitle("Dictionary Application");
         primaryStage.setWidth(1366);

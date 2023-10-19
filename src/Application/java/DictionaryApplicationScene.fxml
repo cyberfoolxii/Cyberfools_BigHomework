@@ -9,7 +9,7 @@
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="727.0" stylesheets="@primer-dark.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.java.SceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="727.0" stylesheets="@../resources/CSS%20Styles/primer-dark.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.java.SceneController">
    <Button contentDisplay="CENTER" layoutX="412.0" layoutY="224.0" mnemonicParsing="false" onAction="#translate" text="Dịch">
       <effect>
          <ColorAdjust brightness="-0.02" contrast="0.32" hue="-0.21" saturation="1.0" />
