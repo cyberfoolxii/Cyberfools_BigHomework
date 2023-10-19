@@ -1,9 +1,13 @@
 package Application.java;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Scanner;
+import javafx.scene.media.MediaPlayer;
 
+import javax.print.attribute.standard.Media;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Scanner;
+import java.net.URI;
+import java.net.http.*;
 public class MainTest {
 
     public void start() {
@@ -26,7 +30,6 @@ public class MainTest {
                     manager.insertWordFromCommandline();
                     break;
                 case "3":
-                    manager.removeWordDuplicates();
                     manager.showAllEnglishWords();
                     break;
                 case "4":
@@ -34,7 +37,7 @@ public class MainTest {
                     break;
                 case "5":
                     System.out.println("Find what? : ");
-                    manager.dictionaryLookup(scanner.nextLine());
+                    System.out.println(manager.dictionaryLookup(scanner.nextLine(), true));
                     break;
                 case "6":
                     isRunning = false;
@@ -43,7 +46,21 @@ public class MainTest {
         }
     }
     public static void main(String[] args) {
-        MainTest program = new MainTest();
-        program.start();
+        try{
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create("https://text-to-speech-api3.p.rapidapi.com/speak?text=hello%20world!&lang=en"))
+                    .header("X-RapidAPI-Key", "1d491d9bb6msh388f4ca7cddf6c4p17c694jsneaec5358edeb")
+                    .header("X-RapidAPI-Host", "text-to-speech-api3.p.rapidapi.com")
+                    .method("GET", HttpRequest.BodyPublishers.noBody())
+                    .build();
+            HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println(response.body());
+            FileInputStream fileInputStream = new FileInputStream(response.body());;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+/*        MainTest program = new MainTest();
+        program.start();*/
     }
 }

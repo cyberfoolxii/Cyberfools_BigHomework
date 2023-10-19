@@ -23,6 +23,10 @@ public class SceneController {
         try{
             DictionaryManagement dictionaryManagement = new DictionaryManagement(Dictionary.getInstance());
             resultLabel.setText(dictionaryManagement.dictionaryLookup(searchTextField.getText(), isEnglish));
+            if (!searchTextField.getText().isEmpty()) {
+                Speech speech = new Speech();
+                speech.play(searchTextField.getText());
+            }
         }
         catch (Exception e) {
             System.out.println("ồ, đã xảy ra lỗi : " + e);
