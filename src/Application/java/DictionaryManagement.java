@@ -180,6 +180,6 @@ public class DictionaryManagement {
                 return dictionary.getVietnameseWordsArrayList().get(indexFound).toString();
             }
         }
-        return "không tìm thấy từ cần tra!";
+        return "Không tìm thấy từ cần tra!";
     }
 }
