@@ -1,18 +1,18 @@
 package Application.java;
 
+import com.google.gson.Gson;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.media.*;
 
 import java.io.*;
 import java.net.URI;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import org.asynchttpclient.*;
-import org.slf4j.*;
 public class DictionaryApplication extends Application {
     public void start(Stage primaryStage) throws Exception {
         SceneManager sceneManager = new SceneManager();

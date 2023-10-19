@@ -24,8 +24,8 @@ public class SceneController {
             DictionaryManagement dictionaryManagement = new DictionaryManagement(Dictionary.getInstance());
             resultLabel.setText(dictionaryManagement.dictionaryLookup(searchTextField.getText(), isEnglish));
             if (!searchTextField.getText().isEmpty()) {
-                Speech speech = new Speech();
-                speech.play(searchTextField.getText());
+                SpeechManager speechManager = new SpeechManager();
+                speechManager.speak(searchTextField.getText(), isEnglish);
             }
         }
         catch (Exception e) {
