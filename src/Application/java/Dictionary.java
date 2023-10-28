@@ -1,23 +1,20 @@
 package Application.java;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public final class Dictionary {
-    private static Dictionary instance;
-    private final ArrayList<VietnameseWord> vietnameseWordsArrayList;
-    private final ArrayList<EnglishWord> englishWordsArrayList;
+public class Dictionary {
+    public static final List<String> wordTypeList = new ArrayList<>();
 
-    private Dictionary() {
-        vietnameseWordsArrayList = new ArrayList<>();
-        englishWordsArrayList = new ArrayList<>();
+    static {
+        wordTypeList.add("NOUN");
+        wordTypeList.add("VERB");
+        wordTypeList.add("ADJ");
+        wordTypeList.add("ADV");
     }
 
-    public static Dictionary getInstance() {
-        if (instance == null) {
-            instance = new Dictionary();
-        }
-        return instance;
-    }
+    private final ArrayList<VietnameseWord> vietnameseWordsArrayList = new ArrayList<>();
+    private final ArrayList<EnglishWord> englishWordsArrayList = new ArrayList<>();
 
     public ArrayList<EnglishWord> getEnglishWordsArrayList() {
         return englishWordsArrayList;

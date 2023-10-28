@@ -16,7 +16,7 @@ import java.net.ConnectException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SceneController {
+public class SceneControllerTest {
     private String translateFrom;
     private String translateTo;
     @FXML

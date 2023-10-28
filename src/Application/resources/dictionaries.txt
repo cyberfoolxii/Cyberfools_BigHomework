@@ -1,5 +1,0 @@
-superman	noun	siêu nhân
-dictionary	noun	từ điển
-owl	noun	con cú
-hero	noun	siêu anh hùng
-bat	noun	con dơi

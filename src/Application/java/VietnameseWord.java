@@ -6,20 +6,9 @@ import java.util.ArrayList;
  * thật vậy, một từ tiếng việt có thể dịch sang tiếng anh theo nhiều nghĩa
  */
 public class VietnameseWord extends Word {
-    private String vietnamese;
-    private ArrayList<EnglishWord> englishMeaningsList;
-    public VietnameseWord(String vietnamese, String wordType) {
-        super(wordType);
-        this.vietnamese = vietnamese;
-        englishMeaningsList = new ArrayList<>();
-    }
-
-    public String getWordContent() {
-        return vietnamese;
-    }
-
-    public void setVietnamese(String vietnamese) {
-        this.vietnamese = vietnamese;
+    private final ArrayList<EnglishWord> englishMeaningsList = new ArrayList<>();
+    public VietnameseWord(String wordContent, String wordType) {
+        super(wordContent, wordType);
     }
 
     public void addToEnglishMeaningsList(EnglishWord englishMeaning) {
@@ -30,24 +19,13 @@ public class VietnameseWord extends Word {
         return englishMeaningsList;
     }
 
-    public void setEnglishMeaningsList(ArrayList<EnglishWord> englishMeaningsList) {
-        if (!englishMeaningsList.isEmpty()) {
-            this.englishMeaningsList = englishMeaningsList;
-        }
-    }
-
-    @Override
-    public int compareTo(Word vietnameseWord) {
-        VietnameseWord v = (VietnameseWord) vietnameseWord;
-        return vietnamese.compareTo(v.vietnamese);
-    }
-
     @Override
     public String toString() {
-        StringBuilder englishResults = new StringBuilder();
+/*        StringBuilder englishResults = new StringBuilder();
         for (EnglishWord v : englishMeaningsList) {
             englishResults.append(v.getWordContent()).append("\n");
         }
-        return englishResults.toString();
+        return englishResults.toString();*/
+        return getWordContent() + "\n";
     }
 }

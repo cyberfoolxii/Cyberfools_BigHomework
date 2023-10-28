@@ -43,12 +43,11 @@ public class StageManager {
         stage.setTitle("Dictionary Application");
         stage.setFullScreenExitHint("Nhấn ESC để thoát chế độ toàn màn hình");
         stage.setResizable(false);
-        stage.setWidth(CommonConstants.MAX_SCREEN_WIDTH/1.5);
-        stage.setHeight(CommonConstants.MAX_SCREEN_HEIGHT/1.5);
+        //stage.setWidth(CommonConstants.MAX_SCREEN_WIDTH/1.5);
+        //stage.setHeight(CommonConstants.MAX_SCREEN_HEIGHT/1.5);
         stage.setX((CommonConstants.MAX_SCREEN_WIDTH - CommonConstants.MAX_SCREEN_WIDTH/1.5)/2);
         stage.setY((CommonConstants.MAX_SCREEN_HEIGHT - CommonConstants.MAX_SCREEN_HEIGHT/1.5)/2);
-        File file = new File("src\\Application\\resources\\AppIcon\\AppIcon.jpg");
-        Image appIcon = new Image(file.toURI().toString());
+        Image appIcon = new Image("file:src/Application/resources/AppIcon/AppIcon.jpg");
         stage.getIcons().add(appIcon);
 /*        RootManager rootManager = new RootManager();
         SceneManager sceneManager = new SceneManager();
