@@ -5,6 +5,10 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.net.ConnectException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -19,14 +23,8 @@ public class SpeechManager {
         }
 
     }
-    public void speak(String wordContent, boolean isEnglish) {
-        String region;
-        if (isEnglish) {
-            region = "en";
-        } else {
-            region = "vi";
-        }
-        try{
+    public void speak(String wordContent, String languageType) {
+        try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create("https://text-to-speech53.p.rapidapi.com/"))
                     .header("content-type", "application/json")
@@ -34,7 +32,7 @@ public class SpeechManager {
                     .header("X-RapidAPI-Host", "text-to-speech53.p.rapidapi.com")
                     .method("POST", HttpRequest.BodyPublishers.ofString("{\r\n    \"text\": \""
                             + wordContent
-                            +"\",\r\n    \"lang\": \""+ region +"\",\r\n    \"format\": \"mp3\"\r\n}"))
+                            + "\",\r\n    \"lang\": \"" + languageType + "\",\r\n    \"format\": \"mp3\"\r\n}"))
                     .build();
             HttpClient client = HttpClient.newHttpClient();
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
@@ -43,9 +41,14 @@ public class SpeechManager {
             Media media = new Media(speech.getSpeech());
             MediaPlayer mediaPlayer = new MediaPlayer(media);
             mediaPlayer.play();
+        } catch (ConnectException e) {
+            System.out.println("Ố ồ, đã mất kết nối internet!");
         }
-        catch (Exception e) {
-            System.out.println("không đọc được từ!" + e);
+        catch (InterruptedException e) {
+            System.out.println("Trục trặc kết nối API!");
+        }
+        catch (IOException e) {
+            System.out.println("Lỗi nhập xuất tệp!");
         }
     }
 }

@@ -2,6 +2,7 @@ package Application.java;
 
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -39,16 +40,7 @@ public final class SceneManager {
      * dòng lệnh add và thay đường dẫn bằng đường dẫn tệp fxml mới.
      */
     public void initializeScenes() {
-        sceneList.add(createNewScene("DictionaryApplicationScene.fxml"));
-        //linkCSS();
-    }
-
-    private void linkCSSToScene(String path, SceneIndex sceneIndex) {
-        Objects.requireNonNull(getSceneInSceneList(sceneIndex)).getStylesheets().add(Objects.requireNonNull(getClass().getResource(path)).toExternalForm());
-    }
-
-    /** link thêm css vào scene khác thì copy paste lại dòng dưới. */
-    private void linkCSS() {
-        linkCSSToScene("nord-light.css", SceneIndex.HOMEINDEX);
+        sceneList.add(createNewScene("/FXML Files/DictionaryApplicationScene.fxml"));
+        sceneList.add(createNewScene("/FXML Files/FXML.fxml"));
     }
 }
