@@ -5,8 +5,13 @@ import javafx.scene.Parent;
 import java.io.IOException;
 import java.util.Objects;
 
-public final class RootManager {
+public final class FXMLManager {
     public Parent getFXMLInsertedRoot(String fxmlFilePath) throws IOException {
         return FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFilePath)));
+    }
+
+    public SceneController getController(String fxmlFilePath) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(fxmlFilePath));
+        return  fxmlLoader.getController();
     }
 }

@@ -1,0 +1,4 @@
+cilantro	NOUN	rau mui
+coriander	NOUN	rau mui
+derogatory	ADJ	khinh miệt	thái độ
+derogatory	VERB	miệt thị

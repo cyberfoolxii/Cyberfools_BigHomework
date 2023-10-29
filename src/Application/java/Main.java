@@ -7,7 +7,9 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.text.CollationElementIterator;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.SortedMap;
 
@@ -38,10 +40,17 @@ public class Main {
         LocalDictionaryManager l = new LocalDictionaryManager(dictionary);
         l.insertWordFromFile();
         l.showAllEnglishWords();
-        System.out.println("------------------------------------");
+        System.out.println();
         l.showAllVietnameseWords();
         System.out.println("------------------------------------");
-        l.insertWordFromCommandline();
+        l.deleteWordFromDictionary("determination", "noun");
+        l.showAllEnglishWords();
+        System.out.println();
+        l.showAllVietnameseWords();
+        System.out.println("------------------------------------");
+/*        for (String item : Dictionary.wordTypeSet) {
+            System.out.println(item);
+        }*/
         l.exportWordToFile();
     }
 }

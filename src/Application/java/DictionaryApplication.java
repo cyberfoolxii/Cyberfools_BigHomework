@@ -2,9 +2,15 @@ package Application.java;
 
 import com.google.gson.Gson;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.scene.media.*;
 import java.io.*;
@@ -21,9 +27,8 @@ public class DictionaryApplication extends Application {
         StageManager stageManager = new StageManager(primaryStage, sceneManager);
         sceneManager.initializeScenes();
         stageManager.configure();
-        stageManager.setSceneInListToStage(SceneIndex.TEST);
-/*        DictionaryManagement dictionaryManagement = new DictionaryManagement(Dictionary.getInstance());
-        dictionaryManagement.insertWordFromFile();*/
+        stageManager.setSceneInListToStage(SceneIndex.HOMEINDEX);
+        Dictionary dictionary = new Dictionary();
         stageManager.showStage();
     }
     public static void main(String[] args) {

@@ -49,6 +49,7 @@ public class StageManager {
         stage.setY((CommonConstants.MAX_SCREEN_HEIGHT - CommonConstants.MAX_SCREEN_HEIGHT/1.5)/2);
         Image appIcon = new Image("file:src/Application/resources/AppIcon/AppIcon.jpg");
         stage.getIcons().add(appIcon);
+        //stage.setFullScreen(true);
 /*        RootManager rootManager = new RootManager();
         SceneManager sceneManager = new SceneManager();
         primaryStage.setTitle("Dictionary Application");

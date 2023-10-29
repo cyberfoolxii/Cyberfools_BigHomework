@@ -13,44 +13,31 @@ public class LocalDictionaryManager extends DictionaryManager {
     }
 
     public void insertWordFromAPI(Source[] sources, String language) {
-        String wordType = "";
         switch (language) {
             case "vi":
-                List<VietnameseWord> vList = getDictionary().getVietnameseWordsArrayList();
                 for (Source source : sources) {
                     for (Translation translation : source.getTranslations()) {
-                        if (!wordType.equals(translation.getPosTag())) {
-                            wordType = translation.getPosTag();
-                            VietnameseWord newVietnameseWord = new VietnameseWord(source.getDisplaySource(), wordType);
-                            getDictionary().addToVietnameseWordArrayList(newVietnameseWord);
-                        }
-                        VietnameseWord newVietnameseWord = vList.get(vList.size() - 1);
-                        EnglishWord englishWord = new EnglishWord(translation.getDisplayTarget(), wordType);
-                        englishWord.addToVietnameseMeaningsList(newVietnameseWord);
-                        newVietnameseWord.addToEnglishMeaningsList(englishWord);
-                        insertWordToDictionary(newVietnameseWord);
-                        for (EnglishWord e : newVietnameseWord.getEnglishMeaningsList()) {
-                            insertWordToDictionary(e);
+                        if(!translation.getNormalizedTarget().equals(source.getNormalizedSource())) {
+                            VietnameseWord vietnameseWord = new VietnameseWord(source.getNormalizedSource(), translation.getPosTag());
+                            EnglishWord englishWord = new EnglishWord(translation.getNormalizedTarget(), translation.getPosTag());
+                            englishWord.addToVietnameseMeaningsList(vietnameseWord);
+                            vietnameseWord.addToEnglishMeaningsList(englishWord);
+                            insertWordToDictionary(vietnameseWord);
+                            insertWordToDictionary(englishWord);
                         }
                     }
                 }
                 break;
             case "en":
-                List<EnglishWord> eList = getDictionary().getEnglishWordsArrayList();
                 for (Source source : sources) {
                     for (Translation translation : source.getTranslations()) {
-                        if (!wordType.equals(translation.getPosTag())) {
-                            wordType = translation.getPosTag();
-                            EnglishWord newEnglishWord = new EnglishWord(source.getDisplaySource(), wordType);
-                            getDictionary().addToEnglishWordArrayList(newEnglishWord);
-                        }
-                        EnglishWord newEnglishWord = eList.get(eList.size() - 1);
-                        VietnameseWord vietnameseWord = new VietnameseWord(translation.getDisplayTarget(), wordType);
-                        vietnameseWord.addToEnglishMeaningsList(newEnglishWord);
-                        newEnglishWord.addToVietnameseMeaningsList(vietnameseWord);
-                        insertWordToDictionary(newEnglishWord);
-                        for (VietnameseWord v : newEnglishWord.getVietnameseMeaningsList()) {
-                            insertWordToDictionary(v);
+                        if(!translation.getNormalizedTarget().equals(source.getNormalizedSource())) {
+                            EnglishWord englishWord = new EnglishWord(source.getNormalizedSource(), translation.getPosTag());
+                            VietnameseWord vietnameseWord = new VietnameseWord(translation.getNormalizedTarget(), translation.getPosTag());
+                            vietnameseWord.addToEnglishMeaningsList(englishWord);
+                            englishWord.addToVietnameseMeaningsList(vietnameseWord);
+                            insertWordToDictionary(vietnameseWord);
+                            insertWordToDictionary(englishWord);
                         }
                     }
                 }
@@ -77,6 +64,21 @@ public class LocalDictionaryManager extends DictionaryManager {
         if (lo > hi) {
             if (word.compareTo(wordList.get(mid)) < 0) wordList.add(mid, word);
             else wordList.add(mid + 1, word);
+            return;
+        }
+        T found = wordList.get(mid);
+        if (word instanceof EnglishWord && found instanceof EnglishWord) {
+            EnglishWord e = (EnglishWord) word;
+            EnglishWord foundWord = (EnglishWord) found;
+            for (int i = 0; i < e.getVietnameseMeaningsList().size(); i++) {
+                foundWord.getVietnameseMeaningsList().add(e.getVietnameseMeaningsList().get(i));
+            }
+        } else if (word instanceof VietnameseWord && found instanceof VietnameseWord) {
+            VietnameseWord v = (VietnameseWord) word;
+            VietnameseWord foundWord = (VietnameseWord) found;
+            for (int i = 0; i < v.getEnglishMeaningsList().size(); i++) {
+                foundWord.getEnglishMeaningsList().add(v.getEnglishMeaningsList().get(i));
+            }
         }
     }
 
@@ -99,26 +101,33 @@ public class LocalDictionaryManager extends DictionaryManager {
         }
     }
 
+    /** mặc định xóa trong danh sách các từ tiếng anh. */
+    public void deleteWordFromDictionary(String wordContent, String wordType) {
+        int idx1 = Collections.binarySearch(getDictionary()
+                .getEnglishWordsArrayList(), new EnglishWord(wordContent.toLowerCase(), wordType.toUpperCase()));
+        if (idx1 < 0) return;
 
-    /** phương thức này sẽ được tiếp tục chỉnh sửa
-     * sao cho phù hợp với phiên bản đồ họa.
+        EnglishWord e = getDictionary().getEnglishWordsArrayList().get(idx1);
+        int idx2 = Collections.binarySearch(getDictionary().getEnglishWordsArrayList(), e);
+        if (idx2 >= 0) {
+            for (VietnameseWord v : e.getVietnameseMeaningsList()) {
+                int index = Collections.binarySearch(getDictionary().getVietnameseWordsArrayList(), v);
+                getDictionary().getVietnameseWordsArrayList().get(index).getEnglishMeaningsList().remove(e);
+            }
+            getDictionary().getEnglishWordsArrayList().remove(e);
+        }
+    }
+
+    /** tạo từ tiếng anh mới và thêm vào từ điển dựa trên
+     *  nội dung từ, loại từ, và danh sách giải nghĩa dạng String
      */
-    public void insertWordFromCommandline() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Insert new English word : ");
-        String english = scanner.nextLine();
-        System.out.print("Insert word type : ");
-        String wordType = scanner.nextLine();
-        EnglishWord newEnglishWord = new EnglishWord(english, wordType);
-        System.out.println("Insert vietnamese meanings :");
-        while (scanner.hasNext()) {
-            String vietnamese = scanner.nextLine();
-            if (".".equals(vietnamese)) break;
-            VietnameseWord vietnameseWord = new VietnameseWord(vietnamese, wordType);
+    public void createAndInsertToDictionary(String wordContent, String wordType, List<String> meanings) {
+        EnglishWord newEnglishWord = new EnglishWord(wordContent, wordType);
+        for (String meaning : meanings) {
+            VietnameseWord vietnameseWord = new VietnameseWord(meaning, wordType);
             vietnameseWord.addToEnglishMeaningsList(newEnglishWord);
             newEnglishWord.addToVietnameseMeaningsList(vietnameseWord);
         }
-        scanner.close();
         insertWordToDictionary(newEnglishWord);
         for (VietnameseWord vietnameseWord : newEnglishWord.getVietnameseMeaningsList()) {
             insertWordToDictionary(vietnameseWord);
@@ -137,9 +146,12 @@ public class LocalDictionaryManager extends DictionaryManager {
             String s = null;
             while ((s = bufferedReader.readLine()) != null) {
                 String[] separate = s.split("\t");
-                EnglishWord englishWord = new EnglishWord(separate[0], separate[1]);
+
+                Dictionary.wordTypeSet.add(separate[1].toUpperCase());
+
+                EnglishWord englishWord = new EnglishWord(separate[0].toLowerCase(), separate[1].toUpperCase());
                 for (int i = 2; i < separate.length; i++) {
-                    VietnameseWord vietnameseWord = new VietnameseWord(separate[i], separate[1]);
+                    VietnameseWord vietnameseWord = new VietnameseWord(separate[i].toLowerCase(), separate[1].toUpperCase());
                     vietnameseWord.addToEnglishMeaningsList(englishWord);
                     englishWord.addToVietnameseMeaningsList(vietnameseWord);
                     insertWordToDictionary(vietnameseWord);
@@ -199,15 +211,6 @@ public class LocalDictionaryManager extends DictionaryManager {
         }
     }
 
-    private List<Word> dictionaryLookup(List<? extends Word> wordList, String whatToLook) {
-        List<Word> resultList = new ArrayList<>();
-        for (String wordType : Dictionary.wordTypeList) {
-            // tạo đối tượng mới là english word hay vietnamese word đều được, vì ta chỉ so nội dung và loại từ
-            int indexFound = Collections.binarySearch(wordList, new EnglishWord(whatToLook, wordType));
-            if (indexFound >= 0) resultList.add(wordList.get(indexFound));
-        }
-        return resultList;
-    }
     /** muốn tìm từ tiếng việt hay tiếng anh?, đây là phương thức viết chung chung cho tìm cả 2 loại
      *  nên cải tiến lại sau nếu có tùy chọn tìm tiếng việt hoặc tiếng anh riêng rẽ
      */
@@ -219,27 +222,35 @@ public class LocalDictionaryManager extends DictionaryManager {
         StringBuilder result = new StringBuilder();
         switch (from) {
             case "en":
-                List<Word> eResultList = dictionaryLookup(getDictionary().getEnglishWordsArrayList(), whatToLook);
-                for (Word w: eResultList) {
-                    result
-                            .append(w.getWordType())
-                            .append(": ")
-                            .append(w.getWordContent())
-                            .append("\n");
+                for (String wordType : Dictionary.wordTypeSet) {
+                    int indexFound = Collections.binarySearch(getDictionary().getEnglishWordsArrayList(), new EnglishWord(whatToLook.toLowerCase(), wordType));
+                    if (indexFound >= 0) {
+                        result.append(wordType).append("\n");
+                        for (VietnameseWord v : getDictionary()
+                                .getEnglishWordsArrayList()
+                                .get(indexFound)
+                                .getVietnameseMeaningsList()) {
+                            result.append(v.getWordContent()).append("\n");
+                        }
+                    }
                 }
                 return result.toString();
             case "vi":
-                List<Word> vResultList = dictionaryLookup(getDictionary().getVietnameseWordsArrayList(), whatToLook);
-                for (Word w: vResultList) {
-                    result
-                            .append(w.getWordType())
-                            .append(": ")
-                            .append(w.getWordContent())
-                            .append("\n");
+                for (String wordType : Dictionary.wordTypeSet) {
+                    int indexFound = Collections.binarySearch(getDictionary().getVietnameseWordsArrayList(), new VietnameseWord(whatToLook.toLowerCase(), wordType));
+                    if (indexFound >= 0) {
+                        result.append(wordType).append("\n");
+                        for (EnglishWord e : getDictionary()
+                                .getVietnameseWordsArrayList()
+                                .get(indexFound)
+                                .getEnglishMeaningsList()) {
+                            result.append(e.getWordContent()).append("\n");
+                        }
+                    }
                 }
                 return result.toString();
             default:
         }
-        return "Không tìm thấy từ cần tra!";
+        return "";
     }
 }

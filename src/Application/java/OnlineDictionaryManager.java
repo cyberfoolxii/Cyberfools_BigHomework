@@ -41,13 +41,19 @@ public class OnlineDictionaryManager extends DictionaryManager {
     public String dictionaryLookup(String whatToLook, String from, String to) {
         onlineDictionaryLookup(whatToLook, from, to);
         StringBuilder result = new StringBuilder();
+        String wordType = "";
         for (Source source : sources) {
             Translation[] translations = source.getTranslations();
             for (Translation translation : translations) {
-                result  .append("(")
-                        .append(translation.getPosTag()).append(") ")
-                        .append(translation.getPrefixWord()).append(" ")
-                        .append(translation.getDisplayTarget()).append("\n");
+                if (!translation.getNormalizedTarget().equals(source.getNormalizedSource())) {
+                    if (!wordType.equals(translation.getPosTag())) {
+                        wordType = translation.getPosTag();
+                        result  .append("(")
+                                .append(translation.getPosTag()).append(")\n");
+                    }
+                    result.append(translation.getPrefixWord()).append(" ")
+                    .append(translation.getDisplayTarget()).append("\n");
+                }
             }
         }
         return result.toString();
