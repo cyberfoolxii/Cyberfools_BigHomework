@@ -236,6 +236,7 @@ public class OnlineDictionaryManager extends DictionaryManager {
                             Dictionary.wordTypeSet.add(translation.getPosTag().toUpperCase());
 
                             EnglishWord englishWord = new EnglishWord(source.getNormalizedSource(), translation.getPosTag());
+                            englishWord.setPhonetic("(no phonetics)");
                             VietnameseWord vietnameseWord = new VietnameseWord(translation.getNormalizedTarget(), translation.getPosTag());
                             vietnameseWord.addToEnglishMeaningsList(englishWord);
                             englishWord.addToVietnameseMeaningsList(vietnameseWord);

@@ -224,17 +224,16 @@ public class LocalDictionaryManager extends DictionaryManager {
      * cần sửa sau, chưa sử dụng đến tham chiếu to
      */
     public boolean dictionaryLookup(String whatToLook, String from, SplitPane tab0SplitPane) {
-
-
         FXMLManager fxmlManager = new FXMLManager();
-        ScrollPane scrollPane = (ScrollPane) tab0SplitPane.getItems().get(0);
-        VBox vBox1 = (VBox) scrollPane.getContent();
+        VBox vBox = (VBox) tab0SplitPane.getItems().get(0);
+        VBox vBox1 = (VBox) tab0SplitPane.getItems().get(1);
 
-        ListView<String> listView = (ListView<String>) vBox1.getChildren().get(2);
+        ListView<String> listView = (ListView<String>) vBox.getChildren().get(2);
         listView.getItems().clear();
+        vBox1.getChildren().get(0).setVisible(false);
 
-        ScrollPane scrollPane1 = (ScrollPane) tab0SplitPane.getItems().get(1);
-        VBox vBox2 = (VBox) scrollPane1.getContent();
+        ScrollPane scrollPane = (ScrollPane) vBox1.getChildren().get(1);
+        VBox vBox2 = (VBox) scrollPane.getContent();
 
         for (String item : Dictionary.wordTypeSet) {
             System.out.println(item);
@@ -260,6 +259,7 @@ public class LocalDictionaryManager extends DictionaryManager {
                 listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
                     @Override
                     public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                        vBox1.getChildren().get(0).setVisible(true);
                         vBox2.getChildren().clear();
                         for (EnglishWord englishWord : englishWordList) {
                             if ((englishWord.getWordContent() + " " + englishWord.getWordType()).equals(listView.getSelectionModel().getSelectedItem())) {
@@ -303,6 +303,7 @@ public class LocalDictionaryManager extends DictionaryManager {
                 listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
                     @Override
                     public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                        vBox1.getChildren().get(0).setVisible(true);
                         vBox2.getChildren().clear();
                         vBox2.getChildren().add(fxmlManager.cloneLabel(listView.getSelectionModel().getSelectedItem(), Pos.CENTER_LEFT, FontPosture.REGULAR, FontWeight.BOLD));
                         for (VietnameseWord vietnameseWord : vietnameseWordList) {

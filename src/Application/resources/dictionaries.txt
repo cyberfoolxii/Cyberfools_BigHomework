@@ -12,7 +12,7 @@ darling	(no phonetics)	NOUN	yêu
 
 famine	/ˈfæmɪn/	NOUN	nạn đói
 A period of extreme shortage of food in a region.	Extreme shortage of food in a region.	Starvation or malnutrition.	Severe shortage or lack of something.
-hello	(no phonetics)	NOUN	chào	xin chào
+hello	(no phonetics)	NOUN	xin chào	chào
 
 love	/lʊv/	NOUN
 Alternative letter-case form of Love.	(racquet sports) Zero, no score.	A thing, activity etc which is the object of one's deep liking or enthusiasm.	Strong affection.	Sexual desire; attachment based on sexual attraction.	Sexual activity.	A person who is the object of romantic feelings; a darling, a sweetheart, a beloved.	An instance or episode of being in love; a love affair.	A term of friendly address, regardless of feelings.	A thin silk material.	Used as the closing, before the signature, of a letter, especially between good friends or family members, or by the young.	A climbing plant, Clematis vitalba.
@@ -24,10 +24,12 @@ lovely	/ˈlʌvli/	ADVERB
 In a lovely fashion or manner; beautifully.
 lovely	/ˈlʌvli/	NOUN
 An attractive, lovely person, especially a (professional) beauty.	Term of fond address.	A lovely object.
-nice	(no phonetics)	ADJ	tốt đẹp	đẹp
+nice	(no phonetics)	ADJ	đẹp	tốt đẹp
 
 orgy	/ˈɔː.dʒi/	NOUN
 Originally, secret rites or ceremonies, typically involving riotous and dissolute behaviour, including dancing, drunkenness and indiscriminate sexual activity, undertaken in honour of various pagan gods or goddesses (such as Attis, Bacchus, Ceres, Dionysus, Osiris, etc).	Excessive indulgence in a specified activity.	A gathering of people to engage in group sex.
+proficient	(no phonetics)	ADJ	thạo
+
 run	(no phonetics)	VERB	khởi chạy
 
 translucent	/tɹænzˈluː.sənt/	ADJECTIVE

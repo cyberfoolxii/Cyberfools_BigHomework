@@ -42,7 +42,7 @@ public class StageManager {
     public void configure() {
         stage.setTitle("Dictionary Application");
         stage.setFullScreenExitHint("Nhấn ESC để thoát chế độ toàn màn hình");
-        stage.setResizable(false);
+        //stage.setResizable(false);
         //stage.setWidth(CommonConstants.MAX_SCREEN_WIDTH/1.5);
         //stage.setHeight(CommonConstants.MAX_SCREEN_HEIGHT/1.5);
         stage.setX((CommonConstants.MAX_SCREEN_WIDTH - CommonConstants.MAX_SCREEN_WIDTH/1.5)/2);
