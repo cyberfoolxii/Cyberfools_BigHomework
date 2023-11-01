@@ -1,62 +1,120 @@
-a	(no phonetics)	DET	một
+abstain	/əbˈsteɪn/	VERB
+Keep or withhold oneself.	Deliberately refrain from casting one's vote at a meeting where one is present.	Refrain from (something or doing something); keep from doing, especially an indulgence.	Fast (not eat for a period).	Hinder; keep back; withhold.
 
-adolescence	/ˌædəˈlɛsəns/	NOUN
-The transitional period of physical and psychological development between childhood and maturity.
-adorable	/əˈdɔːɹəbəl/	ADJ
-Befitting of being adored; cute or loveable.
-adore	/pron/	VERB	yêu
+architecture	/ˈɑː.kɪ.ˌtɛk.tʃə/	NOUN
+Construction, in a more general sense; frame or structure; workmanship.	A unifying structure.	The profession of an architect.	Any particular style of building design.	A specific model of a microchip or CPU.	The structure and design of a system or product.	The art and science of designing and managing the construction of buildings and other structures, particularly if they are well proportioned and decorated.
+https://api.dictionaryapi.dev/media/pronunciations/en/architecture-us.mp3
+bland	/blænd/	ADJECTIVE
+Having a soothing effect; not irritating or stimulating.	Lacking in taste, flavor, or vigor.	Mild; soft, gentle, balmy; smooth in manner; suave.	Lacking interest; boring; dull.
+https://api.dictionaryapi.dev/media/pronunciations/en/bland-ca.mp3
+bland	/blænd/	NOUN
+A summer beverage prepared from the whey of churned milk, common among the inhabitants of the Shetland Islands.	Mixture; union.
+https://api.dictionaryapi.dev/media/pronunciations/en/bland-ca.mp3
+bland	/blænd/	VERB
+To mix; blend; mingle.	To connect; associate.
+https://api.dictionaryapi.dev/media/pronunciations/en/bland-ca.mp3
+breed	/bɹiːd/	NOUN
+All animals or plants of the same species or subspecies.	A race or lineage; offspring or issue.	A group of people with shared characteristics.
+https://api.dictionaryapi.dev/media/pronunciations/en/breed-us.mp3
+breed	/bɹiːd/	VERB
+To take care of in infancy and through childhood; to bring up.	(sometimes as breed up) To educate; to instruct; to bring up	To arrange the mating of specific animals.	Of animals, to mate.	To keep animals and have them reproduce in a way that improves the next generation’s qualities.	To have birth; to be produced, developed or multiplied.	To yield or result in.	To give birth to; to be the native place of.	To produce offspring sexually; to bear young.	To produce or obtain by any natural process.	To propagate or grow plants trying to give them certain qualities.	To ejaculate inside someone's ass	To be formed in the parent or dam; to be generated, or to grow, like young before birth.
+https://api.dictionaryapi.dev/media/pronunciations/en/breed-us.mp3
+calligraphy	/kəˈlɪɡɹəfi/	NOUN
+The art or practice of writing letters and words in a decorative style; the letters and words so written.	A document written in decorative style.	Any such style of decorative writing.
 
-begrudgingly	(no phonetics)	ADVERB
-In a begrudging manner; in a manner that is envious or reluctant.
-beloved	(no phonetics)	ADJ	yêu
+contrive	/kənˈtɹaɪv/	VERB
+To invent, to make devices; to form designs especially by improvisation.	To project, cast, or set forth, as in a projection of light.	To spend (time, or a period).	To invent by an exercise of ingenuity; to devise
+https://api.dictionaryapi.dev/media/pronunciations/en/contrive.mp3
+fictitious	/fɪkˈtɪʃəs/	ADJECTIVE
+Invented; contrived.
 
-darling	(no phonetics)	NOUN	yêu
+flinch	/flɪntʃ/	NOUN
+A reflexive jerking away.	The slipping of the foot from a ball, when attempting to give a tight croquet.
 
-devious	/ˈdiːvi.əs/	ADJECTIVE
-Cunning or deceiving, not straightforward or honest, not frank	Roundabout, circuitous, deviating from the direct or ordinary route
-do	(no phonetics)	VERB	thực hiện	làm	làm việc	nào
+flinch	/flɪntʃ/	VERB
+To dodge (a question), to avoid an unpleasant task or duty	To make a sudden, involuntary movement in response to a (usually negative) stimulus; to cringe.	To let the foot slip from a ball, when attempting to give a tight croquet.	To strip the blubber or skin from, as from a whale, seal, etc.
 
-dog	/dɑɡ/	NOUN
-A hot dog.	A mammal, Canis familiaris or Canis lupus familiaris, that has been domesticated for thousands of years, of highly variable appearance due to human breeding.	A man (derived from definition 2).	A male dog, wolf or fox, as opposed to a bitch or vixen.	One of the cones used to divide up a racetrack when training horses.	(almost always in the plural) Foot.	A click or pallet adapted to engage the teeth of a ratchet-wheel, to restrain the back action; a click or pawl. (See also: ratchet, windlass)	A sexually aggressive man (cf. horny).	Someone who is morally reprehensible.	The eighteenth Lenormand card.	(from "dog and bone") Phone or mobile phone.	A flop; a film that performs poorly at the box office.	Any of various mechanical devices for holding, gripping, or fastening something, particularly with a tooth-like projection.	Underdog.	Meat from a dog eaten as food.	Meat prepared to be given to a dog as food.	Any member of the Family Canidae, including domestic dogs, wolves, coyotes, jackals, foxes, and their relatives (extant and extinct); canid.	A coward.	A dull, unattractive girl or woman.	A metal support for logs in a fireplace.	An insult intended to assert hyperbolically that another person has value only as a corpse to be fed to a dog.
-dog	/dɑɡ/	VERB
-To intentionally restrict one's productivity as employee; to work at the slowest rate that goes unpunished.	To follow in an annoying or harassing way.	To watch, or participate, in sexual activity in a public place.	To criticize.	To divide (a watch) with a comrade.	To fasten a hatch securely.	To pursue with the intent to catch.
-famine	/ˈfæmɪn/	NOUN	nạn đói
-A period of extreme shortage of food in a region.	Extreme shortage of food in a region.	Starvation or malnutrition.	Severe shortage or lack of something.
-freedom	(no phonetics)	NOUN	tự do	quyền tự do
-
-hello	(no phonetics)	NOUN	chào	xin chào
-
-japan	(no phonetics)	NOUN	nhật
+freedom	/ˈfɹiːdəm/	NOUN
+Frankness; openness; unreservedness.	The lack of a specific constraint, or of constraints in general; a state of being free, unconstrained.	The state of being free, of not being imprisoned or enslaved.	Improper familiarity; violation of the rules of decorum.
+https://api.dictionaryapi.dev/media/pronunciations/en/freedom-us.mp3
+indulgent	/ɪnˈdʌldʒənt/	ADJECTIVE
+Disposed or prone to indulge, humor, gratify, or yield to one's own or another's desires, etc., or to be compliant, lenient, or forbearing;
+https://api.dictionaryapi.dev/media/pronunciations/en/indulgent-uk.mp3
+kill	/kɪl/	NOUN
+The grounding of the ball on the opponent's court, winning the rally.	(north-east US) A creek; a body of water; a channel or arm of the sea.	Specifically, the death blow.	A kiln.	The act of killing.	The result of killing; that which has been killed.
+https://api.dictionaryapi.dev/media/pronunciations/en/kill-us.mp3
+kill	/kɪl/	VERB
+To deadmelt.	To exert an overwhelming effect on.	To cause to assume the value zero.	To produce feelings of dissatisfaction or revulsion in.	To cause (a ball, etc.) to be out of play, resulting in a stoppage of gameplay.	To overpower, overwhelm or defeat.	To punish severely.	To render inoperative.	To stop, cease or render void; to terminate.	To amaze, exceed, stun or otherwise incapacitate.	To put to death; to extinguish the life of.	To succeed with an audience, especially in comedy.	To produce intense pain.	To cause great pain, discomfort or distress to.	To force a company out of business.	To strike (a ball, etc.) with such force and placement as to make a shot that is impossible to defend against, usually winning a point.	To use up or to waste.	(IRC) To disconnect (a user) involuntarily from the network.
+https://api.dictionaryapi.dev/media/pronunciations/en/kill-us.mp3
+lamented	(no phonetics)	ADJECTIVE
+Mourned for, or grieved for
+null
+lamented	(no phonetics)	VERB
+To express grief; to weep or wail; to mourn.	To feel great sorrow or regret; to bewail.
+null
+litigious	/lɪˈtɪd͡ʒəs/	ADJECTIVE
+Argumentative or combative.	Inclined to engage in lawsuits.	Of or relating to litigation.
 
 love	/lʊv/	NOUN
 Alternative letter-case form of Love.	(racquet sports) Zero, no score.	A thing, activity etc which is the object of one's deep liking or enthusiasm.	Strong affection.	Sexual desire; attachment based on sexual attraction.	Sexual activity.	A person who is the object of romantic feelings; a darling, a sweetheart, a beloved.	An instance or episode of being in love; a love affair.	A term of friendly address, regardless of feelings.	A thin silk material.	Used as the closing, before the signature, of a letter, especially between good friends or family members, or by the young.	A climbing plant, Clematis vitalba.
-love	/lʊv/	VERB	yêu
-	To have sex with (perhaps from make love).	(usually transitive, sometimes intransitive) To care deeply about, to be dedicated to (someone or something).	To praise; commend.	To derive delight from a fact or situation.	(usually transitive, sometimes intransitive, stative) To have a strong affection for (someone or something).	To praise as of value; prize; set a price on.	To need, thrive on.	To be strongly inclined towards something; an emphatic form of like.
-lovely	/ˈlʌvli/	ADJ	yêu
-	Beautiful; charming; very pleasing in form, looks, tone, or manner.	Loving, filled with love.	Inspiring love or friendship; amiable.	Very nice, wonderful.	Worthy of praise.
-lovely	/ˈlʌvli/	ADVERB
-In a lovely fashion or manner; beautifully.
-lovely	/ˈlʌvli/	NOUN
-An attractive, lovely person, especially a (professional) beauty.	Term of fond address.	A lovely object.
-nice	(no phonetics)	ADJ	đẹp	tốt đẹp
+https://api.dictionaryapi.dev/media/pronunciations/en/love-us.mp3
+love	/lʊv/	VERB
+To have sex with (perhaps from make love).	(usually transitive, sometimes intransitive) To care deeply about, to be dedicated to (someone or something).	To praise; commend.	To derive delight from a fact or situation.	(usually transitive, sometimes intransitive, stative) To have a strong affection for (someone or something).	To praise as of value; prize; set a price on.	To need, thrive on.	To be strongly inclined towards something; an emphatic form of like.
+https://api.dictionaryapi.dev/media/pronunciations/en/love-us.mp3
+meek	/miːk/	ADJECTIVE
+Humble, non-boastful, modest, meager, or self-effacing.	Submissive, dispirited.
 
-orgy	/ˈɔː.dʒi/	NOUN
-Originally, secret rites or ceremonies, typically involving riotous and dissolute behaviour, including dancing, drunkenness and indiscriminate sexual activity, undertaken in honour of various pagan gods or goddesses (such as Attis, Bacchus, Ceres, Dionysus, Osiris, etc).	Excessive indulgence in a specified activity.	A gathering of people to engage in group sex.
-proficient	(no phonetics)	ADJ	thạo
+meek	/miːk/	VERB
+(of horses) To tame; to break.
 
-run	(no phonetics)	VERB	khởi chạy
-
-suffer	/ˈsʌfə/	VERB
-To become worse.	To allow.	To undergo hardship.	To endure, undergo.	To feel pain.
-suicidal	(no phonetics)	ADJ	quyên
-
+oyster	/ˈɔɪ.stə(ɹ)/	ADJECTIVE
+Of a pale beige colour tinted with grey or pink, like that of an oyster.
+https://api.dictionaryapi.dev/media/pronunciations/en/oyster-us.mp3
+oyster	/ˈɔɪ.stə(ɹ)/	NOUN
+(by analogy) A person who keeps secrets.	Any of certain marine bivalve mollusks, especially those of the family Ostreidae (the true oysters), usually found adhering to rocks or other fixed objects in shallow water along the seacoasts, or in brackish water in the mouth of rivers.	The delicate morsel of dark meat contained in a small cavity of the bone on each side of the lower part of the back of a fowl.	A pale beige color tinted with grey or pink, like that of an oyster.	A shoplifter.
+https://api.dictionaryapi.dev/media/pronunciations/en/oyster-us.mp3
+oyster	/ˈɔɪ.stə(ɹ)/	VERB
+To fish for oysters.
+https://api.dictionaryapi.dev/media/pronunciations/en/oyster-us.mp3
+regret	/ɹiˈɡɹɛt/	NOUN
+Dislike; aversion.	Emotional pain on account of something done or experienced in the past, with a wish that it had been different; a looking back with dissatisfaction or with longing.
+https://api.dictionaryapi.dev/media/pronunciations/en/regret-us.mp3
+regret	/ɹiˈɡɹɛt/	VERB
+(more generally) To feel sorry about (any thing).	To miss; to feel the loss or absence of.	To feel sorry about (a thing that has or has not happened), afterthink: to wish that a thing had not happened, that something else had happened instead.
+https://api.dictionaryapi.dev/media/pronunciations/en/regret-us.mp3
+sad	/sæd/	ADJECTIVE
+Unfashionable; socially inadequate or undesirable.	Soggy (to refer to pastries).	(heading) Emotionally negative.	Dignified, serious, grave.	Sated, having had one's fill; satisfied, weary.	Steadfast, valiant.	Naughty; troublesome; wicked.	Heavy; weighty; ponderous; close; hard.
+https://api.dictionaryapi.dev/media/pronunciations/en/sad-1-us.mp3
+sad	(no phonetics)	NOUN
+The letter ص in the Arabic script.
+https://api.dictionaryapi.dev/media/pronunciations/en/sad-1-us.mp3
+sad	/sæd/	VERB
+To make melancholy; to sadden or grieve (someone).
+https://api.dictionaryapi.dev/media/pronunciations/en/sad-1-us.mp3
+scheme	/skiːm/	NOUN
+A portfolio of pension plans with related benefits comprising multiple independent members.	A type of geometric object.	An orderly combination of related parts.	Part of a uniform resource identifier indicating the protocol or other purpose, such as http: or news:.	A systematic plan of future action.	A plot or secret, devious plan.	A council housing estate.	A representation of the aspects of the celestial bodies for any moment or at a given event.	An artful deviation from the ordinary arrangement of words.	A chart or diagram of a system or object.
+https://api.dictionaryapi.dev/media/pronunciations/en/scheme-us.mp3
+scheme	/skiːm/	VERB
+To plan; to contrive.	To plot, or contrive a plan.
+https://api.dictionaryapi.dev/media/pronunciations/en/scheme-us.mp3
 suicidal	/ˌs(j)uːɪˈsaɪdl̩/	ADJECTIVE
 Pertaining to suicide.	Extremely reckless.	(of a person) Likely to commit, or to attempt to commit, suicide.
+
 suicidal	/ˌs(j)uːɪˈsaɪdl̩/	NOUN
 Someone suicidal, someone likely to kill themselves
-translucent	/tɹænzˈluː.sənt/	ADJECTIVE
-Clear, lucid, or transparent.	Allowing light to pass through, but diffusing it.
-walk	(no phonetics)	NOUN	đi bộ
 
-we	/wiː/	PRON	chúng tôi
-(personal) The plural form of you, including everyone being addressed.	(personal, often considered patronising) A second- or third-person pronoun for a person in the speaker's care.	(personal) The speaker(s)/writer(s) and the person(s) being addressed. (This is the inclusive we.)	(personal) The speaker/writer alone. (This use of we is the editorial we, used by writers and others, including royalty—the royal we—as a less personal substitute for I. The reflexive case of this sense of we is ourself.)	(personal) The speakers/writers, or the speaker/writer and at least one other person (not the person being addressed). (This is the exclusive we.)
+thick	/θɪk/	ADJECTIVE
+Relatively great in extent from one surface to the opposite in its smallest solid dimension.	Measuring a certain number of units in this dimension.	Impenetrable to sight.	Densely crowded or packed.	Having a viscous consistency.	Stupid.	Deep, intense, or profound.	(Of an accent) Prominent, strong.	Heavy in build; thickset.	Friendly or intimate.	Troublesome; unreasonable	(chiefly of women) Curvy and voluptuous, and especially having large hips.	Abounding in number.
+
+thick	/θɪk/	ADVERB
+Frequently or numerously.	In a thick manner.
+
+thick	/θɪk/	NOUN
+A thicket.	The thickest, or most active or intense, part of something.	A stupid person; a fool.
+
+thick	/θɪk/	VERB
+To thicken.
+
+vigorous	/ˈvɪɡəɹəs/	ADJECTIVE
+Mentally strong and active.	Physically strong and active.	Rapid of growth.
+https://api.dictionaryapi.dev/media/pronunciations/en/vigorous-us.mp3

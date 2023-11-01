@@ -16,6 +16,7 @@ import java.util.ResourceBundle;
 
 public class SceneController implements Initializable {
 
+    public static String currentAudioLink;
     private String translateFrom = "en";
     private String translateTo = "vi";
     @FXML
@@ -111,6 +112,11 @@ public class SceneController implements Initializable {
             SpeechManager speechManager = new SpeechManager();
             speechManager.speak(myListView.getItems().get(0).split(" ")[0], translateFrom);
         }
+    }
+
+    public void speak1(ActionEvent event) {
+        SpeechManager speechManager = new SpeechManager();
+        if (currentAudioLink != null && !currentAudioLink.isEmpty()) speechManager.speak(currentAudioLink);
     }
 
     /** sửa sau. */

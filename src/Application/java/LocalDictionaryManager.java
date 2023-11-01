@@ -125,6 +125,7 @@ public class LocalDictionaryManager extends DictionaryManager {
      * định dạng mỗi dòng :
      * từ_tiếng_anh<tab>phát_âm<tab>loại_từ<tab>từ_tiếng_việt_1<tab>từ_tiếng_việt_2...
      * \n định_nghĩa1<tab>định_nghĩa2...
+     * \n audio_link (https...)
      */
     public void insertWordFromFile() {
         try {
@@ -149,6 +150,7 @@ public class LocalDictionaryManager extends DictionaryManager {
                     String[] defSeparate = s.split("\t");
                     for (String def : defSeparate) englishWord.getDefinitions().add(def);
                 }
+                englishWord.setAudioLink(bufferedReader.readLine());
                 insertWordToDictionary(englishWord);
             }
             bufferedReader.close();
@@ -177,7 +179,8 @@ public class LocalDictionaryManager extends DictionaryManager {
                         + "\t" + e.getPhonetic()
                         + "\t" + e.getWordType()
                         + vMeans.toString() + "\n"
-                        + defs.toString() + "\n");
+                        + defs.toString() + "\n"
+                        + e.getAudioLink() + "\n");
             }
             bufferedWriter.close();
         } catch (IOException e) {
