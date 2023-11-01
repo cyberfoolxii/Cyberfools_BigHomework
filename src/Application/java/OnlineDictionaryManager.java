@@ -3,10 +3,7 @@ package Application.java;
 import com.google.gson.Gson;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Separator;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -113,7 +110,10 @@ public class OnlineDictionaryManager extends DictionaryManager {
 
             for (OnlineWord onlineWord : onlineWords) {
                 System.out.println(onlineWord.getWord());
-                vBox2.getChildren().add(fxmlManager.cloneLabel(onlineWord.getWord() + " " + onlineWord.getPhonetic(), Pos.CENTER, FontPosture.REGULAR, FontWeight.BOLD));
+
+                Label label = fxmlManager.cloneLabel(onlineWord.getWord() + " " + onlineWord.getPhonetic(), Pos.CENTER, FontPosture.REGULAR, FontWeight.BOLD);
+                label.prefWidthProperty().bind(vBox2.prefWidthProperty());
+                vBox2.getChildren().add(label);
                 //eDefs.add(onlineWord.getWord());
 
                 System.out.println(onlineWord.getPhonetic());
@@ -137,7 +137,9 @@ public class OnlineDictionaryManager extends DictionaryManager {
 
                     //eDefs.add(onlineWordMeaning.getPartOfSpeech());
 
-                    vBox2.getChildren().add(fxmlManager.cloneLabel(onlineWordMeaning.getPartOfSpeech(), Pos.CENTER, FontPosture.ITALIC, FontWeight.SEMI_BOLD));
+                    label = fxmlManager.cloneLabel(onlineWordMeaning.getPartOfSpeech(), Pos.CENTER, FontPosture.ITALIC, FontWeight.SEMI_BOLD);
+                    label.prefWidthProperty().bind(vBox2.prefWidthProperty());
+                    vBox2.getChildren().add(label);
 
                     for (OnlineWordDefinition onlineWordDefinition : onlineWordMeaning.getDefinitions()) {
                         System.out.println(onlineWordDefinition.getDefinition());

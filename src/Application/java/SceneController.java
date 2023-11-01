@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.event.*;
 
@@ -33,6 +34,12 @@ public class SceneController implements Initializable {
             private ScrollPane scrollPane1;
     @FXML
             private ScrollPane scrollPane2;
+    @FXML
+            private ScrollPane scrollPane3;
+    @FXML
+            private Tab tab4;
+    @FXML
+            private VBox vBox4;
     Stage currentStage;
 
     private EnglishWord currentEnglishWord;
@@ -52,6 +59,10 @@ public class SceneController implements Initializable {
         }
     }
 
+    public void showAllWords() {
+        LocalDictionaryManager.getInstance().showAllWords(vBox4);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 /*        EventHandler<KeyEvent> keyEventEventHandler = new EventHandler<KeyEvent>() {
@@ -63,10 +74,16 @@ public class SceneController implements Initializable {
             }
         };
         searchTextField1.setOnKeyPressed(keyEventEventHandler);*/
+        tab4.setOnSelectionChanged(event -> {
+            showAllWords();
+        });
+
         scrollPane1.setFitToWidth(true);
         scrollPane2.setFitToWidth(true);
+        scrollPane3.setFitToWidth(true);
         scrollPane1.setFitToHeight(true);
         scrollPane2.setFitToHeight(true);
+        scrollPane3.setFitToHeight(true);
     }
 
     public void define(ActionEvent event) {
@@ -77,9 +94,9 @@ public class SceneController implements Initializable {
     private void translate() {
         if (tab0searchTextField.getText().isEmpty()) return;
         myListView.setVisible(true);
-        if (!LocalDictionaryManager.getInstance().dictionaryLookup(tab0searchTextField.getText(), translateFrom, splitPane1)) {
+        if (!LocalDictionaryManager.getInstance().dictionaryLookup(tab0searchTextField.getText(), translateFrom, translateTo, splitPane1)) {
             OnlineDictionaryManager.getInstance().dictionaryLookup(tab0searchTextField.getText(), translateFrom, translateTo);
-            if(!LocalDictionaryManager.getInstance().dictionaryLookup(tab0searchTextField.getText(), translateFrom, splitPane1)) {
+            if(!LocalDictionaryManager.getInstance().dictionaryLookup(tab0searchTextField.getText(), translateFrom, translateTo, splitPane1)) {
                 myListView.setVisible(false);
             }
         }
