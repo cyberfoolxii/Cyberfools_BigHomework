@@ -12,7 +12,15 @@ public class EnglishWord extends Word {
     private final HashSet<VietnameseWord> vietnameseMeaningsList = new HashSet<>();
     private final HashSet<String> synonyms = new HashSet<>();
     private final HashSet<String> antonyms = new HashSet<>();
+    private String audioLink;
 
+    public String getAudioLink() {
+        return audioLink;
+    }
+
+    public void setAudioLink(String audioLink) {
+        this.audioLink = audioLink;
+    }
 
     public HashSet<String> getSynonyms() {
         return synonyms;

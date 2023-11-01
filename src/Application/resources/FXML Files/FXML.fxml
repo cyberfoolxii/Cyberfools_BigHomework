@@ -78,7 +78,7 @@
                               <Font name="Corbel" size="25.0" />
                            </font>
                         </TextField>
-                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="34.0" prefWidth="735.0" text="Phát âm">
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#speak1" prefHeight="34.0" prefWidth="735.0" text="Phát âm">
                            <graphic>
                               <ImageView fitHeight="32.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
