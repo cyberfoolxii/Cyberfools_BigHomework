@@ -1,11 +1,30 @@
 package Application.java;
 
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Control;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public final class SceneManager {
+    public static SceneManager sceneManager;
+    private SceneManager() {
+
+    }
+    public static SceneManager getInstance() {
+        if (sceneManager == null) {
+            sceneManager = new SceneManager();
+        }
+        return sceneManager;
+    }
+
     /** không cho phép sửa từ bên ngoài.
      * RootManager sử dụng nội bộ để hỗ trợ thao tác cần đến nốt gốc (root)
      */

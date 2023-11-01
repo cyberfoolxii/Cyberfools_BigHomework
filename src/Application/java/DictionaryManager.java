@@ -12,5 +12,5 @@ public abstract class DictionaryManager {
         this.dictionary = dictionary;
     }
 
-    public abstract String dictionaryLookup(String whatToLook, String from, String to);
+    //public abstract void dictionaryLookup(String whatToLook, String from, String to);
 }

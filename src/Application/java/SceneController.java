@@ -11,36 +11,44 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.event.*;
 
-import javax.swing.text.html.ImageView;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SceneController implements Initializable {
-    private final Dictionary dictionary = new Dictionary();
-    OnlineDictionaryManager onlineDictionaryManager = new OnlineDictionaryManager(dictionary);
-    LocalDictionaryManager localDictionaryManager = new LocalDictionaryManager(dictionary);
-
-    public SceneController() {
-        localDictionaryManager.insertWordFromFile();
-    }
 
     private String translateFrom = "en";
     private String translateTo = "vi";
     @FXML
-    private Label resultLable;
+    private TextField tab0searchTextField;
     @FXML
-    private Label searchWordContent;
-    @FXML
-    private TextField searchTextField;
+    private TextField tab1SearchTextField;
     @FXML
     private MenuButton languageMenuButton;
     @FXML
-    private Button speakButton;
+    private SplitPane tab0SplitPane;
+    Stage currentStage;
+
+    private EnglishWord currentEnglishWord;
+    private VietnameseWord currentVietnameseWord;
+
+
+    public void Exit(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Thoát");
+        alert.setHeaderText("Bạn sắp thoát ứng dụng!");
+        alert.setContentText("Lưu trạng thái từ điển trước khi thoát?: ");
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            currentStage = (Stage) tab0SplitPane.getScene().getWindow();
+            System.out.println("exit");
+            LocalDictionaryManager.getInstance().exportWordToFile();
+            currentStage.close();
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        EventHandler<KeyEvent> keyEventEventHandler = new EventHandler<KeyEvent>() {
+/*        EventHandler<KeyEvent> keyEventEventHandler = new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode() == KeyCode.ENTER) {
@@ -48,42 +56,19 @@ public class SceneController implements Initializable {
                 }
             }
         };
-        searchTextField.setOnKeyPressed(keyEventEventHandler);
+        searchTextField1.setOnKeyPressed(keyEventEventHandler);*/
     }
 
-    private void found(String result) {
-        resultLable.setText(result);
-        speakButton.setVisible(true);
-        searchWordContent.setText(searchTextField.getText());
-    }
-
-    private void reset() {
-        speakButton.setVisible(false);
-        searchWordContent.setText("");
-        resultLable.setText("");
+    public void define(ActionEvent event) {
+        if (!tab1SearchTextField.getText().isEmpty()) OnlineDictionaryManager.getInstance().onlineDefinitionLookup(tab1SearchTextField.getText());
+        LocalDictionaryManager.getInstance().showAllEnglishWords();
     }
 
     private void translate() {
-        localDictionaryManager.showAllEnglishWords();
-        System.out.println();
-        localDictionaryManager.showAllVietnameseWords();
-        System.out.println("----------------------------------------");
-        reset();
-        String result = localDictionaryManager.dictionaryLookup(searchTextField.getText(), translateFrom, translateTo);
-        if (result.isEmpty()) {
-            result = onlineDictionaryManager.dictionaryLookup(searchTextField.getText(), translateFrom, translateTo);
-            if (!result.isEmpty()) {
-                found(result);
-                localDictionaryManager.insertWordFromAPI(onlineDictionaryManager.getSources(), translateFrom);
-                return;
-            }
-            searchWordContent.setText("Hmm, từ này có vẻ hơi lạ, thêm từ mới?");
-            return;
+        if (!LocalDictionaryManager.getInstance().dictionaryLookup(tab0searchTextField.getText(), translateFrom, tab0SplitPane)) {
+            OnlineDictionaryManager.getInstance().dictionaryLookup(tab0searchTextField.getText(), translateFrom, translateTo);
+            LocalDictionaryManager.getInstance().dictionaryLookup(tab0searchTextField.getText(), translateFrom, tab0SplitPane);
         }
-        found(result);
-        //localDictionaryManager.showAllEnglishWords();
-        //System.out.println("--------------------------------");
-        //localDictionaryManager.showAllVietnameseWords();
     }
 
     public void translate(ActionEvent event) {
@@ -91,10 +76,10 @@ public class SceneController implements Initializable {
     }
 
     public void speak(ActionEvent event) {
-        if (!searchWordContent.getText().isEmpty()) {
+ /*       if (!searchWordContent.getText().isEmpty()) {
             SpeechManager speechManager = new SpeechManager();
             speechManager.speak(searchWordContent.getText(), translateFrom);
-        }
+        }*/
     }
 
     /** sửa sau. */

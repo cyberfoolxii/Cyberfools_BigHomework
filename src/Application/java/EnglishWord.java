@@ -1,12 +1,39 @@
 package Application.java;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 /** EnglishWord đại diện cho một từ tiếng anh
  * thật vậy, một từ tiếng anh có thể dịch sang tiếng việt theo nhiều nghĩa
  */
 public class EnglishWord extends Word {
-    private final ArrayList<VietnameseWord> vietnameseMeaningsList = new ArrayList<>();
+    private String phonetic;
+    private final HashSet<String> definitions = new HashSet<>();
+    private final HashSet<VietnameseWord> vietnameseMeaningsList = new HashSet<>();
+    private final HashSet<String> synonyms = new HashSet<>();
+    private final HashSet<String> antonyms = new HashSet<>();
+
+
+    public HashSet<String> getSynonyms() {
+        return synonyms;
+    }
+
+    public HashSet<String> getAntonyms() {
+        return antonyms;
+    }
+
+    public HashSet<String> getDefinitions() {
+        return definitions;
+    }
+
+    public String getPhonetic() {
+        return phonetic;
+    }
+
+    public void setPhonetic(String phonetic) {
+        this.phonetic = phonetic;
+    }
+
     public EnglishWord(String wordContent, String wordType) {
         super(wordContent, wordType);
     }
@@ -15,7 +42,7 @@ public class EnglishWord extends Word {
         vietnameseMeaningsList.add(vietnameseMeaning);
     }
 
-    public ArrayList<VietnameseWord> getVietnameseMeaningsList() {
+    public HashSet<VietnameseWord> getVietnameseMeaningsList() {
         return vietnameseMeaningsList;
     }
 
@@ -28,4 +55,5 @@ public class EnglishWord extends Word {
         return vietnameseResults.toString();*/
         return getWordContent() + "\n";
     }
+
 }

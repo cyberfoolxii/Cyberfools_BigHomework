@@ -4,6 +4,19 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Dictionary {
+    private static Dictionary dictionary;
+
+    public static Dictionary getInstance() {
+        if (dictionary == null) {
+            dictionary = new Dictionary();
+        }
+        return dictionary;
+    }
+
+    private Dictionary() {
+
+    }
+
     public static final HashSet<String> wordTypeSet = new HashSet<>();
 
     private final ArrayList<VietnameseWord> vietnameseWordsArrayList = new ArrayList<>();
