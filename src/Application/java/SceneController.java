@@ -27,13 +27,17 @@ public class SceneController implements Initializable {
     private MenuButton languageMenuButton;
     @FXML
     private SplitPane tab0SplitPane;
+    @FXML
+    private ListView<String> myListView;
+    @FXML
+            private Button tab0SpeakButton;
     Stage currentStage;
 
     private EnglishWord currentEnglishWord;
     private VietnameseWord currentVietnameseWord;
 
 
-    public void Exit(ActionEvent event) {
+    public void exit(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Thoát");
         alert.setHeaderText("Bạn sắp thoát ứng dụng!");
@@ -65,9 +69,12 @@ public class SceneController implements Initializable {
     }
 
     private void translate() {
+        myListView.setVisible(true);
         if (!LocalDictionaryManager.getInstance().dictionaryLookup(tab0searchTextField.getText(), translateFrom, tab0SplitPane)) {
             OnlineDictionaryManager.getInstance().dictionaryLookup(tab0searchTextField.getText(), translateFrom, translateTo);
-            LocalDictionaryManager.getInstance().dictionaryLookup(tab0searchTextField.getText(), translateFrom, tab0SplitPane);
+            if(!LocalDictionaryManager.getInstance().dictionaryLookup(tab0searchTextField.getText(), translateFrom, tab0SplitPane)) {
+                myListView.setVisible(false);
+            }
         }
     }
 
@@ -76,10 +83,10 @@ public class SceneController implements Initializable {
     }
 
     public void speak(ActionEvent event) {
- /*       if (!searchWordContent.getText().isEmpty()) {
+        if (myListView.getItems().get(0) != null) {
             SpeechManager speechManager = new SpeechManager();
-            speechManager.speak(searchWordContent.getText(), translateFrom);
-        }*/
+            speechManager.speak(myListView.getItems().get(0).split(" ")[0], translateFrom);
+        }
     }
 
     /** sửa sau. */
