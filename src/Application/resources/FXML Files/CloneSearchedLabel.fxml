@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.text.Font?>
+
+<Label alignment="CENTER" prefHeight="52.0" prefWidth="729.0" style="-fx-padding: 10px;" text="something" wrapText="true" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <font>
+      <Font name="Corbel" size="25.0" />
+   </font>
+</Label>

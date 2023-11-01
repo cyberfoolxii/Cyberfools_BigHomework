@@ -2,16 +2,20 @@ package Application.java;
 
 import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.net.BindException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.text.CollationElementIterator;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.SortedMap;
 
 public class Main {
+
     private static int BinarySearch(List<Integer> list, int key) {
         int lo = 0;
         int hi = list.size() - 1;
@@ -34,14 +38,10 @@ public class Main {
         return mid;
     }
     public static void main(String[] args) {
-        Dictionary dictionary = new Dictionary();
-        LocalDictionaryManager l = new LocalDictionaryManager(dictionary);
-        l.insertWordFromFile();
-        l.showAllEnglishWords();
-        System.out.println("------------------------------------");
-        l.showAllVietnameseWords();
-        System.out.println("------------------------------------");
-        l.insertWordFromCommandline();
-        l.exportWordToFile();
+        LocalDictionaryManager.getInstance().insertWordFromFile();
+        LocalDictionaryManager.getInstance().showAllEnglishWords();
+        System.out.println("-------------------------------------------");
+        LocalDictionaryManager.getInstance().showAllVietnameseWords();
+        LocalDictionaryManager.getInstance().exportWordToFile();
     }
 }

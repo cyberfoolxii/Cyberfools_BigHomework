@@ -6,47 +6,80 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.event.*;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
-import java.net.ConnectException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class SceneController {
-    private String translateFrom;
-    private String translateTo;
+public class SceneController implements Initializable {
+
+    private String translateFrom = "en";
+    private String translateTo = "vi";
     @FXML
-    private TextField resultTextField;
+    private TextField tab0searchTextField;
     @FXML
-    private TextField searchTextField;
+    private TextField tab1SearchTextField;
     @FXML
     private MenuButton languageMenuButton;
     @FXML
-    private Button speakButton;
+    private SplitPane tab0SplitPane;
+    Stage currentStage;
+
+    private EnglishWord currentEnglishWord;
+    private VietnameseWord currentVietnameseWord;
+
+
+    public void Exit(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Thoát");
+        alert.setHeaderText("Bạn sắp thoát ứng dụng!");
+        alert.setContentText("Lưu trạng thái từ điển trước khi thoát?: ");
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            currentStage = (Stage) tab0SplitPane.getScene().getWindow();
+            System.out.println("exit");
+            LocalDictionaryManager.getInstance().exportWordToFile();
+            currentStage.close();
+        }
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+/*        EventHandler<KeyEvent> keyEventEventHandler = new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.ENTER) {
+                    translate();
+                }
+            }
+        };
+        searchTextField1.setOnKeyPressed(keyEventEventHandler);*/
+    }
+
+    public void define(ActionEvent event) {
+        if (!tab1SearchTextField.getText().isEmpty()) OnlineDictionaryManager.getInstance().onlineDefinitionLookup(tab1SearchTextField.getText());
+        LocalDictionaryManager.getInstance().showAllEnglishWords();
+    }
+
+    private void translate() {
+        if (!LocalDictionaryManager.getInstance().dictionaryLookup(tab0searchTextField.getText(), translateFrom, tab0SplitPane)) {
+            OnlineDictionaryManager.getInstance().dictionaryLookup(tab0searchTextField.getText(), translateFrom, translateTo);
+            LocalDictionaryManager.getInstance().dictionaryLookup(tab0searchTextField.getText(), translateFrom, tab0SplitPane);
+        }
+    }
 
     public void translate(ActionEvent event) {
-/*        DictionaryManagement dictionaryManagement = new DictionaryManagement(Dictionary.getInstance());
-        resultTextField.setText(dictionaryManagement.dictionaryLookup(searchTextField.getText(), languageType));*/
-        Dictionary dictionary = new Dictionary();
-        OnlineDictionaryManager onlineDictionaryManager = new OnlineDictionaryManager(dictionary);
-        LocalDictionaryManager localDictionaryManager = new LocalDictionaryManager(dictionary);
-        String result = onlineDictionaryManager.dictionaryLookup(searchTextField.getText(), translateFrom, translateTo);
-        resultTextField.setText(result);
-        localDictionaryManager.insertWordFromAPI(onlineDictionaryManager.getSources(), translateFrom);
-        localDictionaryManager.showAllEnglishWords();
-        System.out.println("--------------------------------");
-        localDictionaryManager.showAllVietnameseWords();
+        translate();
     }
 
     public void speak(ActionEvent event) {
-        if (!searchTextField.getText().isEmpty()) {
+ /*       if (!searchWordContent.getText().isEmpty()) {
             SpeechManager speechManager = new SpeechManager();
-            speechManager.speak(searchTextField.getText(), translateFrom);
-        }
+            speechManager.speak(searchWordContent.getText(), translateFrom);
+        }*/
     }
 
     /** sửa sau. */
@@ -63,14 +96,8 @@ public class SceneController {
         languageMenuButton.setText("Tiếng Việt");
     }
 
-    /** sửa sau. */
-    public void switchLanguageToDefault(ActionEvent event) {
-        translateFrom = "";
-        languageMenuButton.setText("Tự động");
-    }
-
     public void switchScene(ActionEvent event) throws IOException {
-        RootManager rootManager = new RootManager();
+        FXMLManager rootManager = new FXMLManager();
         Parent root = rootManager.getFXMLInsertedRoot("DictionaryApplication.fxml");
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);

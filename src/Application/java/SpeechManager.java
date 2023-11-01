@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.net.ConnectException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -23,6 +20,13 @@ public class SpeechManager {
         }
 
     }
+
+    public void speak(String path) {
+        Media media = new Media(path);
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.play();
+    }
+
     public void speak(String wordContent, String languageType) {
         try {
             HttpRequest request = HttpRequest.newBuilder()

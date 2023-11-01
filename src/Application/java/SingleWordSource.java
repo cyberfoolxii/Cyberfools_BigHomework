@@ -1,9 +1,9 @@
 package Application.java;
 
-public class Source {
+public class SingleWordSource {
     private String normalizedSource;
     private String displaySource;
-    private Translation[] translations;
+    private SingleWordTranslation[] translations;
 
     public String getDisplaySource() {
         return displaySource;
@@ -13,7 +13,7 @@ public class Source {
         return normalizedSource;
     }
 
-    public Translation[] getTranslations() {
+    public SingleWordTranslation[] getTranslations() {
         return translations;
     }
 }

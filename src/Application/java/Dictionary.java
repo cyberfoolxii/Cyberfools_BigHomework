@@ -1,17 +1,23 @@
 package Application.java;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 
 public class Dictionary {
-    public static final List<String> wordTypeList = new ArrayList<>();
+    private static Dictionary dictionary;
 
-    static {
-        wordTypeList.add("NOUN");
-        wordTypeList.add("VERB");
-        wordTypeList.add("ADJ");
-        wordTypeList.add("ADV");
+    public static Dictionary getInstance() {
+        if (dictionary == null) {
+            dictionary = new Dictionary();
+        }
+        return dictionary;
     }
+
+    private Dictionary() {
+
+    }
+
+    public static final HashSet<String> wordTypeSet = new HashSet<>();
 
     private final ArrayList<VietnameseWord> vietnameseWordsArrayList = new ArrayList<>();
     private final ArrayList<EnglishWord> englishWordsArrayList = new ArrayList<>();
