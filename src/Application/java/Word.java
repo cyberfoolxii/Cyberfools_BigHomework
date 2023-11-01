@@ -33,8 +33,8 @@ public abstract class Word implements Comparable<Word> {
         if (this == w) return 0;
         if (this.wordContent.compareTo(w.wordContent) > 0) return 1;
         else if (this.wordContent.compareTo(w.wordContent) < 0) return -1;
-        return this.wordType.substring(0, 3).compareTo(w.wordType.substring(0, 3));
-        //return this.wordType.compareTo(w.wordType);
+        //return this.wordType.substring(0, 3).compareTo(w.wordType.substring(0, 3));
+        return this.wordType.compareTo(w.wordType);
     }
 
     @Override
