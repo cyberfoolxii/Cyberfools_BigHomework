@@ -4,7 +4,7 @@ adolescence	/ˌædəˈlɛsəns/	NOUN
 The transitional period of physical and psychological development between childhood and maturity.
 adorable	/əˈdɔːɹəbəl/	ADJ
 Befitting of being adored; cute or loveable.
-adore	/pron/	VERB	yêu	yêu
+adore	/pron/	VERB	yêu
 
 begrudgingly	(no phonetics)	ADVERB
 In a begrudging manner; in a manner that is envious or reluctant.
@@ -14,11 +14,19 @@ darling	(no phonetics)	NOUN	yêu
 
 devious	/ˈdiːvi.əs/	ADJECTIVE
 Cunning or deceiving, not straightforward or honest, not frank	Roundabout, circuitous, deviating from the direct or ordinary route
+do	(no phonetics)	VERB	thực hiện	làm	làm việc	nào
+
+dog	/dɑɡ/	NOUN
+A hot dog.	A mammal, Canis familiaris or Canis lupus familiaris, that has been domesticated for thousands of years, of highly variable appearance due to human breeding.	A man (derived from definition 2).	A male dog, wolf or fox, as opposed to a bitch or vixen.	One of the cones used to divide up a racetrack when training horses.	(almost always in the plural) Foot.	A click or pallet adapted to engage the teeth of a ratchet-wheel, to restrain the back action; a click or pawl. (See also: ratchet, windlass)	A sexually aggressive man (cf. horny).	Someone who is morally reprehensible.	The eighteenth Lenormand card.	(from "dog and bone") Phone or mobile phone.	A flop; a film that performs poorly at the box office.	Any of various mechanical devices for holding, gripping, or fastening something, particularly with a tooth-like projection.	Underdog.	Meat from a dog eaten as food.	Meat prepared to be given to a dog as food.	Any member of the Family Canidae, including domestic dogs, wolves, coyotes, jackals, foxes, and their relatives (extant and extinct); canid.	A coward.	A dull, unattractive girl or woman.	A metal support for logs in a fireplace.	An insult intended to assert hyperbolically that another person has value only as a corpse to be fed to a dog.
+dog	/dɑɡ/	VERB
+To intentionally restrict one's productivity as employee; to work at the slowest rate that goes unpunished.	To follow in an annoying or harassing way.	To watch, or participate, in sexual activity in a public place.	To criticize.	To divide (a watch) with a comrade.	To fasten a hatch securely.	To pursue with the intent to catch.
 famine	/ˈfæmɪn/	NOUN	nạn đói
 A period of extreme shortage of food in a region.	Extreme shortage of food in a region.	Starvation or malnutrition.	Severe shortage or lack of something.
-freedom	(no phonetics)	NOUN	quyền tự do	tự do
+freedom	(no phonetics)	NOUN	tự do	quyền tự do
 
 hello	(no phonetics)	NOUN	chào	xin chào
+
+japan	(no phonetics)	NOUN	nhật
 
 love	/lʊv/	NOUN
 Alternative letter-case form of Love.	(racquet sports) Zero, no score.	A thing, activity etc which is the object of one's deep liking or enthusiasm.	Strong affection.	Sexual desire; attachment based on sexual attraction.	Sexual activity.	A person who is the object of romantic feelings; a darling, a sweetheart, a beloved.	An instance or episode of being in love; a love affair.	A term of friendly address, regardless of feelings.	A thin silk material.	Used as the closing, before the signature, of a letter, especially between good friends or family members, or by the young.	A climbing plant, Clematis vitalba.
@@ -30,7 +38,7 @@ lovely	/ˈlʌvli/	ADVERB
 In a lovely fashion or manner; beautifully.
 lovely	/ˈlʌvli/	NOUN
 An attractive, lovely person, especially a (professional) beauty.	Term of fond address.	A lovely object.
-nice	(no phonetics)	ADJ	tốt đẹp	đẹp
+nice	(no phonetics)	ADJ	đẹp	tốt đẹp
 
 orgy	/ˈɔː.dʒi/	NOUN
 Originally, secret rites or ceremonies, typically involving riotous and dissolute behaviour, including dancing, drunkenness and indiscriminate sexual activity, undertaken in honour of various pagan gods or goddesses (such as Attis, Bacchus, Ceres, Dionysus, Osiris, etc).	Excessive indulgence in a specified activity.	A gathering of people to engage in group sex.
@@ -40,6 +48,12 @@ run	(no phonetics)	VERB	khởi chạy
 
 suffer	/ˈsʌfə/	VERB
 To become worse.	To allow.	To undergo hardship.	To endure, undergo.	To feel pain.
+suicidal	(no phonetics)	ADJ	quyên
+
+suicidal	/ˌs(j)uːɪˈsaɪdl̩/	ADJECTIVE
+Pertaining to suicide.	Extremely reckless.	(of a person) Likely to commit, or to attempt to commit, suicide.
+suicidal	/ˌs(j)uːɪˈsaɪdl̩/	NOUN
+Someone suicidal, someone likely to kill themselves
 translucent	/tɹænzˈluː.sənt/	ADJECTIVE
 Clear, lucid, or transparent.	Allowing light to pass through, but diffusing it.
 walk	(no phonetics)	NOUN	đi bộ

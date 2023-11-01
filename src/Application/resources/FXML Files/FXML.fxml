@@ -109,9 +109,13 @@
                   </VBox>
                </content>
             </Tab>
-            <Tab text="Từ điển của tôi">
+            <Tab fx:id="tab4" text="Từ điển của tôi">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  <ScrollPane fx:id="scrollPane3" prefHeight="200.0" prefWidth="200.0">
+                     <content>
+                        <VBox fx:id="vBox4" prefHeight="505.0" prefWidth="734.0" />
+                     </content>
+                  </ScrollPane>
                </content>
             </Tab>
             <Tab text="Mini game">
