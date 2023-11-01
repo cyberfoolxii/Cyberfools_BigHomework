@@ -23,7 +23,7 @@
          <tabs>
             <Tab text="Từ điển Anh-Việt">
                <content>
-                  <SplitPane fx:id="tab0SplitPane" dividerPositions="0.25081610446137104" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="510.0" prefWidth="745.0">
+                  <SplitPane fx:id="splitPane1" dividerPositions="0.25081610446137104" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="510.0" prefWidth="745.0">
                      <items>
                         <VBox prefHeight="506.0" prefWidth="169.0">
                            <children>
@@ -58,9 +58,9 @@
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <ScrollPane prefHeight="438.0" prefWidth="366.0" VBox.vgrow="ALWAYS">
+                              <ScrollPane fx:id="scrollPane1" prefHeight="438.0" prefWidth="366.0" VBox.vgrow="ALWAYS">
                                  <content>
-                                    <VBox prefHeight="469.0" prefWidth="364.0" />
+                                    <VBox prefHeight="463.0" prefWidth="538.0" />
                                  </content>
                               </ScrollPane>
                            </children>
@@ -87,7 +87,10 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <ScrollPane hbarPolicy="NEVER" prefHeight="433.0" prefWidth="735.0" VBox.vgrow="ALWAYS" />
+                        <ScrollPane fx:id="scrollPane2" hbarPolicy="NEVER" prefHeight="433.0" prefWidth="735.0" VBox.vgrow="ALWAYS">
+                           <content>
+                              <VBox prefHeight="434.0" prefWidth="729.0" />
+                           </content></ScrollPane>
                      </children>
                   </VBox>
                </content>

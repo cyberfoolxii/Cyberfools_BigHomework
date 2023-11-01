@@ -263,17 +263,30 @@ public class LocalDictionaryManager extends DictionaryManager {
                         vBox2.getChildren().clear();
                         for (EnglishWord englishWord : englishWordList) {
                             if ((englishWord.getWordContent() + " " + englishWord.getWordType()).equals(listView.getSelectionModel().getSelectedItem())) {
-                                vBox2.getChildren().add(fxmlManager.cloneLabel(englishWord.getWordContent() + " " + englishWord.getWordType(), Pos.CENTER_LEFT, FontPosture.REGULAR, FontWeight.BOLD));
+                                vBox2.getChildren().add(fxmlManager.cloneLabel(englishWord.getWordContent() + " " + englishWord.getPhonetic(), Pos.CENTER, FontPosture.REGULAR, FontWeight.BOLD));
+                                vBox2.getChildren().add(fxmlManager.cloneLabel(englishWord.getWordType(), Pos.CENTER, FontPosture.ITALIC, FontWeight.SEMI_BOLD));
 
-                                vBox2.getChildren().add(fxmlManager.cloneLabel(englishWord.getPhonetic()
-                                        , Pos.CENTER_LEFT, FontPosture.REGULAR, FontWeight.BOLD));
                                 for (VietnameseWord v : englishWord.getVietnameseMeaningsList()) {
                                     vBox2.getChildren().add(fxmlManager.cloneLabel(v.getWordContent()
                                             , Pos.CENTER_LEFT, FontPosture.REGULAR, FontWeight.BOLD));
                                 }
+                                vBox2.getChildren().add(new Separator());
                                 for (String def : englishWord.getDefinitions()) {
-                                    vBox2.getChildren().add(fxmlManager.cloneLabel(def
-                                            , Pos.CENTER_LEFT, FontPosture.REGULAR, FontWeight.BOLD));
+                                    vBox2.getChildren().add(fxmlManager.cloneLabel(def, Pos.CENTER_LEFT, FontPosture.REGULAR, FontWeight.NORMAL));
+                                    vBox2.getChildren().add(new Separator());
+                                }
+                                if (!englishWord.getSynonyms().isEmpty()){
+                                    vBox2.getChildren().add(fxmlManager.cloneLabel("Từ đồng nghĩa:", Pos.CENTER_LEFT, FontPosture.ITALIC, FontWeight.THIN));
+                                    for (String synonym : englishWord.getSynonyms()) {
+                                        vBox2.getChildren().add(fxmlManager.cloneLabel(synonym, Pos.CENTER_LEFT, FontPosture.ITALIC, FontWeight.THIN));
+                                    }
+                                    vBox2.getChildren().add(new Separator());
+                                }
+                                if (!englishWord.getAntonyms().isEmpty()){
+                                    vBox2.getChildren().add(fxmlManager.cloneLabel("Từ trái nghĩa:", Pos.CENTER_LEFT, FontPosture.ITALIC, FontWeight.THIN));
+                                    for (String antonym : englishWord.getAntonyms()) {
+                                        vBox2.getChildren().add(fxmlManager.cloneLabel(antonym, Pos.CENTER_LEFT, FontPosture.ITALIC, FontWeight.THIN));
+                                    }
                                     vBox2.getChildren().add(new Separator());
                                 }
                                 vBox2.getChildren().add(new Separator());

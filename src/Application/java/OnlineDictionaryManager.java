@@ -94,11 +94,12 @@ public class OnlineDictionaryManager extends DictionaryManager {
         try {
             FXMLManager fxmlManager = new FXMLManager();
             VBox vBox = (VBox) Objects.requireNonNull(SceneManager.getInstance().getSceneInSceneList(SceneIndex.HOMEINDEX)).getRoot();
-            System.out.println(vBox);
             TabPane tabPane = (TabPane) vBox.getChildren().get(0);
             Tab tab = tabPane.getTabs().get(1);
-            ScrollPane scrollPane = (ScrollPane) tab.getContent();
-            VBox vBox1 = (VBox) scrollPane.getContent();
+            VBox vBox1 = (VBox) tab.getContent();
+            ScrollPane scrollPane = (ScrollPane) vBox1.getChildren().get(2);
+
+            VBox vBox2 = (VBox) scrollPane.getContent();
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create("https://api.dictionaryapi.dev/api/v2/entries/en/" + whatToLook))
@@ -112,7 +113,7 @@ public class OnlineDictionaryManager extends DictionaryManager {
 
             for (OnlineWord onlineWord : onlineWords) {
                 System.out.println(onlineWord.getWord());
-                vBox1.getChildren().add(fxmlManager.cloneLabel(onlineWord.getWord() + " " + onlineWord.getPhonetic(), Pos.CENTER, FontPosture.REGULAR, FontWeight.BOLD));
+                vBox2.getChildren().add(fxmlManager.cloneLabel(onlineWord.getWord() + " " + onlineWord.getPhonetic(), Pos.CENTER, FontPosture.REGULAR, FontWeight.BOLD));
                 //eDefs.add(onlineWord.getWord());
 
                 System.out.println(onlineWord.getPhonetic());
@@ -136,14 +137,14 @@ public class OnlineDictionaryManager extends DictionaryManager {
 
                     //eDefs.add(onlineWordMeaning.getPartOfSpeech());
 
-                    vBox1.getChildren().add(fxmlManager.cloneLabel(onlineWordMeaning.getPartOfSpeech(), Pos.CENTER, FontPosture.ITALIC, FontWeight.SEMI_BOLD));
+                    vBox2.getChildren().add(fxmlManager.cloneLabel(onlineWordMeaning.getPartOfSpeech(), Pos.CENTER, FontPosture.ITALIC, FontWeight.SEMI_BOLD));
 
                     for (OnlineWordDefinition onlineWordDefinition : onlineWordMeaning.getDefinitions()) {
                         System.out.println(onlineWordDefinition.getDefinition());
 
                         englishWord.getDefinitions().add(onlineWordDefinition.getDefinition());
 
-                        vBox1.getChildren().add(fxmlManager.cloneLabel(onlineWordDefinition.getDefinition(), Pos.CENTER_LEFT, FontPosture.REGULAR, FontWeight.NORMAL));
+                        vBox2.getChildren().add(fxmlManager.cloneLabel(onlineWordDefinition.getDefinition(), Pos.CENTER_LEFT, FontPosture.REGULAR, FontWeight.NORMAL));
                         //vBox1.getChildren().add(fxmlManager.cloneLabel(phraseTrans(onlineWordDefinition.getDefinition(), "en", "vi"), Pos.CENTER_LEFT, FontPosture.REGULAR, FontWeight.NORMAL));
 
                         //eDefs.add(onlineWordDefinition.getDefinition());
@@ -153,7 +154,7 @@ public class OnlineDictionaryManager extends DictionaryManager {
                             System.out.print(synonym + ", ");
 
                             englishWord.getSynonyms().add(synonym);
-                            vBox1.getChildren().add(fxmlManager.cloneLabel(synonym, Pos.CENTER_LEFT, FontPosture.ITALIC, FontWeight.THIN));
+                            vBox2.getChildren().add(fxmlManager.cloneLabel(synonym, Pos.CENTER_LEFT, FontPosture.ITALIC, FontWeight.THIN));
 
                         }
 
@@ -162,12 +163,12 @@ public class OnlineDictionaryManager extends DictionaryManager {
                             System.out.print(antonym + ", ");
 
                             englishWord.getAntonyms().add(antonym);
-                            vBox1.getChildren().add(fxmlManager.cloneLabel(antonym, Pos.CENTER_LEFT, FontPosture.ITALIC, FontWeight.THIN));
+                            vBox2.getChildren().add(fxmlManager.cloneLabel(antonym, Pos.CENTER_LEFT, FontPosture.ITALIC, FontWeight.THIN));
 
                         }
-                        vBox1.getChildren().add(new Separator());
+                        vBox2.getChildren().add(new Separator());
                     }
-                    vBox1.getChildren().add(new Separator());
+                    vBox2.getChildren().add(new Separator());
                     LocalDictionaryManager.getInstance().insertWordToDictionary(englishWord);
                 }
             }

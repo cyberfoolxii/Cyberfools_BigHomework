@@ -3,7 +3,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.text.Font?>
 
-<Label alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="1000.0" style="-fx-padding: 10px;" text="something" wrapText="true" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Label alignment="CENTER" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="1000.0" style="-fx-padding: 10px;" text="something" wrapText="true" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <font>
       <Font name="Corbel" size="25.0" />
    </font>
