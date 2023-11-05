@@ -2,6 +2,8 @@ package Application.java;
 import Application.java.CustomExceptions.*;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /** class Word đại diện cho một từ.
  *  yêu cầu các loại từ kế thừa word phải cài compareTo và toString.
@@ -33,7 +35,6 @@ public abstract class Word implements Comparable<Word> {
         if (this == w) return 0;
         if (this.wordContent.compareTo(w.wordContent) > 0) return 1;
         else if (this.wordContent.compareTo(w.wordContent) < 0) return -1;
-        //return this.wordType.substring(0, 3).compareTo(w.wordType.substring(0, 3));
         return this.wordType.compareTo(w.wordType);
     }
 
@@ -43,6 +44,11 @@ public abstract class Word implements Comparable<Word> {
         if (obj == null) return false;
         if (obj.getClass() != this.getClass()) return false;
         return this.compareTo((Word) obj) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return wordContent.hashCode() + wordType.hashCode();
     }
 }
 

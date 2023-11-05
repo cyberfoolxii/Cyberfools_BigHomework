@@ -31,7 +31,6 @@ public class DictionaryApplication extends Application {
         LocalDictionaryManager.getInstance().insertWordFromFile();
         stageManager.setSceneInListToStage(SceneIndex.HOMEINDEX);
         stageManager.showStage();
-
         primaryStage.setOnCloseRequest(event -> {
             event.consume();
             exit(primaryStage);

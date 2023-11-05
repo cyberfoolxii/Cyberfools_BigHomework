@@ -57,7 +57,7 @@ public class OnlineDictionaryManager extends DictionaryManager {
 
         try {
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://microsoft-translator-text.p.rapidapi.com/translate?to%5B0%5D=vi&api-version=3.0&profanityAction=NoAction&textType=plain"))
+                    .uri(URI.create("https://microsoft-translator-text.p.rapidapi.com/translate?to%5B0%5D=" + to + "&api-version=3.0&from=" + from +"&profanityAction=NoAction&textType=plain"))
                     .header("content-type", "application/json")
                     .header("X-RapidAPI-Key", "1d491d9bb6msh388f4ca7cddf6c4p17c694jsneaec5358edeb")
                     .header("X-RapidAPI-Host", "microsoft-translator-text.p.rapidapi.com")
@@ -78,6 +78,8 @@ public class OnlineDictionaryManager extends DictionaryManager {
             System.out.println("lỗi nhập xuất");
         } catch (InterruptedException e) {
             System.out.println("lỗi gián đoạn");
+        } catch (Exception e) {
+            System.out.println("không thấy từ cần tra hoặc lỗi gì đó :v");
         }
         return results;
     }
@@ -124,7 +126,6 @@ public class OnlineDictionaryManager extends DictionaryManager {
                     label.prefWidthProperty().bind(vBox2.widthProperty());
                     vBox2.getChildren().add(label);
                 }
-                //eDefs.add(onlineWord.getWord());
 
                 System.out.println(onlineWord.getPhonetic());
 
@@ -151,7 +152,6 @@ public class OnlineDictionaryManager extends DictionaryManager {
                         englishWord.setPhonetic("(no phonetics)");
                     }
 
-                    //eDefs.add(onlineWordMeaning.getPartOfSpeech());
 
                     label = fxmlManager.cloneLabel(onlineWordMeaning.getPartOfSpeech(), Pos.CENTER, FontPosture.ITALIC, FontWeight.SEMI_BOLD);
                     label.prefWidthProperty().bind(vBox2.widthProperty());
@@ -165,11 +165,6 @@ public class OnlineDictionaryManager extends DictionaryManager {
                             englishWord.getDefinitions().add(onlineWordDefinition.getDefinition());
 
                             vBox2.getChildren().add(fxmlManager.cloneLabel(onlineWordDefinition.getDefinition(), Pos.CENTER_LEFT, FontPosture.REGULAR, FontWeight.NORMAL));
-                            //vBox1.getChildren().add(fxmlManager.cloneLabel(phraseTrans(onlineWordDefinition.getDefinition(), "en", "vi"), Pos.CENTER_LEFT, FontPosture.REGULAR, FontWeight.NORMAL));
-
-                            //eDefs.add(onlineWordDefinition.getDefinition());
-
-                            //vBox1.getChildren().add(fxmlManager.cloneLabel("Synonyms:", Pos.CENTER, FontPosture.REGULAR, FontWeight.THIN));
                             if (onlineWordDefinition.getSynonyms().length != 0) {
                                 vBox2.getChildren().add(fxmlManager.cloneLabel("Synonyms:", Pos.CENTER_LEFT, FontPosture.ITALIC, FontWeight.THIN));
                                 for (String synonym : onlineWordDefinition.getSynonyms()) {
@@ -206,6 +201,8 @@ public class OnlineDictionaryManager extends DictionaryManager {
             System.out.println("lỗi nhập xuất");
         } catch (InterruptedException e) {
             System.out.println("lỗi gián đoạn");
+        } catch (Exception e) {
+            System.out.println("không thấy từ cần tra hoặc lỗi gì đó :v");
         }
     }
 

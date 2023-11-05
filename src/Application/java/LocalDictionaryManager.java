@@ -11,6 +11,7 @@ import javafx.scene.text.FontWeight;
 
 import java.io.*;
 import java.util.*;
+import java.util.regex.Matcher;
 
 public class LocalDictionaryManager extends DictionaryManager {
     private static LocalDictionaryManager localDictionaryManager;
@@ -59,6 +60,12 @@ public class LocalDictionaryManager extends DictionaryManager {
             for (String def : e.getDefinitions()) {
                 foundWord.getDefinitions().add(def);
             }
+            for (String synonym : e.getSynonyms()) {
+                foundWord.getSynonyms().add(synonym);
+            }
+            for (String antonym : e.getAntonyms()) {
+                foundWord.getAntonyms().add(antonym);
+            }
         } else if (word instanceof VietnameseWord && found instanceof VietnameseWord) {
             VietnameseWord v = (VietnameseWord) word;
             VietnameseWord foundWord = (VietnameseWord) found;
@@ -87,27 +94,39 @@ public class LocalDictionaryManager extends DictionaryManager {
         }
     }
 
-    /** mặc định xóa trong danh sách các từ tiếng anh. */
-    public void deleteWordFromDictionary(String wordContent, String wordType) {
-        int idx1 = Collections.binarySearch(getDictionary()
-                .getEnglishWordsArrayList(), new EnglishWord(wordContent.toLowerCase(), wordType.toUpperCase()));
-        if (idx1 < 0) return;
-
-        EnglishWord e = getDictionary().getEnglishWordsArrayList().get(idx1);
-        int idx2 = Collections.binarySearch(getDictionary().getEnglishWordsArrayList(), e);
-        if (idx2 >= 0) {
+    /** mặc định xóa trong danh sách các từ tiếng anh.
+     *  lưu ý, do từ điển lưu trữ dạng Arraylist nên sẽ tối ưu hơn
+     *  nếu dùng binarySearch thay vì contains.
+     */
+    public void deleteWordFromDictionary(Word word) {
+        System.out.println(word.getWordContent() + " " + word.getWordType());
+        if (word instanceof EnglishWord) {
+            int idx = Collections.binarySearch(getDictionary()
+                    .getEnglishWordsArrayList(), word);
+            if (idx < 0) return;
+            EnglishWord e = getDictionary().getEnglishWordsArrayList().get(idx);
             for (VietnameseWord v : e.getVietnameseMeaningsList()) {
                 int index = Collections.binarySearch(getDictionary().getVietnameseWordsArrayList(), v);
                 getDictionary().getVietnameseWordsArrayList().get(index).getEnglishMeaningsList().remove(e);
             }
             getDictionary().getEnglishWordsArrayList().remove(e);
+        } else if (word instanceof VietnameseWord) {
+            int idx = Collections.binarySearch(getDictionary()
+                    .getVietnameseWordsArrayList(), word);
+            if (idx < 0) return;
+            VietnameseWord v = getDictionary().getVietnameseWordsArrayList().get(idx);
+            for (EnglishWord e : v.getEnglishMeaningsList()) {
+                int index = Collections.binarySearch(getDictionary().getEnglishWordsArrayList(), e);
+                getDictionary().getEnglishWordsArrayList().get(index).getVietnameseMeaningsList().remove(v);
+            }
+            getDictionary().getVietnameseWordsArrayList().remove(v);
         }
     }
 
     /** tạo từ tiếng anh mới và thêm vào từ điển dựa trên
      *  nội dung từ, loại từ, và danh sách giải nghĩa dạng String
      */
-    public void createAndInsertToDictionary(String wordContent, String pronunciation, String wordType, List<String> meanings) {
+    public void createAndInsertWordToDictionary(String wordContent, String pronunciation, String wordType, List<String> meanings) {
         EnglishWord newEnglishWord = new EnglishWord(wordContent, wordType);
         newEnglishWord.setPhonetic(pronunciation);
         for (String meaning : meanings) {
@@ -120,6 +139,8 @@ public class LocalDictionaryManager extends DictionaryManager {
             insertWordToDictionary(vietnameseWord);
         }
     }
+
+
 
     /** nạp từ trong file dictionaries.txt cố định vào từ điển.
      * định dạng mỗi dòng :
@@ -139,7 +160,10 @@ public class LocalDictionaryManager extends DictionaryManager {
                 Dictionary.wordTypeSet.add(separate[2].toUpperCase());
 
                 EnglishWord englishWord = new EnglishWord(separate[0].toLowerCase(), separate[2].toUpperCase());
-                englishWord.setPhonetic(separate[1]);
+                if (separate[1] != null && !separate[1].isEmpty()) {
+                    englishWord.setPhonetic(separate[1]);
+
+                }
                 for (int i = 3; i < separate.length; i++) {
                     VietnameseWord vietnameseWord = new VietnameseWord(separate[i].toLowerCase(), separate[2].toUpperCase());
                     vietnameseWord.addToEnglishMeaningsList(englishWord);
@@ -236,7 +260,7 @@ public class LocalDictionaryManager extends DictionaryManager {
         VBox vBox = (VBox) tab0SplitPane.getItems().get(0);
         VBox vBox1 = (VBox) tab0SplitPane.getItems().get(1);
 
-        ListView<String> listView = (ListView<String>) vBox.getChildren().get(2);
+        ListView<String> listView = (ListView<String>) vBox.getChildren().get(4);
         listView.getItems().clear();
         vBox1.getChildren().get(0).setVisible(false);
 
@@ -262,8 +286,10 @@ public class LocalDictionaryManager extends DictionaryManager {
                 if (englishWordList.isEmpty()) return false;
 
                 for (EnglishWord englishWord : englishWordList) {
+                    SceneController.setCurrentWord(englishWord);
                     listView.getItems().add(englishWord.getWordContent() + " " + englishWord.getWordType());
                 }
+
                 listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
                     @Override
                     public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
@@ -330,6 +356,7 @@ public class LocalDictionaryManager extends DictionaryManager {
                 if (vietnameseWordList.isEmpty()) return false;
 
                 for (VietnameseWord vietnameseWord : vietnameseWordList) {
+                    SceneController.setCurrentWord(vietnameseWord);
                     listView.getItems().add(vietnameseWord.getWordContent() + " " + vietnameseWord.getWordType());
                 }
 
@@ -342,11 +369,11 @@ public class LocalDictionaryManager extends DictionaryManager {
                         for (VietnameseWord vietnameseWord : vietnameseWordList) {
                             if ((vietnameseWord.getWordContent() + " " + vietnameseWord.getWordType()).equals(listView.getSelectionModel().getSelectedItem())) {
                                 Label label = fxmlManager.cloneLabel(vietnameseWord.getWordContent(), Pos.CENTER, FontPosture.REGULAR, FontWeight.BOLD);
-                                label.prefWidthProperty().bind(vBox2.prefWidthProperty());
+                                label.prefWidthProperty().bind(vBox2.widthProperty());
                                 vBox2.getChildren().add(label);
 
                                 label = fxmlManager.cloneLabel(vietnameseWord.getWordType(), Pos.CENTER, FontPosture.ITALIC, FontWeight.SEMI_BOLD);
-                                label.prefWidthProperty().bind(vBox2.prefWidthProperty());
+                                label.prefWidthProperty().bind(vBox2.widthProperty());
                                 vBox2.getChildren().add(label);
                                 for (EnglishWord e : vietnameseWord.getEnglishMeaningsList()) {
                                     vBox2.getChildren().add(fxmlManager.cloneLabel(e.getWordContent() + " " + e.getPhonetic()
@@ -419,5 +446,9 @@ public class LocalDictionaryManager extends DictionaryManager {
             }
             vBox.getChildren().add(new Separator());
         }
+    }
+    public EnglishWord getRandomWord() {
+        List<EnglishWord> englishWordList = getDictionary().getEnglishWordsArrayList();
+        return englishWordList.get((int) (Math.random() * englishWordList.size()));
     }
 }

@@ -44,6 +44,7 @@ public class EnglishWord extends Word {
 
     public EnglishWord(String wordContent, String wordType) {
         super(wordContent, wordType);
+        phonetic = "(no phonetics)";
     }
 
     public void addToVietnameseMeaningsList(VietnameseWord vietnameseMeaning) {

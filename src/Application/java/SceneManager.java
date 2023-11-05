@@ -42,15 +42,7 @@ public final class SceneManager {
 
     /** phương thức tạo Scene mới sử dụng nội bộ hỗ trợ cho initializeSceneList(). */
     private Scene createNewScene(String path) {
-        Scene newScene = null;
-        try{
-            newScene = new Scene(rootManager.getFXMLInsertedRoot(path));
-        }
-        catch (IOException e) {
-            System.out.println("couldn't create a scene");
-            e.printStackTrace();
-        }
-        return newScene;
+        return new Scene(rootManager.getFXMLInsertedRoot(path));
     }
 
     /** khởi tạo danh sách Scene, mỗi khi thêm một tệp fxml mới thì hãy copy thêm một
@@ -59,5 +51,10 @@ public final class SceneManager {
     public void initializeScenes() {
         //sceneList.add(createNewScene("/FXML Files/DictionaryApplicationScene.fxml"));
         sceneList.add(createNewScene("/FXML Files/FXML.fxml"));
+    }
+
+    public void reInitialize() {
+        sceneManager = new SceneManager();
+        initializeScenes();
     }
 }
