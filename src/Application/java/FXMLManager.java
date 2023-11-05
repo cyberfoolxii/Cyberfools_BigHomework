@@ -5,16 +5,21 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 
-import java.io.IOException;
 import java.util.Objects;
 
 public final class FXMLManager {
-    public Parent getFXMLInsertedRoot(String fxmlFilePath) throws IOException {
-        return FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFilePath)));
+    public Parent getFXMLInsertedRoot(String fxmlFilePath) {
+        try {
+            return FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFilePath)));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
     }
 
 /*    public SceneController getController(String fxmlFilePath) {
@@ -22,7 +27,7 @@ public final class FXMLManager {
         return  fxmlLoader.getController();
     }*/
     public Label cloneLabel(String content, Pos pos, FontPosture fontPosture, FontWeight fontWeight) {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXML Files/CloneSearchedLabel.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXML Files/CloneSearchLabel.fxml"));
         Label l = null;
         try {
             l = fxmlLoader.load();
@@ -44,5 +49,22 @@ public final class FXMLManager {
             System.out.println("lỗi nhân bản Button");
         }
         return button;
+    }
+
+    public TextArea cloneTextArea(String text, String promptText) {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXML Files/CloneTextArea.fxml"));
+        TextArea textArea = null;
+        try {
+            textArea = fxmlLoader.load();
+            if (text != null) {
+                textArea.setText(text);
+            }
+            if (promptText != null) {
+                textArea.setPromptText(promptText);
+            }
+        } catch (Exception e) {
+            System.out.println("lỗi nhân bản TextField");
+        }
+        return textArea;
     }
 }

@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
@@ -9,11 +10,13 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -25,7 +28,7 @@
                <content>
                   <SplitPane fx:id="splitPane1" dividerPositions="0.25081610446137104" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="510.0" prefWidth="745.0">
                      <items>
-                        <VBox prefHeight="506.0" prefWidth="169.0">
+                        <VBox focusTraversable="true" prefHeight="506.0" prefWidth="169.0">
                            <children>
                               <MenuButton fx:id="languageMenuButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" popupSide="LEFT" prefHeight="39.0" prefWidth="1133.0" text="Tiếng Anh">
                                  <items>
@@ -39,15 +42,54 @@
                                     <Font name="Corbel" size="20.0" />
                                  </font>
                               </MenuButton>
+                              <CheckBox fx:id="onlineCheckBox" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Tra cứu online">
+                                 <font>
+                                    <Font name="Corbel Bold" size="16.0" />
+                                 </font>
+                              </CheckBox>
                               <TextField id="1" fx:id="tab0searchTextField" alignment="CENTER" onAction="#translate" prefHeight="47.0" prefWidth="190.0" promptText="Looking for smth?...">
                                  <font>
-                                    <Font name="Corbel" size="20.0" />
+                                    <Font name="Corbel Bold" size="18.0" />
                                  </font>
                               </TextField>
-                              <ListView fx:id="myListView" prefHeight="436.0" prefWidth="196.0" visible="false" VBox.vgrow="ALWAYS" />
+                              <Button contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#addNewWord" prefHeight="40.0" prefWidth="182.0">
+                                 <font>
+                                    <Font name="Corbel Bold" size="16.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../AppIcon/plus.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <ListView fx:id="myListView" prefHeight="306.0" prefWidth="182.0" visible="false" VBox.vgrow="ALWAYS" />
+                              <HBox prefHeight="35.0" prefWidth="182.0">
+                                 <children>
+                                    <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#updateWord" prefHeight="40.0" prefWidth="91.0" HBox.hgrow="ALWAYS">
+                                       <graphic>
+                                          <ImageView fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../AppIcon/pen.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#deleteWord" prefHeight="40.0" prefWidth="91.0" HBox.hgrow="ALWAYS">
+                                       <graphic>
+                                          <ImageView fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../AppIcon/TrashBin.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </HBox>
                            </children>
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
+                        <VBox fx:id="tab1VBox2" prefHeight="200.0" prefWidth="100.0">
                            <children>
                               <Button fx:id="tab0SpeakButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#speak" prefHeight="34.0" prefWidth="404.0" text="Phát âm" visible="false">
                                  <graphic>
@@ -78,7 +120,7 @@
                               <Font name="Corbel" size="25.0" />
                            </font>
                         </TextField>
-                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#speak1" prefHeight="34.0" prefWidth="735.0" text="Phát âm">
+                        <Button fx:id="speakButton1" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#speak1" prefHeight="34.0" prefWidth="735.0" text="Phát âm" visible="false">
                            <graphic>
                               <ImageView fitHeight="32.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -97,30 +139,100 @@
             </Tab>
             <Tab text="Dịch câu">
                <content>
-                  <VBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <TextField id="2" fx:id="tab1SearchTextField1" alignment="CENTER" onAction="#define" prefHeight="34.0" prefWidth="736.0" promptText="Translations?...">
-                           <font>
-                              <Font name="Corbel" size="25.0" />
-                           </font>
-                        </TextField>
-                        <ScrollPane hbarPolicy="NEVER" prefHeight="433.0" prefWidth="735.0" VBox.vgrow="ALWAYS" />
+                        <VBox>
+                           <children>
+                              <MenuButton fx:id="tab3LanguageMenuButton1" maxWidth="1.7976931348623157E308" mnemonicParsing="false" popupSide="LEFT" prefHeight="39.0" prefWidth="1133.0" text="Tiếng Anh">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#switchPLanguageToEnglish1" text="Tiếng Anh" />
+                                    <MenuItem mnemonicParsing="false" onAction="#switchPLanguageToVietnamese1" text="Tiếng Việt" />
+                                 </items>
+                                 <effect>
+                                    <ColorAdjust brightness="-0.02" contrast="0.32" hue="-0.2" saturation="1.0" />
+                                 </effect>
+                                 <font>
+                                    <Font name="Corbel" size="20.0" />
+                                 </font>
+                              </MenuButton>
+                              <ScrollPane fx:id="pTransScrollPane1" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                 <content>
+                                    <TextArea fx:id="textArea1" prefHeight="460.0" prefWidth="362.0" wrapText="true">
+                                       <font>
+                                          <Font name="Corbel" size="20.0" />
+                                       </font></TextArea>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </VBox>
+                        <BorderPane minWidth="-Infinity" prefHeight="506.0" prefWidth="75.0">
+                           <center>
+                              <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#phraseTranslate" prefHeight="34.0" prefWidth="65.0" text="Dịch" />
+                           </center>
+                           <top>
+                              <Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#switchSides" prefHeight="39.0" prefWidth="65.0" BorderPane.alignment="CENTER">
+                                 <graphic>
+                                    <ImageView fitHeight="30.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../AppIcon/exchange.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </top>
+                        </BorderPane>
+                        <VBox>
+                           <children>
+                              <MenuButton fx:id="tab3LanguageMenuButton2" maxWidth="1.7976931348623157E308" mnemonicParsing="false" popupSide="RIGHT" prefHeight="39.0" prefWidth="1133.0" text="Tiếng Việt">
+                                 <items>
+                                    <MenuItem mnemonicParsing="false" onAction="#switchPLanguageToEnglish2" text="Tiếng Anh" />
+                                    <MenuItem mnemonicParsing="false" onAction="#switchPLanguageToVietnamese2" text="Tiếng Việt" />
+                                 </items>
+                                 <effect>
+                                    <ColorAdjust brightness="-0.02" contrast="0.32" hue="-0.2" saturation="1.0" />
+                                 </effect>
+                                 <font>
+                                    <Font name="Corbel" size="20.0" />
+                                 </font>
+                              </MenuButton>
+                              <ScrollPane fx:id="pTransScrollPane2" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                 <content>
+                                    <TextArea fx:id="textArea2" editable="false" prefHeight="462.0" prefWidth="361.0" wrapText="true">
+                                       <font>
+                                          <Font name="Corbel" size="20.0" />
+                                       </font></TextArea>
+                                 </content>
+                              </ScrollPane>
+                           </children>
+                        </VBox>
                      </children>
-                  </VBox>
+                  </HBox>
                </content>
             </Tab>
-            <Tab fx:id="tab4" text="Từ điển của tôi">
+            <Tab text="Từ điển của tôi">
                <content>
                   <ScrollPane fx:id="scrollPane3" prefHeight="200.0" prefWidth="200.0">
                      <content>
-                        <VBox fx:id="vBox4" prefHeight="505.0" prefWidth="734.0" />
+                        <HBox>
+                           <children>
+                              <VBox fx:id="vBox4" prefHeight="505.0" prefWidth="734.0" HBox.hgrow="ALWAYS" />
+                              <Button mnemonicParsing="false" onAction="#showAllWords">
+                                 <graphic>
+                                    <ImageView fitHeight="40.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../AppIcon/synchronize.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </HBox>
                      </content>
                   </ScrollPane>
                </content>
             </Tab>
             <Tab text="Mini game">
                <content>
-                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                </content>
             </Tab>
          </tabs>

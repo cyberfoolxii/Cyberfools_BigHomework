@@ -9,10 +9,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.text.CollationElementIterator;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.SortedMap;
+import java.util.*;
 
 public class Main {
 
@@ -38,10 +35,26 @@ public class Main {
         return mid;
     }
     public static void main(String[] args) {
-        LocalDictionaryManager.getInstance().insertWordFromFile();
+        //LocalDictionaryManager.getInstance().insertWordFromFile();
+        LocalDictionaryManager.getInstance().showAllEnglishWords();
+        EnglishWord englishWord = new EnglishWord("fly", "VERB");
+        LocalDictionaryManager.getInstance().insertWordToDictionary(englishWord);
+        EnglishWord englishWord1 = new EnglishWord("fly", "NOUN");
+        LocalDictionaryManager.getInstance().insertWordToDictionary(englishWord1);
+        EnglishWord englishWord2 = new EnglishWord("rub", "VERB");
+        LocalDictionaryManager.getInstance().insertWordToDictionary(englishWord2);
         LocalDictionaryManager.getInstance().showAllEnglishWords();
         System.out.println("-------------------------------------------");
-        LocalDictionaryManager.getInstance().showAllVietnameseWords();
-        LocalDictionaryManager.getInstance().exportWordToFile();
+        LocalDictionaryManager.getInstance().deleteWordFromDictionary(englishWord);
+        LocalDictionaryManager.getInstance().deleteWordFromDictionary(englishWord1);
+
+        LocalDictionaryManager.getInstance().showAllEnglishWords();
+        //LocalDictionaryManager.getInstance().exportWordToFile();
+        Comparator<Word> comparator = new Comparator<>() {
+            @Override
+            public int compare(Word o1, Word o2) {
+                return o1.getWordContent().compareTo(o2.getWordContent());
+            }
+        };
     }
 }
