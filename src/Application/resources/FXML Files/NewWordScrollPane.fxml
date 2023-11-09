@@ -8,59 +8,83 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<ScrollPane fx:id="myScrollPane" hbarPolicy="NEVER" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.java.UpdateWordController">
+<ScrollPane fx:id="myScrollPane" fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.java.UpdateWordController">
    <content>
       <VBox prefHeight="463.0" prefWidth="538.0">
          <children>
-            <TextArea fx:id="wordContent" maxWidth="1.7976931348623157E308" prefHeight="39.0" prefWidth="538.0" promptText="Nhập từ mới..." wrapText="true" />
-            <TextArea fx:id="wordType" prefHeight="42.0" prefWidth="538.0" promptText="Nhập loại từ..." />
-            <TextArea fx:id="wordPhonetic" prefHeight="38.0" prefWidth="538.0" promptText="Phiên âm..." />
-            <HBox prefHeight="43.0" prefWidth="538.0">
+            <TextArea fx:id="wordContent" prefHeight="39.0" prefWidth="538.0" promptText="Nhập từ mới..." wrapText="true" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="Corbel" size="20.0" />
+               </font></TextArea>
+            <TextArea fx:id="wordType" prefHeight="42.0" prefWidth="538.0" promptText="Nhập loại từ..." VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="Corbel" size="20.0" />
+               </font></TextArea>
+            <TextArea fx:id="wordPhonetic" prefHeight="38.0" prefWidth="538.0" promptText="Phiên âm..." VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="Corbel" size="20.0" />
+               </font></TextArea>
+            <HBox prefHeight="43.0" prefWidth="538.0" VBox.vgrow="ALWAYS">
                <children>
                   <VBox fx:id="vBox1" HBox.hgrow="ALWAYS">
                      <children>
-                        <TextArea fx:id="wordMeaning" prefHeight="200.0" prefWidth="200.0" promptText="Dịch nghĩa..." />
+                        <TextArea fx:id="wordMeaning" prefHeight="200.0" prefWidth="200.0" promptText="Dịch nghĩa..." VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font name="Corbel" size="20.0" />
+                           </font></TextArea>
                      </children>
                   </VBox>
-                  <Button mnemonicParsing="false" onAction="#addMeaning" prefHeight="48.0" prefWidth="40.0" text="+" />
-                  <Button mnemonicParsing="false" onAction="#reduceMeaning" prefHeight="48.0" prefWidth="40.0" text="-" />
+                  <Button fx:id="add1" mnemonicParsing="false" onAction="#addMeaning" prefHeight="60.0" prefWidth="40.0" text="+" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="reduce1" mnemonicParsing="false" onAction="#reduceMeaning" prefHeight="60.0" prefWidth="40.0" text="-" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
-            <HBox prefHeight="43.0" prefWidth="538.0">
+            <HBox prefHeight="43.0" prefWidth="538.0" VBox.vgrow="ALWAYS">
                <children>
                   <VBox fx:id="vBox2" HBox.hgrow="ALWAYS">
                      <children>
-                        <TextArea fx:id="wordDefinition" prefHeight="200.0" prefWidth="200.0" promptText="Định nghĩa..." />
+                        <TextArea fx:id="wordDefinition" prefHeight="200.0" prefWidth="200.0" promptText="Định nghĩa..." VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font name="Corbel" size="20.0" />
+                           </font></TextArea>
                      </children>
                   </VBox>
-                  <Button mnemonicParsing="false" onAction="#addDefinition" prefHeight="48.0" prefWidth="40.0" text="+" />
-                  <Button mnemonicParsing="false" onAction="#reduceDefinition" prefHeight="48.0" prefWidth="40.0" text="-" />
+                  <Button fx:id="add2" mnemonicParsing="false" onAction="#addDefinition" prefHeight="60.0" prefWidth="40.0" text="+" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="reduce2" mnemonicParsing="false" onAction="#reduceDefinition" prefHeight="60.0" prefWidth="40.0" text="-" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
-            <HBox prefHeight="43.0" prefWidth="538.0">
+            <HBox prefHeight="43.0" prefWidth="538.0" VBox.vgrow="ALWAYS">
                <children>
                   <VBox fx:id="vBox3" HBox.hgrow="ALWAYS">
                      <children>
-                        <TextArea fx:id="wordSynonym" prefHeight="200.0" prefWidth="200.0" promptText="Từ đồng nghĩa..." VBox.vgrow="ALWAYS" />
+                        <TextArea fx:id="wordSynonym" prefHeight="200.0" prefWidth="200.0" promptText="Từ đồng nghĩa..." VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font name="Corbel" size="20.0" />
+                           </font></TextArea>
                      </children>
                   </VBox>
-                  <Button mnemonicParsing="false" onAction="#addSynonym" prefHeight="48.0" prefWidth="40.0" text="+" HBox.hgrow="NEVER" />
-                  <Button mnemonicParsing="false" onAction="#reduceSynonym" prefHeight="48.0" prefWidth="40.0" text="-" />
+                  <Button fx:id="add3" mnemonicParsing="false" onAction="#addSynonym" prefHeight="60.0" prefWidth="40.0" text="+" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="reduce3" mnemonicParsing="false" onAction="#reduceSynonym" prefHeight="60.0" prefWidth="40.0" text="-" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
-            <HBox prefHeight="43.0" prefWidth="538.0">
+            <HBox prefHeight="43.0" prefWidth="538.0" VBox.vgrow="ALWAYS">
                <children>
                   <VBox fx:id="vBox4" HBox.hgrow="ALWAYS">
                      <children>
-                        <TextArea fx:id="wordAntonym" prefHeight="200.0" prefWidth="200.0" promptText="Từ trái nghĩa" />
+                        <TextArea fx:id="wordAntonym" prefHeight="200.0" prefWidth="200.0" promptText="Từ trái nghĩa" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font name="Corbel" size="20.0" />
+                           </font></TextArea>
                      </children>
                   </VBox>
-                  <Button mnemonicParsing="false" onAction="#addAntonym" prefHeight="48.0" prefWidth="40.0" text="+" />
-                  <Button mnemonicParsing="false" onAction="#reduceAntonym" prefHeight="48.0" prefWidth="40.0" text="-" />
+                  <Button fx:id="add4" mnemonicParsing="false" onAction="#addAntonym" prefHeight="60.0" prefWidth="40.0" text="+" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="reduce4" mnemonicParsing="false" onAction="#reduceAntonym" prefHeight="60.0" prefWidth="40.0" text="-" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#complete" prefHeight="34.0" prefWidth="538.0" text="Hoàn thành" />
-            <Label fx:id="messageLabel" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="46.0" prefWidth="538.0">
+            <Button maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" onAction="#complete" prefHeight="47.0" prefWidth="538.0" text="Hoàn thành" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="Corbel" size="20.0" />
+               </font></Button>
+            <Label fx:id="messageLabel" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="46.0" prefWidth="538.0" VBox.vgrow="ALWAYS">
                <font>
                   <Font name="Corbel Italic" size="18.0" />
                </font>

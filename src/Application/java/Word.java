@@ -35,6 +35,17 @@ public abstract class Word implements Comparable<Word> {
         if (this == w) return 0;
         if (this.wordContent.compareTo(w.wordContent) > 0) return 1;
         else if (this.wordContent.compareTo(w.wordContent) < 0) return -1;
+        if (this.wordType.length() < w.wordType.length()) {
+            Pattern pattern = Pattern.compile(this.wordType);
+            if (pattern.matcher(w.wordType).find()) {
+                return 0;
+            }
+        } else if (this.wordType.length() > w.wordType.length()) {
+            Pattern pattern = Pattern.compile(w.wordType);
+            if (pattern.matcher(this.wordType).find()) {
+                return 0;
+            }
+        }
         return this.wordType.compareTo(w.wordType);
     }
 
@@ -51,4 +62,3 @@ public abstract class Word implements Comparable<Word> {
         return wordContent.hashCode() + wordType.hashCode();
     }
 }
-
