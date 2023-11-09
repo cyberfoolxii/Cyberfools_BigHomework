@@ -144,8 +144,6 @@ public class OnlineDictionaryManager extends DictionaryManager {
                         englishWord.setAudioLink(audioLink);
                     }
 
-                    Dictionary.wordTypeSet.add(onlineWordMeaning.getPartOfSpeech().toUpperCase());
-
                     if (onlineWord.getPhonetic() != null) {
                         englishWord.setPhonetic(onlineWord.getPhonetic());
                     } else {

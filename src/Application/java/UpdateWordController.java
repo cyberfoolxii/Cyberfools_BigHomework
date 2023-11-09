@@ -5,9 +5,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
@@ -46,8 +48,24 @@ public class UpdateWordController implements Initializable {
     private TextArea wordPhonetic;
     @FXML
     private Label messageLabel;
+    @FXML
+    private Button add1;
+    @FXML
+    private Button add2;
+    @FXML
+    private Button add3;
+    @FXML
+    private Button add4;
+    @FXML
+    private Button reduce1;
+    @FXML
+    private Button reduce2;
+    @FXML
+    private Button reduce3;
+    @FXML
+    private Button reduce4;
     private static VBox crossVBox;
-
+    private static Word currentWord;
     public static VBox getCrossVBox() {
         return crossVBox;
     }
@@ -58,30 +76,79 @@ public class UpdateWordController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        myScrollPane.setFitToWidth(true);
+        add1.prefHeightProperty().bind(wordMeaning.heightProperty());
+        add2.prefHeightProperty().bind(wordDefinition.heightProperty());
+        add3.prefHeightProperty().bind(wordSynonym.heightProperty());
+        add4.prefHeightProperty().bind(wordAntonym.heightProperty());
+        reduce1.prefHeightProperty().bind(wordMeaning.heightProperty());
+        reduce2.prefHeightProperty().bind(wordDefinition.heightProperty());
+        reduce3.prefHeightProperty().bind(wordSynonym.heightProperty());
+        reduce4.prefHeightProperty().bind(wordAntonym.heightProperty());
     }
 
-    public void create(EnglishWord englishWord) {
-        if (englishWord != null) {
-            FXMLManager fxmlManager = new FXMLManager();
+    public void create(Word word) {
+        currentWord = word;
+        FXMLManager fxmlManager = new FXMLManager();
+        if (word instanceof EnglishWord) {
+            EnglishWord englishWord = (EnglishWord) word;
             wordContent.setText(englishWord.getWordContent());
             wordType.setText(englishWord.getWordType());
 
             for (VietnameseWord meaning : englishWord.getVietnameseMeaningsList()) {
-                TextArea textArea = fxmlManager.cloneTextArea(meaning.getWordContent(), wordMeaning.getPromptText());
-                vBox1.getChildren().add(textArea);
+                if (wordMeaning.getText().isEmpty()) {
+                    wordMeaning.setText(meaning.getWordContent());
+                } else {
+                    TextArea textArea = fxmlManager.cloneTextArea(meaning.getWordContent(), wordMeaning.getPromptText());
+                    VBox.setVgrow(textArea, Priority.ALWAYS);
+                    vBox1.getChildren().add(textArea);
+                }
             }
             for (String def : englishWord.getDefinitions()) {
-                TextArea textArea = fxmlManager.cloneTextArea(def, wordDefinition.getPromptText());
-                vBox2.getChildren().add(textArea);
+                if (wordDefinition.getText().isEmpty()) {
+                    wordDefinition.setText(def);
+                } else {
+                    TextArea textArea = fxmlManager.cloneTextArea(def, wordDefinition.getPromptText());
+                    VBox.setVgrow(textArea, Priority.ALWAYS);
+                    vBox2.getChildren().add(textArea);
+                }
             }
             for (String syn : englishWord.getSynonyms()) {
-                TextArea textArea = fxmlManager.cloneTextArea(syn, wordSynonym.getPromptText());
-                vBox3.getChildren().add(textArea);
+                if (wordSynonym.getText().isEmpty()) {
+                    wordSynonym.setText(syn);
+                } else {
+                    TextArea textArea = fxmlManager.cloneTextArea(syn, wordSynonym.getPromptText());
+                    VBox.setVgrow(textArea, Priority.ALWAYS);
+                    vBox3.getChildren().add(textArea);
+                }
             }
             for (String ant : englishWord.getAntonyms()) {
-                TextArea textArea = fxmlManager.cloneTextArea(ant, wordAntonym.getPromptText());
-                vBox4.getChildren().add(textArea);
+                if (wordAntonym.getText().isEmpty()) {
+                    wordAntonym.setText(ant);
+                } else {
+                    TextArea textArea = fxmlManager.cloneTextArea(ant, wordAntonym.getPromptText());
+                    VBox.setVgrow(textArea, Priority.ALWAYS);
+                    vBox4.getChildren().add(textArea);
+                }
+            }
+        } else if (word instanceof VietnameseWord) {
+            VietnameseWord vietnameseWord = (VietnameseWord) word;
+            wordPhonetic.setVisible(false);
+            wordPhonetic.setManaged(false);
+            VBox vBox = (VBox) myScrollPane.getContent();
+            for (int i = 4; i < 7; i++) {
+                vBox.getChildren().get(i).setVisible(false);
+                vBox.getChildren().get(i).setManaged(false);
+            }
+            wordContent.setText(vietnameseWord.getWordContent());
+            wordType.setText(vietnameseWord.getWordType());
+            for (EnglishWord englishWordMeaning : vietnameseWord.getEnglishMeaningsList()) {
+                if (wordMeaning.getText().isEmpty()) {
+                    wordMeaning.setText(englishWordMeaning.getWordContent());
+                } else {
+                    TextArea textArea = fxmlManager.cloneTextArea(englishWordMeaning.getWordContent(), wordAntonym.getPromptText());
+                    VBox.setVgrow(textArea, Priority.ALWAYS);
+                    vBox1.getChildren().add(textArea);
+                }
             }
         }
     }
@@ -89,6 +156,7 @@ public class UpdateWordController implements Initializable {
     public void addMeaning(ActionEvent event) {
         FXMLManager fxmlManager = new FXMLManager();
         TextArea textArea = fxmlManager.cloneTextArea(null, wordMeaning.getPromptText());
+        VBox.setVgrow(textArea, Priority.ALWAYS);
         vBox1.getChildren().add(textArea);
     }
 
@@ -101,6 +169,7 @@ public class UpdateWordController implements Initializable {
     public void addDefinition(ActionEvent event) {
         FXMLManager fxmlManager = new FXMLManager();
         TextArea textArea = fxmlManager.cloneTextArea(null, wordDefinition.getPromptText());
+        VBox.setVgrow(textArea, Priority.ALWAYS);
         vBox2.getChildren().add(textArea);
     }
 
@@ -113,6 +182,7 @@ public class UpdateWordController implements Initializable {
     public void addSynonym(ActionEvent event) {
         FXMLManager fxmlManager = new FXMLManager();
         TextArea textArea = fxmlManager.cloneTextArea(null, wordSynonym.getPromptText());
+        VBox.setVgrow(textArea, Priority.ALWAYS);
         vBox3.getChildren().add(textArea);
     }
 
@@ -125,6 +195,7 @@ public class UpdateWordController implements Initializable {
     public void addAntonym(ActionEvent event) {
         FXMLManager fxmlManager = new FXMLManager();
         TextArea textArea = fxmlManager.cloneTextArea(null, wordAntonym.getPromptText());
+        VBox.setVgrow(textArea, Priority.ALWAYS);
         vBox4.getChildren().add(textArea);
     }
 
@@ -141,50 +212,72 @@ public class UpdateWordController implements Initializable {
             messageLabel.setText("Nhập thiếu thông tin!");
             return;
         }
+
+        LocalDictionaryManager.getInstance()
+                .deleteWordFromDictionary(currentWord);
+
         messageLabel.setStyle("-fx-text-fill: #1ad963;");
         messageLabel.setText("Hoàn thành!");
 
-        EnglishWord englishWord = new EnglishWord(wordContent.getText(), wordType.getText());
-        if (!wordPhonetic.getText().isEmpty()) {
-            englishWord.setPhonetic(wordPhonetic.getText());
-        }
-
-        for (int i = 0; i < vBox1.getChildren().size(); i++) {
-            String content = ((TextArea) vBox1
-                    .getChildren()
-                    .get(i))
-                    .getText();
-            if (content.isEmpty()) {
-                continue;
+        if (currentWord instanceof EnglishWord) {
+            EnglishWord englishWord = new EnglishWord(wordContent.getText(), wordType.getText());
+            if (!wordPhonetic.getText().isEmpty()) {
+                englishWord.setPhonetic(wordPhonetic.getText());
             }
-            VietnameseWord vietnameseWord = new VietnameseWord(content, wordType.getText());
-            vietnameseWord.addToEnglishMeaningsList(englishWord);
-            englishWord.addToVietnameseMeaningsList(vietnameseWord);
+
+            for (int i = 0; i < vBox1.getChildren().size(); i++) {
+                String content = ((TextArea) vBox1
+                        .getChildren()
+                        .get(i))
+                        .getText();
+                if (content.isEmpty()) {
+                    continue;
+                }
+                VietnameseWord vietnameseWord = new VietnameseWord(content, wordType.getText());
+                vietnameseWord.addToEnglishMeaningsList(englishWord);
+                englishWord.addToVietnameseMeaningsList(vietnameseWord);
+                LocalDictionaryManager.getInstance().insertWordToDictionary(vietnameseWord);
+            }
+
+            for (int i = 0; i < vBox2.getChildren().size(); i++) {
+                String def = ((TextArea) vBox2.getChildren().get(i)).getText();
+                if (def.isEmpty()) {
+                    continue;
+                }
+                englishWord.getDefinitions().add(def);
+            }
+            for (int i = 0; i < vBox3.getChildren().size(); i++) {
+                String syn = ((TextArea) vBox3.getChildren().get(i)).getText();
+                if (syn.isEmpty()) {
+                    continue;
+                }
+                englishWord.getSynonyms().add(syn);
+            }
+            for (int i = 0; i < vBox4.getChildren().size(); i++) {
+                String ant = ((TextArea) vBox4.getChildren().get(i)).getText();
+                if (ant.isEmpty()) {
+                    continue;
+                }
+                englishWord.getAntonyms().add(ant);
+            }
+            LocalDictionaryManager.getInstance().insertWordToDictionary(englishWord);
+        } else if (currentWord instanceof VietnameseWord) {
+            VietnameseWord vietnameseWord = new VietnameseWord(wordContent.getText(), wordType.getText());
+            for (int i = 0; i < vBox1.getChildren().size(); i++) {
+                String content = ((TextArea) vBox1
+                        .getChildren()
+                        .get(i))
+                        .getText();
+                if (content.isEmpty()) {
+                    continue;
+                }
+                EnglishWord englishWord = new EnglishWord(content, wordType.getText());
+                englishWord.addToVietnameseMeaningsList(vietnameseWord);
+                vietnameseWord.addToEnglishMeaningsList(englishWord);
+                LocalDictionaryManager.getInstance().insertWordToDictionary(englishWord);
+            }
             LocalDictionaryManager.getInstance().insertWordToDictionary(vietnameseWord);
         }
-
-        for (int i = 0; i < vBox2.getChildren().size(); i++) {
-            String def = ((TextArea) vBox2.getChildren().get(i)).getText();
-            if (def.isEmpty()) {
-                continue;
-            }
-            englishWord.getDefinitions().add(def);
-        }
-        for (int i = 0; i < vBox3.getChildren().size(); i++) {
-            String syn = ((TextArea) vBox3.getChildren().get(i)).getText();
-            if (syn.isEmpty()) {
-                continue;
-            }
-            englishWord.getSynonyms().add(syn);
-        }
-        for (int i = 0; i < vBox4.getChildren().size(); i++) {
-            String ant = ((TextArea) vBox4.getChildren().get(i)).getText();
-            if (ant.isEmpty()) {
-                continue;
-            }
-            englishWord.getAntonyms().add(ant);
-        }
-        LocalDictionaryManager.getInstance().insertWordToDictionary(englishWord);
         myScrollPane.setContent(messageLabel);
         reset();
     }
@@ -196,6 +289,7 @@ public class UpdateWordController implements Initializable {
         crossVBox.getChildren().remove(crossVBox.getChildren().size() - 1);
         for (Node node : crossVBox.getChildren()) {
             node.setManaged(true);
+            node.setVisible(true);
         }
     }
 }
