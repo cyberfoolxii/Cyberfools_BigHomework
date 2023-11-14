@@ -1,3 +1,96 @@
+abstain	(no phonetics)	VERB	cam giu	tránh
+
+null
+abstract	/ˈæbˌstɹækt/	ADJ	trừu tượng	tóm tắt
+Not concrete: conceptual, ideal.	Insufficiently factual.	(grammar) As a noun, denoting an intangible as opposed to an object, place, or person.	Difficult to understand; abstruse; hard to conceptualize.	Of a class in object-oriented programming, being a partial basis for subclasses rather than a complete template for objects.	Apart from practice or reality; vague; theoretical; impersonal; not applied.	Separately expressing a property or attribute of an object that is considered to be inherent to that object: attributive, ascriptive.	Drawn away; removed from; apart from; separate.	Derived; extracted.	Absent-minded.	Pertaining to the formal aspect of art, such as the lines, colors, shapes, and the relationships among them.	Pertaining comprehensively to, or representing, a class or group of objects, as opposed to any specific object; considered apart from any application to a particular object: general, generic, nonspecific; representational.
+
+abstract	/ˈæbˌstɹækt/	NOUN
+An abstract work of art.	An abridgement or summary of a longer publication.	The theoretical way of looking at things; something that exists only in idealized form.	Something that concentrates in itself the qualities of a larger item, or multiple items.	An abstraction; an abstract term; that which is abstract.	A summary title of the key points detailing a tract of land, for ownership; abstract of title.
+
+abstract	/ˈæbˌstɹækt/	VERB
+To summarize; to abridge; to epitomize.	To create abstractions.	To conceptualize an ideal subgroup by means of the generalization of an attribute, as follows: by apprehending an attribute inherent to one individual, then separating that attribute and contemplating it by itself, then conceiving of that attribute as a general quality, then despecifying that conceived quality with respect to several or many individuals, and by then ideating a group composed of those individuals perceived to possess said quality.	To draw off (interest or attention).	To steal; to take away; to remove without permission.	To remove; to take away; withdraw.	To perform the process of abstraction.	To produce an abstraction, usually by refactoring existing code. Generally used with "out".	To extract by means of distillation.	To consider abstractly; to contemplate separately or by itself; to consider theoretically; to look at as a general quality.	To withdraw oneself; to retire.	To separate; to disengage.
+
+adamant	/ˈæ.də.mænt/	ADJ
+(of an object) Very difficult to break, pierce, or cut.	(said of people and their conviction) Firm; unshakeable; unyielding; determined.
+https://api.dictionaryapi.dev/media/pronunciations/en/adamant-us.mp3
+adamant	/ˈæ.də.mænt/	NOUN
+A lodestone.	An embodiment of impregnable hardness.	An imaginary rock or mineral of impenetrable hardness; a name given to the diamond and other substances of extreme hardness.
+https://api.dictionaryapi.dev/media/pronunciations/en/adamant-us.mp3
+apple	/ˈæp.əl/	NOUN
+The fruit of the Tree of Knowledge, eaten by Adam and Eve according to post-Biblical Christian tradition; the forbidden fruit.	A tree of the genus Malus, especially one cultivated for its edible fruit; the apple tree.	A common, round fruit produced by the tree Malus domestica, cultivated in temperate climates.	The ball in baseball.	(ice hockey slang) An assist.	(in the plural) Short for apples and pears, slang for stairs.	Any of various tree-borne fruits or vegetables especially considered as resembling an apple; also (with qualifying words) used to form the names of other specific fruits such as custard apple, rose apple, thorn apple etc.	A Native American or red-skinned person who acts and/or thinks like a white (Caucasian) person.	The wood of the apple tree.	When smiling, the round, fleshy part of the cheeks between the eyes and the corners of the mouth.
+https://api.dictionaryapi.dev/media/pronunciations/en/apple-us.mp3
+aristocrat	/ˈæɹɪstəˌkɹæt/	NOUN
+A proponent of aristocracy; an advocate of aristocratic government.	One of the aristocracy, nobility, or people of rank in a community; one of a ruling class; a noble (originally in Revolutionary France).
+
+ascertain	(no phonetics)	VERB
+To find out definitely; to discover or establish.	To make (someone) certain or confident about something; to inform.	To establish, to prove.	To ensure or effect.
+null
+auction	(no phonetics)	NOUN	phiên đấu giá
+
+null
+beautiful	(no phonetics)	ADJ	đẹp
+
+null
+bee	(no phonetics)	NOUN
+
+null
+bread	(no phonetics)	NOUN	bánh mì	bánh
+
+null
+breed	(no phonetics)	NOUN	giống
+
+null
+crazy	(no phonetics)	ADJ	điên
+
+null
+die	(no phonetics)	VERB	chết
+
+null
+good	(no phonetics)	ADJ	tot
+
+null
+heart	(no phonetics)	NOUN	trái tim
+
+null
+hello	(no phonetics)	VERB	chào
+
+null
+hook up	(no phonetics)	PHRASAL VERB	nghiện thứ gì
+
+null
 impeccable	/ɪmˈpɛkəbəl/	ADJ	hoàn hảo
 Perfect, without faults, flaws or errors	Incapable of wrongdoing or sin; immaculate
+null
+love	(no phonetics)	NOUN	tình yêu
+
+null
+love	(no phonetics)	VERB	thích	yêu	yêu thương
+
+null
+lovely	(no phonetics)	ADJ	yêu
+
+null
+nice	(no phonetics)	ADJ	tốt đẹp	đẹp
+
+null
+nonetheless	(no phonetics)	ADV	dù sao	tuy nhiên
+
+null
+null	(no phonetics)	ADJ	vô
+
+null
+obviously	/ˈɒ(b).vɪəs.li/	ADVERB
+Used as a filler word, or to introduce information even when not obvious.	In an obvious or clearly apparent manner.
+https://api.dictionaryapi.dev/media/pronunciations/en/obviously-us.mp3
+sins	(no phonetics)	PLURAL NOUN	tội lỗi	tội ác
+hành vi sai trái mà ai đó đã làm trong quá khứ.
+null
+strong	(no phonetics)	ADJ	mạnh	mạnh mẽ
+
+null
+tam biet	(no phonetics)	VERB	bai bai
+
+null
+unhinged	(no phonetics)	ADJ	điên loạn
+
 null

@@ -17,6 +17,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -47,7 +48,7 @@
                                     <Font name="Corbel Bold" size="16.0" />
                                  </font>
                               </CheckBox>
-                              <TextField id="1" fx:id="tab0searchTextField" alignment="CENTER" onAction="#translate" prefHeight="47.0" prefWidth="190.0" promptText="Looking for smth?...">
+                              <TextField id="1" fx:id="tab0searchTextField" alignment="CENTER" prefHeight="47.0" prefWidth="190.0" promptText="Looking for smth?...">
                                  <font>
                                     <Font name="Corbel Bold" size="18.0" />
                                  </font>
@@ -65,7 +66,7 @@
                                  </graphic>
                               </Button>
                               <ListView fx:id="myListView" prefHeight="306.0" prefWidth="182.0" visible="false" VBox.vgrow="ALWAYS" />
-                              <HBox prefHeight="35.0" prefWidth="182.0">
+                              <HBox fx:id="updateAndDeleteHBox" prefHeight="35.0" prefWidth="182.0">
                                  <children>
                                     <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#updateWord" prefHeight="40.0" prefWidth="91.0" HBox.hgrow="ALWAYS">
                                        <graphic>
@@ -89,7 +90,7 @@
                               </HBox>
                            </children>
                         </VBox>
-                        <VBox fx:id="tab1VBox2" prefHeight="200.0" prefWidth="100.0">
+                        <VBox fx:id="tab0VBox2" prefHeight="200.0" prefWidth="100.0">
                            <children>
                               <Button fx:id="tab0SpeakButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#speak" prefHeight="34.0" prefWidth="404.0" text="Phát âm" visible="false">
                                  <graphic>
@@ -102,7 +103,7 @@
                               </Button>
                               <ScrollPane fx:id="scrollPane1" prefHeight="438.0" prefWidth="366.0" VBox.vgrow="ALWAYS">
                                  <content>
-                                    <VBox prefHeight="463.0" prefWidth="538.0" />
+                                    <VBox fx:id="tab0DefVbox" prefHeight="463.0" prefWidth="538.0" />
                                  </content>
                               </ScrollPane>
                            </children>
@@ -233,6 +234,13 @@
             </Tab>
             <Tab text="Mini game">
                <content>
+               </content>
+               <content>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0">
+                     <center>
+                        <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                     </center>
+                  </BorderPane>
                </content>
             </Tab>
          </tabs>

@@ -1,5 +1,6 @@
 package Application.java;
 
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -261,6 +262,9 @@ public class UpdateWordController implements Initializable {
                 englishWord.getAntonyms().add(ant);
             }
             LocalDictionaryManager.getInstance().insertWordToDictionary(englishWord);
+
+            Dictionary.wordTypeSet.add(englishWord.getWordType());
+
         } else if (currentWord instanceof VietnameseWord) {
             VietnameseWord vietnameseWord = new VietnameseWord(wordContent.getText(), wordType.getText());
             for (int i = 0; i < vBox1.getChildren().size(); i++) {
@@ -277,6 +281,7 @@ public class UpdateWordController implements Initializable {
                 LocalDictionaryManager.getInstance().insertWordToDictionary(englishWord);
             }
             LocalDictionaryManager.getInstance().insertWordToDictionary(vietnameseWord);
+            Dictionary.wordTypeSet.add(vietnameseWord.getWordType());
         }
         myScrollPane.setContent(messageLabel);
         reset();
@@ -289,7 +294,6 @@ public class UpdateWordController implements Initializable {
         crossVBox.getChildren().remove(crossVBox.getChildren().size() - 1);
         for (Node node : crossVBox.getChildren()) {
             node.setManaged(true);
-            node.setVisible(true);
         }
     }
 }

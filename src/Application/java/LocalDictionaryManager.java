@@ -102,7 +102,6 @@ public class LocalDictionaryManager extends DictionaryManager {
      *  nếu dùng binarySearch thay vì contains.
      */
     public void deleteWordFromDictionary(Word word) {
-        System.out.println(word.getWordContent() + " " + word.getWordType());
         if (word instanceof EnglishWord) {
             int idx = Collections.binarySearch(getDictionary()
                     .getEnglishWordsArrayList(), word);
@@ -280,7 +279,20 @@ public class LocalDictionaryManager extends DictionaryManager {
                 List<EnglishWord> englishWordList = new ArrayList<>();
 
                 for (String wordType : Dictionary.wordTypeSet) {
-                    int indexFound = Collections.binarySearch(getDictionary().getEnglishWordsArrayList(), new EnglishWord(whatToLook.toLowerCase(), wordType));
+                    int indexFound = Collections.binarySearch(getDictionary().getEnglishWordsArrayList(), new EnglishWord(whatToLook.toLowerCase(), wordType),
+                            new Comparator<EnglishWord>() {
+
+                                @Override
+                                public int compare(EnglishWord o1, EnglishWord o2) {
+                                    Pattern contentPattern = Pattern.compile(o2.getWordContent());
+                                    if (contentPattern.matcher(o1.getWordContent()).find()) {
+                                        if (o1.getWordType().compareTo(o2.getWordType()) == 0) {
+                                            return 0;
+                                        }
+                                    }
+                                    return o1.compareTo(o2);
+                                }
+                            });
                     if (indexFound >= 0) {
                         englishWordList.add(getDictionary().getEnglishWordsArrayList().get(indexFound));
                     }
@@ -299,7 +311,10 @@ public class LocalDictionaryManager extends DictionaryManager {
                         if (!vBox1.getChildren().get(0).isManaged()) {
                             UpdateWordController.reset();
                         }
-                        vBox1.getChildren().get(0).setVisible(true);
+                        for (Node node : vBox1.getChildren()) {
+                            node.setVisible(true);
+                            node.setManaged(true);
+                        }
                         vBox2.getChildren().clear();
                         for (EnglishWord englishWord : englishWordList) {
                             if ((englishWord.getWordContent() + " " + englishWord.getWordType()).equals(listView.getSelectionModel().getSelectedItem())) {
@@ -349,6 +364,11 @@ public class LocalDictionaryManager extends DictionaryManager {
                                 break;
                             }
                         }
+                        if (vBox2.getChildren().isEmpty()) {
+                            vBox1.getChildren().get(0).setVisible(false);
+                        }
+                        vBox.getChildren().get(5).setManaged(true);
+                        vBox.getChildren().get(5).setVisible(true);
                     }
                 });
                 break;
@@ -378,7 +398,10 @@ public class LocalDictionaryManager extends DictionaryManager {
                         if (!vBox1.getChildren().get(0).isManaged()) {
                             UpdateWordController.reset();
                         }
-                        vBox1.getChildren().get(0).setVisible(true);
+                        for (Node node : vBox1.getChildren()) {
+                            node.setVisible(true);
+                            node.setManaged(true);
+                        }
                         vBox2.getChildren().clear();
                         for (VietnameseWord vietnameseWord : vietnameseWordList) {
                             if ((vietnameseWord.getWordContent() + " " + vietnameseWord.getWordType()).equals(listView.getSelectionModel().getSelectedItem())) {
@@ -420,6 +443,11 @@ public class LocalDictionaryManager extends DictionaryManager {
                                 break;
                             }
                         }
+                        if (vBox2.getChildren().isEmpty()) {
+                            vBox1.getChildren().get(0).setVisible(false);
+                        }
+                        vBox.getChildren().get(5).setManaged(true);
+                        vBox.getChildren().get(5).setVisible(true);
                     }
                 });
                 break;
