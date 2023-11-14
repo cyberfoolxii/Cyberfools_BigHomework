@@ -22,7 +22,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="569.0" prefWidth="756.0" stylesheets="@../CSS%20Styles/nord-dark.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.java.SceneController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="924.0" stylesheets="@../CSS%20Styles/nord-dark.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.java.SceneController">
    <children>
       <TabPane prefHeight="568.0" prefWidth="756.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
          <tabs>
