@@ -110,11 +110,11 @@ public class OnlineDictionaryManager extends DictionaryManager {
 
                 Label label = null;
                 if (onlineWord.getPhonetic() != null) {
-                    label = fxmlManager.cloneLabel(onlineWord.getWord() + " " + onlineWord.getPhonetic(), Pos.CENTER, FontPosture.REGULAR, FontWeight.BOLD);
+                    label = fxmlManager.cloneLabel(onlineWord.getWord() + " " + onlineWord.getPhonetic(), Pos.CENTER, FontWeight.BOLD, 25);
                     label.prefWidthProperty().bind(vBox2.widthProperty());
                     vBox2.getChildren().add(label);
                 } else {
-                    label = fxmlManager.cloneLabel(onlineWord.getWord() + " " + "(no phonetics)", Pos.CENTER, FontPosture.REGULAR, FontWeight.BOLD);
+                    label = fxmlManager.cloneLabel(onlineWord.getWord() + " " + "(no phonetics)", Pos.CENTER, FontWeight.BOLD, 25);
                     label.prefWidthProperty().bind(vBox2.widthProperty());
                     vBox2.getChildren().add(label);
                 }
@@ -145,36 +145,36 @@ public class OnlineDictionaryManager extends DictionaryManager {
                     }
 
 
-                    label = fxmlManager.cloneLabel(onlineWordMeaning.getPartOfSpeech(), Pos.CENTER, FontPosture.ITALIC, FontWeight.SEMI_BOLD);
+                    label = fxmlManager.cloneLabel(onlineWordMeaning.getPartOfSpeech(), Pos.CENTER, FontWeight.SEMI_BOLD, 25);
                     label.prefWidthProperty().bind(vBox2.widthProperty());
                     vBox2.getChildren().add(label);
 
                     if(onlineWordMeaning.getDefinitions().length != 0) {
-                        vBox2.getChildren().add(fxmlManager.cloneLabel("Definitions:", Pos.CENTER_LEFT, FontPosture.REGULAR, FontWeight.NORMAL));
+                        vBox2.getChildren().add(fxmlManager.cloneLabel("Definitions:", Pos.CENTER_LEFT, FontWeight.NORMAL, 25));
                         for (OnlineWordDefinition onlineWordDefinition : onlineWordMeaning.getDefinitions()) {
                             System.out.println(onlineWordDefinition.getDefinition());
 
                             englishWord.getDefinitions().add(onlineWordDefinition.getDefinition());
 
-                            vBox2.getChildren().add(fxmlManager.cloneLabel(onlineWordDefinition.getDefinition(), Pos.CENTER_LEFT, FontPosture.REGULAR, FontWeight.NORMAL));
+                            vBox2.getChildren().add(fxmlManager.cloneLabel(onlineWordDefinition.getDefinition(), Pos.CENTER_LEFT, FontWeight.NORMAL, 25));
                             if (onlineWordDefinition.getSynonyms().length != 0) {
-                                vBox2.getChildren().add(fxmlManager.cloneLabel("Synonyms:", Pos.CENTER_LEFT, FontPosture.ITALIC, FontWeight.THIN));
+                                vBox2.getChildren().add(fxmlManager.cloneLabel("Synonyms:", Pos.CENTER_LEFT, FontWeight.THIN, 25));
                                 for (String synonym : onlineWordDefinition.getSynonyms()) {
                                     System.out.print(synonym + ", ");
 
                                     englishWord.getSynonyms().add(synonym);
-                                    vBox2.getChildren().add(fxmlManager.cloneLabel(synonym, Pos.CENTER_LEFT, FontPosture.ITALIC, FontWeight.THIN));
+                                    vBox2.getChildren().add(fxmlManager.cloneLabel(synonym, Pos.CENTER_LEFT, FontWeight.THIN, 25));
 
                                 }
                             }
 
                             if (onlineWordDefinition.getAntonyms().length != 0) {
-                                vBox2.getChildren().add(fxmlManager.cloneLabel("Antonyms:", Pos.CENTER_LEFT, FontPosture.ITALIC, FontWeight.THIN));
+                                vBox2.getChildren().add(fxmlManager.cloneLabel("Antonyms:", Pos.CENTER_LEFT, FontWeight.THIN, 25));
                                 for (String antonym : onlineWordDefinition.getAntonyms()) {
                                     System.out.print(antonym + ", ");
 
                                     englishWord.getAntonyms().add(antonym);
-                                    vBox2.getChildren().add(fxmlManager.cloneLabel(antonym, Pos.CENTER_LEFT, FontPosture.ITALIC, FontWeight.THIN));
+                                    vBox2.getChildren().add(fxmlManager.cloneLabel(antonym, Pos.CENTER_LEFT, FontWeight.THIN, 25));
 
                                 }
                             }

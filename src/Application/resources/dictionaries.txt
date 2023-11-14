@@ -1,6 +1,3 @@
-abstain	(no phonetics)	VERB	cam giu	tránh
-
-null
 abstract	/ˈæbˌstɹækt/	ADJ	trừu tượng	tóm tắt
 Not concrete: conceptual, ideal.	Insufficiently factual.	(grammar) As a noun, denoting an intangible as opposed to an object, place, or person.	Difficult to understand; abstruse; hard to conceptualize.	Of a class in object-oriented programming, being a partial basis for subclasses rather than a complete template for objects.	Apart from practice or reality; vague; theoretical; impersonal; not applied.	Separately expressing a property or attribute of an object that is considered to be inherent to that object: attributive, ascriptive.	Drawn away; removed from; apart from; separate.	Derived; extracted.	Absent-minded.	Pertaining to the formal aspect of art, such as the lines, colors, shapes, and the relationships among them.	Pertaining comprehensively to, or representing, a class or group of objects, as opposed to any specific object; considered apart from any application to a particular object: general, generic, nonspecific; representational.
 
