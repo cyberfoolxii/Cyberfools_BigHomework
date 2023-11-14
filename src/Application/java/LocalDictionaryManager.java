@@ -273,25 +273,27 @@ public class LocalDictionaryManager extends DictionaryManager {
             System.out.println(item);
         }
 
+        Comparator<Word> comparator = new Comparator<Word>() {
+
+            @Override
+            public int compare(Word o1, Word o2) {
+                Pattern contentPattern = Pattern.compile(o2.getWordContent());
+                if (contentPattern.matcher(o1.getWordContent()).find()) {
+                    if (o1.getWordType().compareTo(o2.getWordType()) == 0) {
+                        return 0;
+                    }
+                }
+                return o1.compareTo(o2);
+            }
+        };
+
         switch (from) {
             case "en":
                 List<EnglishWord> englishWordList = new ArrayList<>();
 
                 for (String wordType : Dictionary.wordTypeSet) {
                     int indexFound = Collections.binarySearch(getDictionary().getEnglishWordsArrayList(), new EnglishWord(whatToLook.toLowerCase(), wordType),
-                            new Comparator<EnglishWord>() {
-
-                                @Override
-                                public int compare(EnglishWord o1, EnglishWord o2) {
-                                    Pattern contentPattern = Pattern.compile(o2.getWordContent());
-                                    if (contentPattern.matcher(o1.getWordContent()).find()) {
-                                        if (o1.getWordType().compareTo(o2.getWordType()) == 0) {
-                                            return 0;
-                                        }
-                                    }
-                                    return o1.compareTo(o2);
-                                }
-                            });
+                            comparator);
                     if (indexFound >= 0) {
                         englishWordList.add(getDictionary().getEnglishWordsArrayList().get(indexFound));
                     }
@@ -376,11 +378,13 @@ public class LocalDictionaryManager extends DictionaryManager {
                 List<VietnameseWord> vietnameseWordList = new ArrayList<>();
 
                 for (String wordType : Dictionary.wordTypeSet) {
-                    int indexFound = Collections.binarySearch(getDictionary().getVietnameseWordsArrayList(), new VietnameseWord(whatToLook.toLowerCase(), wordType));
+                    int indexFound = Collections.binarySearch(getDictionary().getVietnameseWordsArrayList(), new VietnameseWord(whatToLook.toLowerCase(), wordType), comparator);
                     if (indexFound >= 0) {
                         vietnameseWordList.add(getDictionary().getVietnameseWordsArrayList().get(indexFound));
                     }
                 }
+
+                if (vietnameseWordList.isEmpty()) return false;
 
                 for (VietnameseWord vietnameseWord : vietnameseWordList) {
                     SceneController.setCurrentWord(vietnameseWord);
@@ -410,13 +414,16 @@ public class LocalDictionaryManager extends DictionaryManager {
                                 label.prefWidthProperty().bind(vBox2.widthProperty());
                                 vBox2.getChildren().add(label);
                                 for (EnglishWord e : vietnameseWord.getEnglishMeaningsList()) {
-                                    vBox2.getChildren().add(fxmlManager.cloneLabel(e.getWordContent() + " " + e.getPhonetic()
+                                    vBox2.getChildren().add(fxmlManager.cloneLabel("Giải nghĩa tiếng Anh:"
                                             , Pos.CENTER_LEFT, FontWeight.BOLD, 25));
+                                    vBox2.getChildren().add(new Separator());
+                                    vBox2.getChildren().add(fxmlManager.cloneLabel(e.getWordContent() + " " + e.getPhonetic()
+                                            , Pos.CENTER_LEFT, FontWeight.NORMAL, 25));
                                     if (!e.getDefinitions().isEmpty()) {
                                         vBox2.getChildren().add(fxmlManager.cloneLabel("Định nghĩa:", Pos.CENTER_LEFT, FontWeight.BOLD, 25));
                                         for (String def : e.getDefinitions()) {
                                             vBox2.getChildren().add(fxmlManager.cloneLabel(def
-                                                    , Pos.CENTER_LEFT, FontWeight.BOLD, 25));
+                                                    , Pos.CENTER_LEFT, FontWeight.NORMAL, 25));
                                             vBox2.getChildren().add(new Separator());
                                         }
                                     }

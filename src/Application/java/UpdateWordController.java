@@ -66,6 +66,8 @@ public class UpdateWordController implements Initializable {
     private Button reduce3;
     @FXML
     private Button reduce4;
+    @FXML
+    private Button completeButton;
     private static VBox crossVBox;
     private static Word currentWord;
     public static VBox getCrossVBox() {
@@ -91,6 +93,7 @@ public class UpdateWordController implements Initializable {
         add2.fontProperty().bind(add1.fontProperty());
         add3.fontProperty().bind(add1.fontProperty());
         add4.fontProperty().bind(add1.fontProperty());
+        completeButton.fontProperty().bind(add1.fontProperty());
         reduce1.fontProperty().bind(add1.fontProperty());
         reduce2.fontProperty().bind(add1.fontProperty());
         reduce3.fontProperty().bind(add1.fontProperty());
@@ -102,6 +105,7 @@ public class UpdateWordController implements Initializable {
         wordSynonym.fontProperty().bind(wordMeaning.fontProperty());
         wordPhonetic.fontProperty().bind(wordMeaning.fontProperty());
         wordDefinition.fontProperty().bind(wordMeaning.fontProperty());
+        messageLabel.fontProperty().bind(add1.fontProperty());
     }
 
     public void create(Word word) {

@@ -85,9 +85,15 @@ null
 strong	(no phonetics)	ADJ	mạnh	mạnh mẽ
 
 null
+suits	(no phonetics)	NOUN	phù hợp với	quần áo
+
+null
 tam biet	(no phonetics)	VERB	bai bai
 
 null
 unhinged	(no phonetics)	ADJ	điên loạn
+
+null
+yesterday	(no phonetics)	NOUN	hôm qua
 
 null

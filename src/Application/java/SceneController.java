@@ -168,12 +168,17 @@ public class SceneController implements Initializable {
             }
         });
         tab0searchTextField.setOnKeyTyped(event -> {
-            if ((int) event.getCharacter().charAt(0) != 13) {
+            if ((int) event.getCharacter().charAt(0) != 13 && translateFrom.equals("en")) {
                 System.out.println("typed : ");
                 myListView.getItems().clear();
                 updateAndDeleteHBox.setVisible(false);
                 updateAndDeleteHBox.setManaged(false);
                 showHints();
+            } else if (translateFrom.equals("vi")) {
+                myListView.getItems().clear();
+                updateAndDeleteHBox.setVisible(false);
+                updateAndDeleteHBox.setManaged(false);
+                translate();
             }
         });
         updateAndDeleteHBox.setVisible(false);
@@ -406,12 +411,11 @@ public class SceneController implements Initializable {
     }
 
     private void translate() {
-        System.out.println("translate");
         if (!tab0VBox2.getChildren().get(0).isManaged()) {
             UpdateWordController.reset();
         }
         if (tab0searchTextField.getText().isEmpty()) {
-            //myListView.setVisible(false);
+            myListView.setVisible(false);
             tab0SpeakButton.setVisible(false);
             return;
         }

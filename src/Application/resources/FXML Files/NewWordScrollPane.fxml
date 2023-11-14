@@ -80,7 +80,7 @@
                   <Button fx:id="reduce4" mnemonicParsing="false" onAction="#reduceAntonym" prefHeight="60.0" prefWidth="40.0" text="-" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
-            <Button maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" onAction="#complete" prefHeight="47.0" prefWidth="538.0" text="Hoàn thành" VBox.vgrow="ALWAYS">
+            <Button fx:id="completeButton" maxWidth="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" onAction="#complete" prefHeight="47.0" prefWidth="538.0" text="Hoàn thành" VBox.vgrow="ALWAYS">
                <font>
                   <Font name="Corbel" size="20.0" />
                </font></Button>
