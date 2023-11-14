@@ -12,6 +12,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Screen;
@@ -85,6 +86,22 @@ public class UpdateWordController implements Initializable {
         reduce2.prefHeightProperty().bind(wordDefinition.heightProperty());
         reduce3.prefHeightProperty().bind(wordSynonym.heightProperty());
         reduce4.prefHeightProperty().bind(wordAntonym.heightProperty());
+        FXMLManager fxmlManager = new FXMLManager();
+        add1.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 16));
+        add2.fontProperty().bind(add1.fontProperty());
+        add3.fontProperty().bind(add1.fontProperty());
+        add4.fontProperty().bind(add1.fontProperty());
+        reduce1.fontProperty().bind(add1.fontProperty());
+        reduce2.fontProperty().bind(add1.fontProperty());
+        reduce3.fontProperty().bind(add1.fontProperty());
+        reduce4.fontProperty().bind(add1.fontProperty());
+        wordMeaning.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 18));
+        wordType.fontProperty().bind(wordMeaning.fontProperty());
+        wordContent.fontProperty().bind(wordMeaning.fontProperty());
+        wordAntonym.fontProperty().bind(wordMeaning.fontProperty());
+        wordSynonym.fontProperty().bind(wordMeaning.fontProperty());
+        wordPhonetic.fontProperty().bind(wordMeaning.fontProperty());
+        wordDefinition.fontProperty().bind(wordMeaning.fontProperty());
     }
 
     public void create(Word word) {

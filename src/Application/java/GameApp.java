@@ -5,10 +5,10 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.util.Arrays;
@@ -17,95 +17,162 @@ import java.util.List;
 
 public class GameApp extends Application {
 
-    private List<String> words = Arrays.asList(
-            "I used to be a baker because I kneaded dough.",
-            "I told my wife she was drawing her eyebrows too high. She looked surprised.",
-            "I used to play piano by ear, but now I use my hands.",
-            "I'm reading a book on anti-gravity. It's impossible to put down.",
-            "I used to be a baker because I kneaded dough."
-    );
-
-    private List<String> puns = Arrays.asList("Baker", "Surprised", "Pianist", "Anti-gravity", "Kneaded");
-
-    private int currentIndex = 0;
+    private List<Question> questions;
+    private int currentQuestionIndex = 0;
     private int score = 0;
+
+    private Label questionLabel;
+    private ProgressBar progressBar;
+    private Label scoreLabel;
 
     public static void main(String[] args) {
         launch(args);
     }
 
-    Stage primaryStage = null;
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setTitle("Enhanced English Pun Game");
+        primaryStage.setTitle("Super-Friendly Vocabulary Game");
 
-        // Load Quicksand font
-        Font.loadFont(getClass().getResourceAsStream("/Fonts.Quicksand/static/Quicksand-Regular.ttf"), 14);
+        // Create questions
+        questions = Arrays.asList(
+                new Question("What is the capital of France?", Arrays.asList("Berlin", "Madrid", "Paris", "Rome"), "Paris"),
+                new Question("Which planet is known as the Red Planet?", Arrays.asList("Venus", "Mars", "Jupiter", "Saturn"), "Mars"),
+                new Question("What is the largest mammal in the world?", Arrays.asList("Elephant", "Whale Shark", "Blue Whale", "Giraffe"), "Blue Whale")
+        );
 
-        GridPane gridPane = createGridPane();
-        addWords(gridPane);
+        BorderPane borderPane = createBorderPane();
+        addQuestionUIComponents(borderPane);
 
-        Scene scene = new Scene(gridPane, 600, 400);
-        //scene.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        Scene scene = new Scene(borderPane, 600, 400);
+        scene.getStylesheets().add(getClass().getResource("/FXML Files/style.css").toExternalForm());
 
         primaryStage.setScene(scene);
-        this.primaryStage = primaryStage;
         primaryStage.show();
     }
 
-    private GridPane createGridPane() {
-        GridPane gridPane = new GridPane();
-        gridPane.setAlignment(Pos.CENTER);
-        gridPane.setVgap(10);
-        gridPane.setHgap(10);
-        return gridPane;
+    private BorderPane createBorderPane() {
+        BorderPane borderPane = new BorderPane();
+        borderPane.setStyle("-fx-background-color: #F4F4F4;");
+
+        return borderPane;
     }
 
-    private void addWords(GridPane gridPane) {
-        Label wordLabel = new Label("Word: ");
-        Label currentWord = new Label(words.get(currentIndex));
+    private void addQuestionUIComponents(BorderPane borderPane) {
+        // Question Label
+        questionLabel = new Label();
+        questionLabel.getStyleClass().add("question-label");
+        // Progress Bar
+        progressBar = new ProgressBar();
+        progressBar.setProgress(0);
+
+        // Score Label
+        scoreLabel = new Label("Score: 0");
+        scoreLabel.getStyleClass().add("score-label");
+
+        // Answer Buttons
+        VBox answerButtons = createAnswerButtons();
+
+        // Next Button
         Button nextButton = new Button("Next");
-        Label scoreLabel = new Label("Score: " + score);
+        nextButton.getStyleClass().add("next-button");
+        nextButton.setOnAction(event -> nextQuestion());
 
-        HBox buttonsBox = createPunButtons();
+        // Layout
+        VBox centerVBox = new VBox(20);
+        centerVBox.setAlignment(Pos.CENTER);
+        centerVBox.getChildren().addAll(questionLabel, answerButtons, nextButton);
 
-        nextButton.setOnAction(event -> {
-            currentIndex = (currentIndex + 1) % words.size();
-            currentWord.setText(words.get(currentIndex));
-            buttonsBox.getChildren().clear();
-            buttonsBox.getChildren().addAll(createPunButtons().getChildren());
-        });
+        HBox bottomHBox = new HBox(20);
+        bottomHBox.setAlignment(Pos.CENTER);
+        bottomHBox.getChildren().addAll(scoreLabel, progressBar);
 
-        gridPane.add(wordLabel, 0, 0);
-        gridPane.add(currentWord, 1, 0);
-        gridPane.add(createPunButtons(), 1, 1);
-        gridPane.add(nextButton, 1, 2);
-        gridPane.add(scoreLabel, 1, 3);
+        borderPane.setCenter(centerVBox);
+        borderPane.setBottom(bottomHBox);
+
+        // Display the first question
+        displayQuestion(questions.get(currentQuestionIndex));
     }
 
-    private HBox createPunButtons() {
-        HBox punButtons = new HBox(10);
-        punButtons.setAlignment(Pos.CENTER);
+    private VBox createAnswerButtons() {
+        VBox answerButtons = new VBox(10);
+        answerButtons.setAlignment(Pos.CENTER);
 
-        Collections.shuffle(puns); // Shuffle puns for random order
+        for (int i = 0; i < 4; i++) {
+            Button answerButton = new Button();
+            answerButton.getStyleClass().add("answer-button");
+            answerButton.setOnAction(event -> checkAnswer(answerButton.getText()));
 
-        for (String pun : puns) {
-            Button punButton = new Button(pun);
-            punButton.setOnAction(event -> handlePunButtonClick(pun));
-            punButtons.getChildren().add(punButton);
+            answerButtons.getChildren().add(answerButton);
         }
 
-        return punButtons;
+        return answerButtons;
     }
 
-    private void handlePunButtonClick(String selectedPun) {
-        if (selectedPun.equals(puns.get(0))) {
+    private void displayQuestion(Question question) {
+        questionLabel.setText(question.getQuestion());
+
+        List<String> choices = question.getChoices();
+        Collections.shuffle(choices);
+
+        VBox answerButtons = (VBox) ((VBox) ((BorderPane) questionLabel.getParent().getParent()).getCenter()).getChildren().get(1);
+        for (int i = 0; i < 4; i++) {
+            Button answerButton = (Button) answerButtons.getChildren().get(i);
+            System.out.println(answerButton);
+            answerButton.setText(choices.get(i));
+        }
+    }
+
+    private void checkAnswer(String selectedAnswer) {
+        Question currentQuestion = questions.get(currentQuestionIndex);
+        if (currentQuestion.getCorrectAnswer().equals(selectedAnswer)) {
             score++;
-            System.out.println("Correct!");
-        } else {
-            System.out.println("Wrong! Try again.");
         }
-        // Update the score label
-        ((Label) ((VBox) ((GridPane) primaryStage.getScene().getRoot()).getChildren().get(4)).getChildren().get(2)).setText("Score: " + score);
+
+        updateUI();
+    }
+
+    private void updateUI() {
+        scoreLabel.setText("Score: " + score);
+        currentQuestionIndex++;
+
+        if (currentQuestionIndex < questions.size()) {
+            displayQuestion(questions.get(currentQuestionIndex));
+            progressBar.setProgress((double) currentQuestionIndex / questions.size());
+        } else {
+            // Game Over
+            questionLabel.setText("Game Over! Your final score is: " + score + "/" + questions.size());
+            ((VBox) questionLabel.getParent()).getChildren().remove(1); // Remove the VBox containing answer buttons
+        }
+    }
+
+
+    private void nextQuestion() {
+        if (currentQuestionIndex < questions.size()) {
+            updateUI();
+        }
+    }
+}
+
+class Question {
+    private String question;
+    private List<String> choices;
+    private String correctAnswer;
+
+    public Question(String question, List<String> choices, String correctAnswer) {
+        this.question = question;
+        this.choices = choices;
+        this.correctAnswer = correctAnswer;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public List<String> getChoices() {
+        return choices;
+    }
+
+    public String getCorrectAnswer() {
+        return correctAnswer;
     }
 }

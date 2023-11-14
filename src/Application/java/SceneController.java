@@ -76,17 +76,30 @@ public class SceneController implements Initializable {
     private VBox tab0DefVbox;
     @FXML
     private HBox updateAndDeleteHBox;
+    @FXML
+    private Label tabTitle1;
+    @FXML
+    private Label tabTitle2;
+    @FXML
+    private Label tabTitle3;
+    @FXML
+    private Label tabTitle4;
+    @FXML
+    private Label tabTitle5;
+    @FXML
+    private Button translateButtonTab3;
     private static Word currentWord;
 
     static class Cell extends ListCell<String> {
         VBox vBox = new VBox();
         Label label = new Label();
-        public Cell(TextField textField) {
+        public Cell(TextField textField, ListView<String> myListView) {
             FXMLManager fxmlManager = new FXMLManager();
-            Font font = Font.font("Corbel", FontWeight.BOLD, 18.0);
+            Font font = fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 18);
             label.setFont(font);
             label.setWrapText(true);
             label.setAlignment(Pos.CENTER_LEFT);
+            label.prefWidthProperty().bind(myListView.widthProperty());
             VBox.setVgrow(label, Priority.ALWAYS);
             vBox.getChildren().add(label);
             this.setOnMouseClicked(mouseEvent -> {
@@ -144,7 +157,7 @@ public class SceneController implements Initializable {
         myListView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
             @Override
             public ListCell<String> call(ListView<String> param) {
-                return new Cell(tab0searchTextField);
+                return new Cell(tab0searchTextField, myListView);
             }
         });
         tab0searchTextField.setOnKeyPressed(event -> {
@@ -175,6 +188,31 @@ public class SceneController implements Initializable {
         pTransScrollPane2.setFitToWidth(true);
         pTransScrollPane1.setFitToHeight(true);
         pTransScrollPane2.setFitToHeight(true);
+
+        FXMLManager fxmlManager = new FXMLManager();
+        languageMenuButton.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 20));
+        onlineCheckBox.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 17));
+        tabTitle1.setFont(fxmlManager.cloneQuicksandFont(FontWeight.SEMI_BOLD, 16));
+        tabTitle2.fontProperty().bind(tabTitle1.fontProperty());
+        tabTitle3.fontProperty().bind(tabTitle1.fontProperty());
+        tabTitle4.fontProperty().bind(tabTitle1.fontProperty());
+        tabTitle5.fontProperty().bind(tabTitle1.fontProperty());
+        tab0searchTextField.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 18));
+        tab1SearchTextField.fontProperty().bind(tab0searchTextField.fontProperty());
+        tab3LanguageMenuButton1.fontProperty().bind(languageMenuButton.fontProperty());
+        tab3LanguageMenuButton2.fontProperty().bind(languageMenuButton.fontProperty());
+        for (MenuItem item : languageMenuButton.getItems()) {
+            ((Label) item.getGraphic()).fontProperty().bind(tabTitle1.fontProperty());
+        }
+        for (MenuItem item : tab3LanguageMenuButton1.getItems()) {
+            ((Label) item.getGraphic()).fontProperty().bind(tabTitle1.fontProperty());
+        }
+        for (MenuItem item : tab3LanguageMenuButton2.getItems()) {
+            ((Label) item.getGraphic()).fontProperty().bind(tabTitle1.fontProperty());
+        }
+        textArea1.fontProperty().bind(tab0searchTextField.fontProperty());
+        textArea2.fontProperty().bind(textArea1.fontProperty());
+        translateButtonTab3.fontProperty().bind(tabTitle1.fontProperty());
     }
 
     public void updateWord(ActionEvent event) {
