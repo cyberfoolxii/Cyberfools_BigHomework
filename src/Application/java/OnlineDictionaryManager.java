@@ -18,6 +18,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -46,7 +47,7 @@ public class OnlineDictionaryManager extends DictionaryManager {
      * @param to : ngôn ngữ câu đã dịch
      * @return : trả về danh sách tuần tự các câu đã dịch.
      */
-    public List<String> phraseTrans(List<String> phrases, String from, String to) {
+    public List<String> phraseTrans(List<String> phrases, String from, String to) throws Exception {
         List<String> results = new ArrayList<>();
         StringBuilder look = new StringBuilder();
 
@@ -55,7 +56,6 @@ public class OnlineDictionaryManager extends DictionaryManager {
             if (i != phrases.size() - 1) look.append(", ");
         }
 
-        try {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create("https://microsoft-translator-text.p.rapidapi.com/translate?to%5B0%5D=" + to + "&api-version=3.0&from=" + from +"&profanityAction=NoAction&textType=plain"))
                     .header("content-type", "application/json")
@@ -74,13 +74,6 @@ public class OnlineDictionaryManager extends DictionaryManager {
                     results.add(translation.getText());
                 }
             }
-        } catch (IOException e) {
-            System.out.println("lỗi nhập xuất");
-        } catch (InterruptedException e) {
-            System.out.println("lỗi gián đoạn");
-        } catch (Exception e) {
-            System.out.println("không thấy từ cần tra hoặc lỗi gì đó :v");
-        }
         return results;
     }
 
@@ -92,8 +85,7 @@ public class OnlineDictionaryManager extends DictionaryManager {
      * cần có quản lí từ điển cục bộ để
      * thêm từ mới về cục bộ
      */
-    public void onlineDefinitionLookup(String whatToLook) {
-        try {
+    public void onlineDefinitionLookup(String whatToLook) throws Exception {
             FXMLManager fxmlManager = new FXMLManager();
             VBox vBox = (VBox) Objects.requireNonNull(SceneManager.getInstance().getSceneInSceneList(SceneIndex.HOMEINDEX)).getRoot();
             TabPane tabPane = (TabPane) vBox.getChildren().get(0);
@@ -138,6 +130,8 @@ public class OnlineDictionaryManager extends DictionaryManager {
 
                 for (OnlineWordMeaning onlineWordMeaning : onlineWord.getMeanings()) {
                     System.out.println(onlineWordMeaning.getPartOfSpeech());
+
+                    Dictionary.wordTypeSet.add(onlineWordMeaning.getPartOfSpeech().toUpperCase());
 
                     EnglishWord englishWord = new EnglishWord(onlineWord.getWord(), onlineWordMeaning.getPartOfSpeech());
                     if (audioLink != null) {
@@ -195,13 +189,6 @@ public class OnlineDictionaryManager extends DictionaryManager {
 /*            for (String item : phraseTrans(eDefs, "en", "vi")) {
                 vBox1.getChildren().add(fxmlManager.cloneLabel(item, Pos.CENTER, FontPosture.ITALIC, FontWeight.THIN));
             }*/
-        } catch (IOException e) {
-            System.out.println("lỗi nhập xuất");
-        } catch (InterruptedException e) {
-            System.out.println("lỗi gián đoạn");
-        } catch (Exception e) {
-            System.out.println("không thấy từ cần tra hoặc lỗi gì đó :v");
-        }
     }
 
     /** tra giải nghĩa của từ đơn,
@@ -210,29 +197,25 @@ public class OnlineDictionaryManager extends DictionaryManager {
      * @param from : ngôn ngữ của từ đơn
      * @param to : dịch sang ngôn ngữ gì
      */
-    private void DictionaryLookup(String whatToLook, String from, String to) {
-        try {
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("https://microsoft-translator-text.p.rapidapi.com/Dictionary/Lookup?to=" + to + "&api-version=3.0&from=" + from))
-                    .header("content-type", "application/json")
-                    .header("X-RapidAPI-Key", "1d491d9bb6msh388f4ca7cddf6c4p17c694jsneaec5358edeb")
-                    .header("X-RapidAPI-Host", "microsoft-translator-text.p.rapidapi.com")
-                    .method("POST", HttpRequest.BodyPublishers.ofString("[\r\n    {\r\n        \"Text\": \"" + whatToLook + "\"\r\n    }\r\n]"))
-                    .build();
-            HttpClient client = HttpClient.newHttpClient();
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            Gson gson = new Gson();
-            sources = gson.fromJson(response.body(), SingleWordSource[].class);
-        } catch (Exception e) {
-            System.out.println("error: onlineDictionaryLookup() in OnlineDictionaryManager class");
-        }
+    private void DictionaryLookup(String whatToLook, String from, String to) throws Exception {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("https://microsoft-translator-text.p.rapidapi.com/Dictionary/Lookup?to=" + to + "&api-version=3.0&from=" + from))
+                .header("content-type", "application/json")
+                .header("X-RapidAPI-Key", "1d491d9bb6msh388f4ca7cddf6c4p17c694jsneaec5358edeb")
+                .header("X-RapidAPI-Host", "microsoft-translator-text.p.rapidapi.com")
+                .method("POST", HttpRequest.BodyPublishers.ofString("[\r\n    {\r\n        \"Text\": \"" + whatToLook + "\"\r\n    }\r\n]"))
+                .build();
+        HttpClient client = HttpClient.newHttpClient();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        Gson gson = new Gson();
+        sources = gson.fromJson(response.body(), SingleWordSource[].class);
     }
 
     /** nhiệm vụ của phương thức này là
      *  gọi API dịch từ đơn, tạo từ đơn được dịch
      *  và thêm vào từ điển địa phương Dictionary.
      */
-    public void dictionaryLookup(String whatToLook, String from, String to) {
+    public void dictionaryLookup(String whatToLook, String from, String to) throws Exception {
         DictionaryLookup(whatToLook, from, to);
         switch (from) {
             case "vi":

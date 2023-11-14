@@ -1,5 +1,7 @@
 package Application.java;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -8,6 +10,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -20,6 +25,7 @@ import javafx.util.Callback;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class SceneController implements Initializable {
 
@@ -63,15 +69,19 @@ public class SceneController implements Initializable {
     @FXML
             private CheckBox onlineCheckBox;
     @FXML
-            private VBox tab1VBox2;
+            private VBox tab0VBox2;
     @FXML
     private Button tab0SpeakButton;
+    @FXML
+    private VBox tab0DefVbox;
+    @FXML
+    private HBox updateAndDeleteHBox;
     private static Word currentWord;
 
     static class Cell extends ListCell<String> {
         VBox vBox = new VBox();
         Label label = new Label();
-        public Cell() {
+        public Cell(TextField textField) {
             FXMLManager fxmlManager = new FXMLManager();
             Font font = Font.font("Corbel", FontWeight.BOLD, 18.0);
             label.setFont(font);
@@ -79,6 +89,15 @@ public class SceneController implements Initializable {
             label.setAlignment(Pos.CENTER_LEFT);
             VBox.setVgrow(label, Priority.ALWAYS);
             vBox.getChildren().add(label);
+            this.setOnMouseClicked(mouseEvent -> {
+                StringBuilder content = new StringBuilder();
+                String[] spl = this.getListView().getSelectionModel().getSelectedItem().split(" ");
+                for (int i = 0; i < spl.length; i++) {
+                    if (spl[i].charAt(0) >= 65 && spl[i].charAt(0) <= 90) break;
+                    content.append(spl[i]).append(" ");
+                }
+                textField.setText(content.toString().trim());
+            });
         }
 
         @Override
@@ -125,10 +144,27 @@ public class SceneController implements Initializable {
         myListView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
             @Override
             public ListCell<String> call(ListView<String> param) {
-                return new Cell();
+                return new Cell(tab0searchTextField);
             }
         });
-
+        tab0searchTextField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                System.out.println("enter");
+                myListView.getItems().clear();
+                translate();
+            }
+        });
+        tab0searchTextField.setOnKeyTyped(event -> {
+            if ((int) event.getCharacter().charAt(0) != 13) {
+                System.out.println("typed : ");
+                myListView.getItems().clear();
+                updateAndDeleteHBox.setVisible(false);
+                updateAndDeleteHBox.setManaged(false);
+                showHints();
+            }
+        });
+        updateAndDeleteHBox.setVisible(false);
+        updateAndDeleteHBox.setManaged(false);
         scrollPane1.setFitToWidth(true);
         scrollPane2.setFitToWidth(true);
         scrollPane3.setFitToWidth(true);
@@ -145,21 +181,35 @@ public class SceneController implements Initializable {
         if (myListView.getSelectionModel().getSelectedItem() == null) {
             return;
         }
+        tab0SpeakButton.setVisible(false);
+        tab0SpeakButton.setManaged(false);
         String[] spl = myListView.getSelectionModel().getSelectedItem().split(" ");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXML Files/NewWordScrollPane.fxml"));
-        System.out.println(translateFrom);
         if ("en".equals(translateFrom)) {
+            EnglishWord englishWord = null;
+            StringBuilder content = new StringBuilder();
+            StringBuilder type = new StringBuilder();
+            int i = 0;
+            while (i < spl.length) {
+                if (spl[i].charAt(0) >= 65 && spl[i].charAt(0) <= 90) break;
+                content.append(spl[i]).append(" ");
+                i++;
+            }
+
+            for (int j = i; j < spl.length; j++) {
+                type.append(spl[j]).append(" ");
+            }
+
             int idx = Collections.binarySearch(Dictionary.getInstance()
                             .getEnglishWordsArrayList(),
-                    new EnglishWord(spl[0], spl[1]));
-            EnglishWord englishWord = null;
+                    new EnglishWord(content.toString().trim(), type.toString().trim()));
             if (idx >= 0) {
                 englishWord = Dictionary
                         .getInstance()
                         .getEnglishWordsArrayList()
                         .get(idx);
             }
-            for (Node node : tab1VBox2.getChildren()) {
+            for (Node node : tab0DefVbox.getChildren()) {
                 node.setVisible(false);
                 node.setManaged(false);
             }
@@ -168,8 +218,8 @@ public class SceneController implements Initializable {
                 UpdateWordController updateWordController = fxmlLoader.getController();
                 updateWordController.create(englishWord);
                 VBox.setVgrow(scrollPane, Priority.ALWAYS);
-                tab1VBox2.getChildren().add(scrollPane);
-                UpdateWordController.setCrossVBox(tab1VBox2);
+                tab0DefVbox.getChildren().add(scrollPane);
+                UpdateWordController.setCrossVBox(tab0DefVbox);
             } catch (Exception e) {
 
             }
@@ -177,20 +227,28 @@ public class SceneController implements Initializable {
         if ("vi".equals(translateFrom)) {
             VietnameseWord vietnameseWord = null;
             StringBuilder content = new StringBuilder();
-            for (int i = 0; i < spl.length - 1; i++) {
+            StringBuilder type = new StringBuilder();
+            int i = 0;
+            while (i < spl.length) {
+                if (spl[i].charAt(0) >= 65 && spl[i].charAt(0) <= 90) break;
                 content.append(spl[i]).append(" ");
+                i++;
             }
-            content.deleteCharAt(content.lastIndexOf(" "));
+
+            for (int j = i; j < spl.length; j++) {
+                type.append(spl[j]).append(" ");
+            }
+
             int idx = Collections.binarySearch(Dictionary.getInstance()
                             .getVietnameseWordsArrayList(),
-                    new VietnameseWord(content.toString(), spl[spl.length - 1]));
+                    new VietnameseWord(content.toString().trim(), type.toString().trim()));
             if (idx >= 0) {
                 vietnameseWord = Dictionary
                         .getInstance()
                         .getVietnameseWordsArrayList()
                         .get(idx);
             }
-            for (Node node : tab1VBox2.getChildren()) {
+            for (Node node : tab0DefVbox.getChildren()) {
                 node.setVisible(false);
                 node.setManaged(false);
             }
@@ -199,22 +257,37 @@ public class SceneController implements Initializable {
                 UpdateWordController updateWordController = fxmlLoader.getController();
                 updateWordController.create(vietnameseWord);
                 VBox.setVgrow(scrollPane, Priority.ALWAYS);
-                tab1VBox2.getChildren().add(scrollPane);
-                UpdateWordController.setCrossVBox(tab1VBox2);
+                tab0DefVbox.getChildren().add(scrollPane);
+                UpdateWordController.setCrossVBox(tab0DefVbox);
             } catch (Exception e) {
 
             }
         }
     }
 
+
     public void deleteWord(ActionEvent event) {
         if (myListView.getSelectionModel().getSelectedItem() == null) {
             return;
         }
         String[] spl = myListView.getSelectionModel().getSelectedItem().split(" ");
+
+        StringBuilder content = new StringBuilder();
+        StringBuilder type = new StringBuilder();
+        int i = 0;
+        while (i < spl.length) {
+            if (spl[i].charAt(0) >= 65 && spl[i].charAt(0) <= 90) break;
+            content.append(spl[i]).append(" ");
+            i++;
+        }
+
+        for (int j = i; j < spl.length; j++) {
+            type.append(spl[j]).append(" ");
+        }
+
         int idx = Collections.binarySearch(Dictionary.getInstance()
                         .getEnglishWordsArrayList(),
-                new EnglishWord(spl[0], spl[1]));
+                new EnglishWord(content.toString().trim(), type.toString().trim()));
         if (idx >= 0) {
             LocalDictionaryManager.getInstance()
                     .deleteWordFromDictionary(Dictionary
@@ -224,7 +297,7 @@ public class SceneController implements Initializable {
         } else {
             idx = Collections.binarySearch(Dictionary.getInstance()
                             .getVietnameseWordsArrayList(),
-                    new VietnameseWord(spl[0], spl[1]));
+                    new VietnameseWord(content.toString().trim(), type.toString().trim()));
             LocalDictionaryManager
                     .getInstance()
                     .deleteWordFromDictionary(Dictionary
@@ -236,55 +309,156 @@ public class SceneController implements Initializable {
         if (myListView.getItems().isEmpty()) {
             tab0SpeakButton.setVisible(false);
             myListView.setVisible(false);
+            updateAndDeleteHBox.setVisible(false);
+            updateAndDeleteHBox.setManaged(false);
         }
     }
 
     //**
     public void addNewWord(ActionEvent event) {
-        if (!tab1VBox2.getChildren().get(0).isManaged()) {
+        if (!tab0VBox2.getChildren().get(0).isManaged()) {
             return;
         }
-        FXMLManager fxmlManager = new FXMLManager();
-        for (Node node : tab1VBox2.getChildren()) {
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/FXML Files/NewWordScrollPane.fxml"));
+
+        for (Node node : tab0VBox2.getChildren()) {
             node.setVisible(false);
             node.setManaged(false);
         }
-        ScrollPane scrollPane = (ScrollPane) fxmlManager.getFXMLInsertedRoot("/FXML Files/NewWordScrollPane.fxml");
-        VBox.setVgrow(scrollPane, Priority.ALWAYS);
-        tab1VBox2.getChildren().add(scrollPane);
-        UpdateWordController.setCrossVBox(tab1VBox2);
+
+        if ("en".equals(translateFrom)) {
+            try {
+                ScrollPane scrollPane = fxmlLoader.load();
+                UpdateWordController updateWordController = fxmlLoader.getController();
+                updateWordController.create(new EnglishWord("", ""));
+                VBox.setVgrow(scrollPane, Priority.ALWAYS);
+                tab0VBox2.getChildren().add(scrollPane);
+                UpdateWordController.setCrossVBox(tab0VBox2);
+            } catch (Exception e) {
+
+            }
+        }
+        if ("vi".equals(translateFrom)) {
+            try {
+                ScrollPane scrollPane = fxmlLoader.load();
+                UpdateWordController updateWordController = fxmlLoader.getController();
+                updateWordController.create(new VietnameseWord("", ""));
+                VBox.setVgrow(scrollPane, Priority.ALWAYS);
+                tab0VBox2.getChildren().add(scrollPane);
+                UpdateWordController.setCrossVBox(tab0VBox2);
+            } catch (Exception e) {
+
+            }
+        }
     }
 
 
     public void define(ActionEvent event) {
         if (!tab1SearchTextField.getText().isEmpty()) {
-            OnlineDictionaryManager.getInstance().onlineDefinitionLookup(tab1SearchTextField.getText());
-            speakButton1.setVisible(true);
+            try {
+                OnlineDictionaryManager.getInstance().onlineDefinitionLookup(tab1SearchTextField.getText());
+                tab1SearchTextField.setPromptText("Definitions?...");
+                speakButton1.setVisible(true);
+            } catch (Exception e) {
+                tab1SearchTextField.setPromptText("Không có kết nối internet!");
+            }
         }
         LocalDictionaryManager.getInstance().showAllEnglishWords();
     }
 
     private void translate() {
-        if (!tab1VBox2.getChildren().get(0).isManaged()) {
+        System.out.println("translate");
+        if (!tab0VBox2.getChildren().get(0).isManaged()) {
             UpdateWordController.reset();
         }
-        if (tab0searchTextField.getText().isEmpty()) return;
+        if (tab0searchTextField.getText().isEmpty()) {
+            //myListView.setVisible(false);
+            tab0SpeakButton.setVisible(false);
+            return;
+        }
+        if (onlineCheckBox.isSelected()) {
+            try {
+                OnlineDictionaryManager.getInstance().dictionaryLookup(tab0searchTextField.getText(), translateFrom, translateTo);
+                myListView.setVisible(LocalDictionaryManager.getInstance().dictionaryLookup(tab0searchTextField.getText(), translateFrom, translateTo, splitPane1));
+            } catch (Exception e) {
+
+            }
+        } else {
+            myListView.setVisible(LocalDictionaryManager.getInstance().dictionaryLookup(tab0searchTextField.getText(), translateFrom, translateTo, splitPane1));
+        }
+    }
+
+    private void showHints() {
+        System.out.println("show hints");
+        if (tab0searchTextField.getText().length() >= 2) {
+            Comparator<String> comparator = new Comparator<String>() {
+                @Override
+                public int compare(String o1, String o2) {
+                    Pattern pattern = Pattern.compile("^" + o2);
+                    if (pattern.matcher(o1).find()) {
+                        return 0;
+                    }
+                    return o1.compareTo(o2);
+                }
+            };
+            int idx = Collections.binarySearch(Hint.getInstance().getHintList(), tab0searchTextField.getText());
+            if (idx >= 0) {
+                myListView.getItems().add(Hint.getInstance().getHintList().get(idx));
+            }
+
+            idx = Collections.binarySearch(Hint.getInstance().getHintList(), tab0searchTextField.getText(), comparator);
+            for (int i = 0; i < 20; i++) {
+                if (i + idx < Hint.getInstance().getHintList().size() && idx >= 0 && !myListView.getItems().contains(Hint.getInstance().getHintList().get(i + idx))) {
+                    myListView.getItems().add(Hint.getInstance().getHintList().get(i + idx));
+                }
+            }
+        }
+        myListView.setVisible(!myListView.getItems().isEmpty());
+    }
+
+/*    private void translate() {
+*//*        if (!tab0VBox2.getChildren().get(0).isManaged()) {
+            UpdateWordController.reset();
+        }*//*
+        if (tab0searchTextField.getText().isEmpty()) {
+            tab0SpeakButton.setVisible(false);
+            return;
+        }
         myListView.setVisible(false);
         if (onlineCheckBox.isSelected()) {
-            OnlineDictionaryManager.getInstance().dictionaryLookup(tab0searchTextField.getText(), translateFrom, translateTo);
-            if(LocalDictionaryManager.getInstance().dictionaryLookup(tab0searchTextField.getText(), translateFrom, translateTo, splitPane1)) {
-                myListView.setVisible(true);
+            if (tab0searchTextField.getText().length() >= 2) {
+                Comparator<String> comparator = new Comparator<String>() {
+                    @Override
+                    public int compare(String o1, String o2) {
+                        Pattern pattern = Pattern.compile("^" + o2);
+                        if (pattern.matcher(o1).find()) {
+                            return 0;
+                        }
+                        return o1.compareTo(o2);
+                    }
+                };
+                int idx = Collections.binarySearch(Hint.getInstance().getHintList(), tab0searchTextField.getText());
+                if (idx >= 0) {
+                    myListView.getItems().add(Hint.getInstance().getHintList().get(idx));
+                }
+
+                idx = Collections.binarySearch(Hint.getInstance().getHintList(), tab0searchTextField.getText(), comparator);
+                for (int i = 0; i < 20; i++) {
+                    if (i + idx < Hint.getInstance().getHintList().size() && idx >= 0 && !myListView.getItems().contains(Hint.getInstance().getHintList().get(i + idx))) {
+                        myListView.getItems().add(Hint.getInstance().getHintList().get(i + idx));
+                    }
+                }
+                if (!myListView.getItems().isEmpty()) {
+                    myListView.setVisible(true);
+                }
             }
         } else {
             if(LocalDictionaryManager.getInstance().dictionaryLookup(tab0searchTextField.getText(), translateFrom, translateTo, splitPane1)) {
                 myListView.setVisible(true);
             }
         }
-    }
-
-    public void translate(ActionEvent event) {
-        translate();
-    }
+    }*/
 
     public void speak(ActionEvent event) {
         if (myListView.getItems().get(0) != null) {
@@ -301,6 +475,10 @@ public class SceneController implements Initializable {
     /** sửa sau. */
     public void switchLanguageToEnglish(ActionEvent event) {
         if (!translateFrom.equals("en")) {
+            if (!tab0VBox2.getChildren().get(0).isManaged()) {
+                UpdateWordController.reset();
+            }
+            setTab0Visible(false);
             translateFrom = "en";
             translateTo = "vi";
             languageMenuButton.setText("Tiếng Anh");
@@ -313,6 +491,10 @@ public class SceneController implements Initializable {
     /** sửa sau. */
     public void switchLanguageToVietnamese(ActionEvent event) {
         if (!translateFrom.equals("vi")) {
+            if (!tab0VBox2.getChildren().get(0).isManaged()) {
+                UpdateWordController.reset();
+            }
+            setTab0Visible(false);
             translateFrom = "vi";
             translateTo = "en";
             languageMenuButton.setText("Tiếng Việt");
@@ -367,15 +549,27 @@ public class SceneController implements Initializable {
 
     public void phraseTranslate(ActionEvent event) {
         if (textArea1.getText().isEmpty()) return;
-        textArea2.setText("");
-        List<String> transList = new ArrayList<>(Arrays.asList(textArea1.getText().split("\n")));
-        transList = OnlineDictionaryManager.getInstance().phraseTrans(transList, pTransFrom, pTransTo);
-        if (transList != null) {
-            for (String s : transList) {
-                textArea2.appendText(s + "\n");
+        try {
+            textArea2.setText("");
+            List<String> transList = new ArrayList<>(Arrays.asList(textArea1.getText().split("\n")));
+            transList = OnlineDictionaryManager.getInstance().phraseTrans(transList, pTransFrom, pTransTo);
+            if (transList != null) {
+                for (String s : transList) {
+                    textArea2.appendText(s + "\n");
+                }
             }
+            textArea2.setPromptText("");
+        } catch (Exception e) {
+            textArea2.setPromptText("Không có kết nối internet");
         }
     }
+
+    public void setTab0Visible(boolean visible) {
+        for (Node node : tab0VBox2.getChildren()) {
+            node.setVisible(visible);
+        }
+    }
+
     public void switchScene(ActionEvent event) throws IOException {
         FXMLManager rootManager = new FXMLManager();
         Parent root = rootManager.getFXMLInsertedRoot("DictionaryApplication.fxml");
