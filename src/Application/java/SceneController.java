@@ -14,6 +14,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
@@ -88,6 +89,8 @@ public class SceneController implements Initializable {
     private Label tabTitle5;
     @FXML
     private Button translateButtonTab3;
+    @FXML
+    private Tab tab5;
     private static Word currentWord;
 
     static class Cell extends ListCell<String> {
@@ -218,6 +221,11 @@ public class SceneController implements Initializable {
         textArea1.fontProperty().bind(tab0searchTextField.fontProperty());
         textArea2.fontProperty().bind(textArea1.fontProperty());
         translateButtonTab3.fontProperty().bind(tabTitle1.fontProperty());
+
+        tab5.setOnSelectionChanged(event -> {
+            StackPane root = (StackPane) fxmlManager.getFXMLInsertedRoot("/FXML Files/GameTest.fxml");
+            tab5.setContent(root);
+        });
     }
 
     public void updateWord(ActionEvent event) {
