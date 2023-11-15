@@ -628,4 +628,18 @@ public class SceneController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    @FXML
+    public void onExitButtonClick() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Thoát");
+        alert.setHeaderText("Nếu bạn thoát trước khi lưu từ điển hoặc chưa kết thúc game, dữ liệu sẽ không được lưu lại!");
+        alert.setContentText("Bạn có chắc chắn muốn thoát không?");
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            System.out.println("exit");
+            LocalDictionaryManager.getInstance().exportWordToFile();
+            Stage stage = (Stage) tab0searchTextField.getScene().getWindow();
+            stage.close();
+        }
+    }
 }

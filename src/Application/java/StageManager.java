@@ -40,6 +40,8 @@ public class StageManager {
     }
 
     public void configure() {
+        stage.setMinWidth(800);
+        stage.setMinHeight(600);
         stage.setTitle("Dictionary Application");
         stage.setFullScreenExitHint("Nhấn ESC để thoát chế độ toàn màn hình");
         //stage.setResizable(false);

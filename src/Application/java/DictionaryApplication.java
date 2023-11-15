@@ -29,8 +29,10 @@ public class DictionaryApplication extends Application {
         SceneManager.getInstance().initializeScenes();
         stageManager.configure();
         LocalDictionaryManager.getInstance().insertWordFromFile();
+
         stageManager.setSceneInListToStage(SceneIndex.HOMEINDEX);
         stageManager.showStage();
+
         primaryStage.setOnCloseRequest(event -> {
             event.consume();
             exit(primaryStage);
@@ -39,8 +41,8 @@ public class DictionaryApplication extends Application {
     public void exit(Stage stage) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Thoát");
-        alert.setHeaderText("Bạn sắp thoát ứng dụng!");
-        alert.setContentText("Lưu trạng thái từ điển trước khi thoát?: ");
+        alert.setHeaderText("Nếu bạn thoát trước khi lưu từ điển hoặc chưa kết thúc game, dữ liệu sẽ không được lưu lại!");
+        alert.setContentText("Bạn có chắc chắn muốn thoát không?");
         if (alert.showAndWait().get() == ButtonType.OK) {
             System.out.println("exit");
             LocalDictionaryManager.getInstance().exportWordToFile();
