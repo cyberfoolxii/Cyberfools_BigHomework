@@ -88,6 +88,8 @@ public class SceneController implements Initializable {
     @FXML
     private Label tabTitle5;
     @FXML
+    private Label exitLabel;
+    @FXML
     private Button translateButtonTab3;
     @FXML
     private Tab tab5;
@@ -205,6 +207,7 @@ public class SceneController implements Initializable {
         tabTitle3.fontProperty().bind(tabTitle1.fontProperty());
         tabTitle4.fontProperty().bind(tabTitle1.fontProperty());
         tabTitle5.fontProperty().bind(tabTitle1.fontProperty());
+        exitLabel.fontProperty().bind(tabTitle1.fontProperty());
         tab0searchTextField.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 18));
         tab1SearchTextField.fontProperty().bind(tab0searchTextField.fontProperty());
         tab3LanguageMenuButton1.fontProperty().bind(languageMenuButton.fontProperty());

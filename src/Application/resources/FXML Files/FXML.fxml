@@ -270,7 +270,7 @@
                   <Label fx:id="tabTitle5" text="Mini game" />
                </graphic>
             </Tab>
-            <Tab fx:id="exitTab" text="Thoát">
+            <Tab fx:id="exitTab">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -282,6 +282,9 @@
                      </children>
                   </AnchorPane>
               </content>
+               <graphic>
+                  <Label fx:id="exitLabel" text="Thoát" />
+               </graphic>
             </Tab>
          </tabs>
          <VBox.margin>
