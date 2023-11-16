@@ -16,7 +16,6 @@
 <?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -269,22 +268,36 @@
                <graphic>
                   <Label fx:id="tabTitle5" text="Mini game" />
                </graphic>
+               <content>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="selectGameButton1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#switchToGame1" prefWidth="20.0" text="Multiple Choice Game" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="selectGameButton2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="20.0" text="Button" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="selectGameButton3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="20.0" text="Button" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+               </content>
             </Tab>
             <Tab fx:id="exitTab">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <graphic>
+                  <Label fx:id="exitLabel" text="Tuỳ chọn" />
+               </graphic>
+               <content>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Button fx:id="exitButton" layoutX="423.0" layoutY="233.0" mnemonicParsing="false" onAction="#onExitButtonClick" text="Exit!">
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" prefWidth="900.0" text="Button" VBox.vgrow="ALWAYS">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="exitButton" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onExitButtonClick" prefHeight="30.0" prefWidth="900.0" text="Exit!" VBox.vgrow="ALWAYS">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Button>
                      </children>
-                  </AnchorPane>
-              </content>
-               <graphic>
-                  <Label fx:id="exitLabel" text="Thoát" />
-               </graphic>
+                  </VBox>
+               </content>
             </Tab>
          </tabs>
          <VBox.margin>

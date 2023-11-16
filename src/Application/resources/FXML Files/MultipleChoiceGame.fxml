@@ -7,23 +7,17 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.media.MediaView?>
 
-<StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.java.GameController">
+<StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.java.MultipleChoiceGameController">
    <children>
-      <FlowPane alignment="TOP_RIGHT">
-         <children>
-            <MediaView fx:id="timerMediaView" fitHeight="100.0" fitWidth="100.0" />
-         </children>
-      </FlowPane>
-      <VBox prefHeight="402.0" prefWidth="600.0">
+      <VBox fx:id="myVBox" prefHeight="402.0" prefWidth="600.0">
          <children>
             <FlowPane alignment="CENTER" prefHeight="234.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
                <children>
                   <Label fx:id="questionLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="122.0" prefWidth="436.0" text="Who is the most handsome person on earth?" textAlignment="JUSTIFY" wrapText="true" />
                </children>
             </FlowPane>
-            <HBox prefHeight="60.0" prefWidth="462.0" VBox.vgrow="ALWAYS">
+            <HBox fx:id="myHBox" prefHeight="60.0" prefWidth="462.0" VBox.vgrow="ALWAYS">
                <children>
                   <Button fx:id="answerButton1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAnswerButtonAction" prefHeight="102.0" prefWidth="110.0" textAlignment="JUSTIFY" wrapText="true" HBox.hgrow="ALWAYS">
                      <HBox.margin>

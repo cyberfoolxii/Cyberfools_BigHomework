@@ -1,7 +1,5 @@
 package Application.java;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,13 +9,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.event.*;
@@ -93,6 +89,12 @@ public class SceneController implements Initializable {
     private Button translateButtonTab3;
     @FXML
     private Tab tab5;
+    @FXML
+    private Button selectGameButton1;
+    @FXML
+    private Button selectGameButton2;
+    @FXML
+    private Button selectGameButton3;
     private static Word currentWord;
 
     static class Cell extends ListCell<String> {
@@ -224,11 +226,12 @@ public class SceneController implements Initializable {
         textArea1.fontProperty().bind(tab0searchTextField.fontProperty());
         textArea2.fontProperty().bind(textArea1.fontProperty());
         translateButtonTab3.fontProperty().bind(tabTitle1.fontProperty());
+    }
 
-        tab5.setOnSelectionChanged(event -> {
-            StackPane root = (StackPane) fxmlManager.getFXMLInsertedRoot("/FXML Files/GameTest.fxml");
-            tab5.setContent(root);
-        });
+    public void switchToGame1(ActionEvent event) {
+        FXMLManager fxmlManager = new FXMLManager();
+        StackPane root = (StackPane) fxmlManager.getFXMLInsertedRoot("/FXML Files/MultipleChoiceGame.fxml");
+        tab5.setContent(root);
     }
 
     public void updateWord(ActionEvent event) {
