@@ -229,9 +229,25 @@ public class SceneController implements Initializable {
     }
 
     public void switchToGame1(ActionEvent event) {
+        for (Node node : ((VBox) tab5.getContent()).getChildren() ) {
+            node.setVisible(false);
+            node.setManaged(false);
+        }
+
         FXMLManager fxmlManager = new FXMLManager();
-        StackPane root = (StackPane) fxmlManager.getFXMLInsertedRoot("/FXML Files/MultipleChoiceGame.fxml");
-        tab5.setContent(root);
+        VBox root = (VBox) fxmlManager.getFXMLInsertedRoot("/FXML Files/MultipleChoiceGame.fxml");
+        VBox.setVgrow(root, Priority.ALWAYS);
+        ((VBox) tab5.getContent()).getChildren().add(root);
+    }
+
+    // viet sau
+    public void switchToGame2(ActionEvent event) {
+
+    }
+
+    // viet sau
+    public void switchToGame3(ActionEvent event) {
+
     }
 
     public void updateWord(ActionEvent event) {
@@ -342,17 +358,20 @@ public class SceneController implements Initializable {
             type.append(spl[j]).append(" ");
         }
 
-        int idx = Collections.binarySearch(Dictionary.getInstance()
-                        .getEnglishWordsArrayList(),
-                new EnglishWord(content.toString().trim(), type.toString().trim()));
-        if (idx >= 0) {
-            LocalDictionaryManager.getInstance()
-                    .deleteWordFromDictionary(Dictionary
-                            .getInstance()
-                            .getEnglishWordsArrayList()
-                            .get(idx));
-        } else {
-            idx = Collections.binarySearch(Dictionary.getInstance()
+        if (translateFrom.equals("en")) {
+            int idx = Collections.binarySearch(Dictionary.getInstance()
+                            .getEnglishWordsArrayList(),
+                    new EnglishWord(content.toString().trim(), type.toString().trim()));
+            if (idx >= 0) {
+                LocalDictionaryManager.getInstance()
+                        .deleteWordFromDictionary(Dictionary
+                                .getInstance()
+                                .getEnglishWordsArrayList()
+                                .get(idx));
+            }
+        }
+        if (translateFrom.equals("vi")) {
+            int idx = Collections.binarySearch(Dictionary.getInstance()
                             .getVietnameseWordsArrayList(),
                     new VietnameseWord(content.toString().trim(), type.toString().trim()));
             LocalDictionaryManager

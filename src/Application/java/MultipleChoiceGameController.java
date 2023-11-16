@@ -6,8 +6,10 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -37,6 +39,8 @@ public class MultipleChoiceGameController implements Initializable {
     private VBox myVBox;
     @FXML
     private HBox myHBox;
+    @FXML
+    private FlowPane myFlowPane;
 
     private List<Question> questions;
     private int currentQuestionIndex;
@@ -47,21 +51,17 @@ public class MultipleChoiceGameController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         FXMLManager fxmlManager = new FXMLManager();
-        questionLabel.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 18));
-        answerButton1.fontProperty().bind(questionLabel.fontProperty());
-        answerButton2.fontProperty().bind(questionLabel.fontProperty());
-        answerButton3.fontProperty().bind(questionLabel.fontProperty());
-        answerButton4.fontProperty().bind(questionLabel.fontProperty());
+        questionLabel.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 25));
+        answerButton1.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 20));
+        answerButton2.fontProperty().bind(answerButton1.fontProperty());
+        answerButton3.fontProperty().bind(answerButton1.fontProperty());
+        answerButton4.fontProperty().bind(answerButton1.fontProperty());
         //initTimerMediaView();
 
         // Load questions from file
         questions = QuestionReader.readQuestionsFromFile("src/Application/resources/Animation/questions.txt", "src/Application/resources/Animation/answers.txt");
-        // Shuffle questions
-        java.util.Collections.shuffle(questions);
-        // Initialize game state
-        currentQuestionIndex = 0;
-        score = 0;
-        lives = 3;
+
+        setInitialGameStates();
 
         System.out.println("Right answer: " + questions.get(currentQuestionIndex).getCorrectAnswer());
 
@@ -145,42 +145,105 @@ public class MultipleChoiceGameController implements Initializable {
             System.out.println("Congratulations! You won with a score of " + score);
         } else {
             System.out.println("Game Over! Your final score is " + score);
-            questionLabel.setText("Game Over! Your final score is " + score);
-            questionLabel.setStyle("-fx-text-fill: #FF0000;");
-            for (Node node : myVBox.getChildren()) {
-                node.setVisible(false);
-                node.setManaged(false);
-            }
-            
-            FXMLManager fxmlManager = new FXMLManager();
-            Button menuButton = new Button();
-            Button replayButton = new Button();
-            menuButton.setText("Menu");
-            replayButton.setText("Replay");
-            menuButton.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 18));
-            replayButton.fontProperty().bind(menuButton.fontProperty());
-            myHBox.getChildren().add(menuButton);
-            myHBox.getChildren().add(replayButton);
-            HBox.setHgrow(menuButton, Priority.ALWAYS);
-            HBox.setHgrow(replayButton, Priority.ALWAYS);
-            menuButton.prefWidthProperty().bind(myHBox.widthProperty());
-            replayButton.prefWidthProperty().bind(myHBox.widthProperty());
-            menuButton.setOnAction(event -> backToMenu());
-            replayButton.setOnAction(event -> reset());
-
-            Label gameOverLabel = new Label("Game Over! Your final score is " + score);
-            gameOverLabel.fontProperty().bind(menuButton.fontProperty());
-            HBox gameOverHBox = new HBox(menuButton, replayButton);
-            VBox gameOverVBox = new VBox(gameOverLabel, gameOverHBox);
-
+            setGameOverUI();
         }
     }
 
-    private void backToMenu() {
+    private void setGameOverUI() {
+        setGameNodeVisAndManaged(false);
+        FXMLManager fxmlManager = new FXMLManager();
 
+        Button menuButton = new Button();
+        menuButton.setOnAction(event -> {
+            backToMenu();
+        });
+        menuButton.setText("Menu");
+        menuButton.setAlignment(Pos.CENTER);
+        menuButton.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 18));
+        HBox.setHgrow(menuButton, Priority.ALWAYS);
+        menuButton.maxWidthProperty().bind(answerButton1.maxWidthProperty());
+        menuButton.maxHeightProperty().bind(answerButton1.maxHeightProperty());
+        HBox.setMargin(menuButton, new Insets(0, 120, 0, 200));
+
+        Button replayButton = new Button();
+        replayButton.setOnAction(event -> {
+            reset();
+        });
+        replayButton.setText("Replay");
+        replayButton.setAlignment(Pos.CENTER);
+        replayButton.fontProperty().bind(menuButton.fontProperty());
+        HBox.setHgrow(replayButton, Priority.ALWAYS);
+        replayButton.maxWidthProperty().bind(answerButton1.maxWidthProperty());
+        replayButton.maxHeightProperty().bind(answerButton1.maxHeightProperty());
+        HBox.setMargin(replayButton, new Insets(0, 200, 0, 0));
+
+
+        Label gameOverLabel = new Label("Game Over! Your final score is " + score);
+        gameOverLabel.prefWidthProperty().bind(questionLabel.widthProperty());
+        gameOverLabel.prefHeightProperty().bind(questionLabel.heightProperty());
+        gameOverLabel.setAlignment(Pos.CENTER);
+        gameOverLabel.fontProperty().bind(questionLabel.fontProperty());
+
+        FlowPane flowPane = new FlowPane(gameOverLabel);
+        flowPane.alignmentProperty().bind(myFlowPane.alignmentProperty());
+        flowPane.prefWidthProperty().bind(myFlowPane.widthProperty());
+        flowPane.prefHeightProperty().bind(myFlowPane.heightProperty());
+        VBox.setVgrow(flowPane, Priority.ALWAYS);
+
+        HBox hBox = new HBox(menuButton, replayButton);
+        HBox.setMargin(hBox, HBox.getMargin(myHBox));
+        VBox.setVgrow(hBox, VBox.getVgrow(myHBox));
+
+        VBox vBox = new VBox(flowPane, hBox);
+
+        myVBox.getChildren().add(vBox);
+    }
+
+    private void setGameNodeVisAndManaged(boolean isVisAndManaged) {
+        for (Node node : myVBox.getChildren()) {
+            node.setVisible(isVisAndManaged);
+            node.setManaged(isVisAndManaged);
+        }
+    }
+
+
+    private void backToMenu() {
+        VBox vBox = (VBox) myVBox.getParent();
+        vBox.getChildren().remove(vBox.getChildren().size() - 1);
+        for (Node node : vBox.getChildren()) {
+            node.setVisible(true);
+            node.setManaged(true);
+        }
     }
 
     private void reset() {
+        myVBox.getChildren().remove(myVBox.getChildren().size() - 1);
+        setInitialGameStates();
+        displayQuestion();
+        setGameNodeVisAndManaged(true);
+    }
 
+    private void setInitialGameStates() {
+        // Shuffle questions
+        java.util.Collections.shuffle(questions);
+        // Initialize game state
+        currentQuestionIndex = 0;
+        score = 0;
+        lives = 3;
+    }
+
+    // nhớ sửa responsive cho paused menu
+    public void showPausedMenu(ActionEvent event) {
+        FXMLManager fxmlManager = new FXMLManager();
+        for (Node node : myVBox.getChildren()) {
+            node.setVisible(false);
+            node.setManaged(false);
+        }
+        VBox parent = (VBox) fxmlManager.getFXMLInsertedRoot("/FXML Files/MultipleChoiceGameMenu.fxml");
+
+        myVBox.getChildren().add(parent);
+        VBox.setVgrow(parent, Priority.ALWAYS);
+        parent.maxHeightProperty().bind(myVBox.heightProperty());
+        parent.maxWidthProperty().bind(myVBox.widthProperty());
     }
 }

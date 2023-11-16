@@ -5,46 +5,46 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.java.MultipleChoiceGameController">
+<VBox fx:id="myVBox" prefHeight="402.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.java.MultipleChoiceGameController">
    <children>
-      <VBox fx:id="myVBox" prefHeight="402.0" prefWidth="600.0">
+      <FlowPane alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="39.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
          <children>
-            <FlowPane alignment="CENTER" prefHeight="234.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
-               <children>
-                  <Label fx:id="questionLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="122.0" prefWidth="436.0" text="Who is the most handsome person on earth?" textAlignment="JUSTIFY" wrapText="true" />
-               </children>
-            </FlowPane>
-            <HBox fx:id="myHBox" prefHeight="60.0" prefWidth="462.0" VBox.vgrow="ALWAYS">
-               <children>
-                  <Button fx:id="answerButton1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAnswerButtonAction" prefHeight="102.0" prefWidth="110.0" textAlignment="JUSTIFY" wrapText="true" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets right="20.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="answerButton2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAnswerButtonAction" prefHeight="102.0" prefWidth="110.0" textAlignment="JUSTIFY" wrapText="true" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets right="20.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="answerButton3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAnswerButtonAction" prefHeight="174.0" prefWidth="110.0" textAlignment="JUSTIFY" wrapText="true" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets right="20.0" />
-                     </HBox.margin>
-                  </Button>
-                  <Button fx:id="answerButton4" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAnswerButtonAction" prefHeight="201.0" prefWidth="110.0" textAlignment="JUSTIFY" wrapText="true" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets />
-                     </HBox.margin>
-                  </Button>
-               </children>
-               <VBox.margin>
-                  <Insets bottom="20.0" left="60.0" right="60.0" top="20.0" />
-               </VBox.margin>
-            </HBox>
+            <Button maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#showPausedMenu" prefHeight="40.0" prefWidth="73.0" text="Pause" />
          </children>
-      </VBox>
+      </FlowPane>
+      <FlowPane fx:id="myFlowPane" alignment="CENTER" prefHeight="234.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+         <children>
+            <Label fx:id="questionLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="162.0" prefWidth="481.0" text="Who is the most handsome person on earth?" textAlignment="JUSTIFY" wrapText="true" />
+         </children>
+      </FlowPane>
+      <HBox fx:id="myHBox" prefHeight="60.0" prefWidth="462.0" VBox.vgrow="ALWAYS">
+         <children>
+            <Button fx:id="answerButton1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAnswerButtonAction" prefHeight="102.0" prefWidth="110.0" textAlignment="JUSTIFY" wrapText="true" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="answerButton2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAnswerButtonAction" prefHeight="102.0" prefWidth="110.0" textAlignment="JUSTIFY" wrapText="true" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="answerButton3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAnswerButtonAction" prefHeight="174.0" prefWidth="110.0" textAlignment="JUSTIFY" wrapText="true" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="answerButton4" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAnswerButtonAction" prefHeight="201.0" prefWidth="110.0" textAlignment="JUSTIFY" wrapText="true" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+         </children>
+         <VBox.margin>
+            <Insets bottom="20.0" left="60.0" right="60.0" top="20.0" />
+         </VBox.margin>
+      </HBox>
    </children>
-</StackPane>
+</VBox>
