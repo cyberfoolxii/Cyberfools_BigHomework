@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -658,12 +659,15 @@ public class SceneController implements Initializable {
     public void onExitButtonClick() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Thoát");
-        alert.setHeaderText("Nếu bạn thoát trước khi lưu từ điển hoặc chưa kết thúc game, dữ liệu sẽ không được lưu lại!");
+        alert.setHeaderText("Nếu bạn thoát trước khi kết thúc game, dữ liệu sẽ không được lưu lại!");
         alert.setContentText("Bạn có chắc chắn muốn thoát không?");
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("file:src/Application/resources/AppIcon/exit.png"));
+
         if (alert.showAndWait().get() == ButtonType.OK) {
             System.out.println("exit");
             LocalDictionaryManager.getInstance().exportWordToFile();
-            Stage stage = (Stage) tab0searchTextField.getScene().getWindow();
+            stage = (Stage) tab0searchTextField.getScene().getWindow();
             stage.close();
         }
     }

@@ -2,6 +2,7 @@ package Application.java;
 
 import com.google.gson.Gson;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -10,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.Circle;
@@ -41,8 +43,11 @@ public class DictionaryApplication extends Application {
     public void exit(Stage stage) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Thoát");
-        alert.setHeaderText("Nếu bạn thoát trước khi lưu từ điển hoặc chưa kết thúc game, dữ liệu sẽ không được lưu lại!");
+        alert.setHeaderText("Nếu bạn thoát trước khi kết thúc game, dữ liệu sẽ không được lưu lại!");
         alert.setContentText("Bạn có chắc chắn muốn thoát không?");
+        Stage exitStage = (Stage) alert.getDialogPane().getScene().getWindow();
+        exitStage.getIcons().add(new Image("file:src/Application/resources/AppIcon/exit.png"));
+
         if (alert.showAndWait().get() == ButtonType.OK) {
             System.out.println("exit");
             LocalDictionaryManager.getInstance().exportWordToFile();

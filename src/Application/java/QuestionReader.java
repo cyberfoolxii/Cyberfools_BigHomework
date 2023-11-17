@@ -53,7 +53,6 @@ public class QuestionReader {
                 Question question = new Question(order, questionText, options, correctAnswer);
                 questions.add(question);
                 order++;
-                System.out.println(order);
             }
         } catch (IOException e) {
             e.printStackTrace();
