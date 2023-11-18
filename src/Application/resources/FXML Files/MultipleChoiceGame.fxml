@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="myVBox" prefHeight="402.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.java.MultipleChoiceGameController">
+<VBox fx:id="myVBox" prefHeight="402.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.java.MultipleChoiceGameController">
    <children>
       <FlowPane alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="39.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
          <children>
@@ -21,22 +21,22 @@
       </FlowPane>
       <HBox fx:id="myHBox" prefHeight="60.0" prefWidth="462.0" VBox.vgrow="ALWAYS">
          <children>
-            <Button fx:id="answerButton1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAnswerButtonAction" prefHeight="102.0" prefWidth="110.0" textAlignment="JUSTIFY" wrapText="true" HBox.hgrow="ALWAYS">
+            <Button fx:id="answerButton1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAnswerButtonAction" prefHeight="102.0" prefWidth="110.0" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="answerButton2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAnswerButtonAction" prefHeight="102.0" prefWidth="110.0" textAlignment="JUSTIFY" wrapText="true" HBox.hgrow="ALWAYS">
+            <Button fx:id="answerButton2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAnswerButtonAction" prefHeight="102.0" prefWidth="110.0" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="answerButton3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAnswerButtonAction" prefHeight="174.0" prefWidth="110.0" textAlignment="JUSTIFY" wrapText="true" HBox.hgrow="ALWAYS">
+            <Button fx:id="answerButton3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAnswerButtonAction" prefHeight="174.0" prefWidth="110.0" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="answerButton4" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAnswerButtonAction" prefHeight="201.0" prefWidth="110.0" textAlignment="JUSTIFY" wrapText="true" HBox.hgrow="ALWAYS">
+            <Button fx:id="answerButton4" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAnswerButtonAction" prefHeight="201.0" prefWidth="110.0" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets />
                </HBox.margin>

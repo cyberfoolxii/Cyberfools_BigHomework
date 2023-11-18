@@ -227,6 +227,8 @@ public class SceneController implements Initializable {
         textArea1.fontProperty().bind(tab0searchTextField.fontProperty());
         textArea2.fontProperty().bind(textArea1.fontProperty());
         translateButtonTab3.fontProperty().bind(tabTitle1.fontProperty());
+
+        selectGameButton1.setText("Multiple Choice Game\nHighest score: " + HighScoreOfGame.getHighestScore1());
     }
 
     public void switchToGame1(ActionEvent event) {

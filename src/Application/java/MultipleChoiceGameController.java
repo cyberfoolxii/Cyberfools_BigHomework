@@ -17,11 +17,13 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
 
+import java.io.*;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.io.File;
+import java.util.Scanner;
 
 public class MultipleChoiceGameController implements Initializable {
 
@@ -46,6 +48,7 @@ public class MultipleChoiceGameController implements Initializable {
     private int currentQuestionIndex;
     private int score;
     private int lives;
+    private int highestScore;
     private MediaPlayer mediaPlayer;
 
     @Override
@@ -177,10 +180,16 @@ public class MultipleChoiceGameController implements Initializable {
         replayButton.maxHeightProperty().bind(answerButton1.maxHeightProperty());
         HBox.setMargin(replayButton, new Insets(0, 200, 0, 0));
 
-
-        Label gameOverLabel = new Label("Game Over! Your final score is " + score);
+        Label gameOverLabel;
+        if(score <= highestScore) {
+            gameOverLabel = new Label("Game Over! Your final score is " + score);
+        } else {
+            gameOverLabel = new Label("Congratulation!\nYou have set new highest score: " + score);
+            HighScoreOfGame.updateHighScore(score);
+        }
         gameOverLabel.prefWidthProperty().bind(questionLabel.widthProperty());
         gameOverLabel.prefHeightProperty().bind(questionLabel.heightProperty());
+        gameOverLabel.setTextAlignment(TextAlignment.CENTER);
         gameOverLabel.setAlignment(Pos.CENTER);
         gameOverLabel.fontProperty().bind(questionLabel.fontProperty());
 
@@ -214,6 +223,11 @@ public class MultipleChoiceGameController implements Initializable {
             node.setVisible(true);
             node.setManaged(true);
         }
+
+        Button selectGameButton1 = (Button) vBox.lookup("#selectGameButton1");
+        if (selectGameButton1 != null) {
+            selectGameButton1.setText("Multiple Choice Game\nHighest score: " + HighScoreOfGame.getHighestScore1());
+        }
     }
 
     private void reset() {
@@ -230,6 +244,11 @@ public class MultipleChoiceGameController implements Initializable {
         currentQuestionIndex = 0;
         score = 0;
         lives = 3;
+        highestScore = HighScoreOfGame.getHighestScore1();
+    }
+
+    public void setHighScore(int highScore) {
+        this.highestScore = highScore;
     }
 
     // nhớ sửa responsive cho paused menu

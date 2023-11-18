@@ -9,8 +9,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 public class MultipleChoiceGamePausedController implements Initializable {
     @FXML
@@ -28,6 +31,7 @@ public class MultipleChoiceGamePausedController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        scoreLabel.setText("Highest score: " + HighScoreOfGame.getHighestScore1());
     }
 
     public void backToGameMainMenu(ActionEvent event) {
