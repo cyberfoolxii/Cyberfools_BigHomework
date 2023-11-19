@@ -18,7 +18,6 @@ public class Hint {
             while ((line = bufferedReader.readLine()) != null) {
                 hintList.add(line);
             }
-            Collections.sort(hintList);
         } catch (IOException e) {
 
         }

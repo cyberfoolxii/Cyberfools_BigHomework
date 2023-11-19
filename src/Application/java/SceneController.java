@@ -1,5 +1,7 @@
 package Application.java;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -96,6 +98,8 @@ public class SceneController implements Initializable {
     private Button selectGameButton2;
     @FXML
     private Button selectGameButton3;
+    @FXML
+    private VBox tab1DefinitionVBox;
     private static Word currentWord;
 
     static class Cell extends ListCell<String> {
@@ -144,7 +148,41 @@ public class SceneController implements Initializable {
 
 
     private void showAllWords() {
-        LocalDictionaryManager.getInstance().showAllWords(vBox4);
+        FXMLManager fxmlManager = new FXMLManager();
+        List<EnglishWord> englishWordList = LocalDictionaryManager.getInstance().getAllEnglishWords();
+        vBox4.getChildren().clear();
+        for (EnglishWord englishWord : englishWordList) {
+            vBox4.getChildren().add(fxmlManager.cloneLabel(englishWord.getWordContent() + " | "
+                    + englishWord.getWordType() + " | "
+                    + englishWord.getPhonetic(), Pos.CENTER_LEFT, FontWeight.BOLD, 25));
+            for (VietnameseWord v : englishWord.getVietnameseMeaningsList()) {
+                vBox4.getChildren().add(fxmlManager.cloneLabel(v.getWordContent()
+                        , Pos.CENTER_LEFT, FontWeight.BOLD, 25));
+            }
+            vBox4.getChildren().add(new Separator());
+            if (!englishWord.getDefinitions().isEmpty()) {
+                vBox4.getChildren().add(fxmlManager.cloneLabel("Định nghĩa:", Pos.CENTER_LEFT, FontWeight.NORMAL, 25));
+                for (String def : englishWord.getDefinitions()) {
+                    vBox4.getChildren().add(fxmlManager.cloneLabel(def, Pos.CENTER_LEFT, FontWeight.NORMAL, 25));
+                    vBox4.getChildren().add(new Separator());
+                }
+            }
+            if (!englishWord.getSynonyms().isEmpty()){
+                vBox4.getChildren().add(fxmlManager.cloneLabel("Từ đồng nghĩa:", Pos.CENTER_LEFT, FontWeight.THIN, 25));
+                for (String synonym : englishWord.getSynonyms()) {
+                    vBox4.getChildren().add(fxmlManager.cloneLabel(synonym, Pos.CENTER_LEFT, FontWeight.THIN, 25));
+                }
+                vBox4.getChildren().add(new Separator());
+            }
+            if (!englishWord.getAntonyms().isEmpty()){
+                vBox4.getChildren().add(fxmlManager.cloneLabel("Từ trái nghĩa:", Pos.CENTER_LEFT, FontWeight.THIN, 25));
+                for (String antonym : englishWord.getAntonyms()) {
+                    vBox4.getChildren().add(fxmlManager.cloneLabel(antonym, Pos.CENTER_LEFT, FontWeight.THIN, 25));
+                }
+                vBox4.getChildren().add(new Separator());
+            }
+            vBox4.getChildren().add(new Separator());
+        }
     }
 
     public void showAllWords(ActionEvent event) {
@@ -432,18 +470,66 @@ public class SceneController implements Initializable {
         }
     }
 
-
     public void define(ActionEvent event) {
-        if (!tab1SearchTextField.getText().isEmpty()) {
-            try {
-                OnlineDictionaryManager.getInstance().onlineDefinitionLookup(tab1SearchTextField.getText());
-                tab1SearchTextField.setPromptText("Definitions?...");
-                speakButton1.setVisible(true);
-            } catch (Exception e) {
-                tab1SearchTextField.setPromptText("Không có kết nối internet!");
+        tab1DefinitionVBox.getChildren().clear();
+        speakButton1.setVisible(false);
+        OnlineWord[] onlineWords = null;
+        try {
+            onlineWords = OnlineDictionaryManager.getInstance().onlineDefinitionLookup(tab1SearchTextField.getText());
+        } catch (Exception e) {
+
+        }
+        if (onlineWords == null || onlineWords.length == 0) return;
+
+        speakButton1.setVisible(true);
+
+        FXMLManager fxmlManager = new FXMLManager();
+
+        tab1DefinitionVBox.getChildren().clear();
+        
+        for (OnlineWord onlineWord : onlineWords) {
+
+            Label label = null;
+            if (onlineWord.getPhonetic() != null) {
+                label = fxmlManager.cloneLabel(onlineWord.getWord() + " " + onlineWord.getPhonetic(), Pos.CENTER, FontWeight.BOLD, 25);
+            } else {
+                label = fxmlManager.cloneLabel(onlineWord.getWord() + " " + "(no phonetics)", Pos.CENTER, FontWeight.BOLD, 25);;
+            }
+            label.prefWidthProperty().bind(tab1DefinitionVBox.widthProperty());
+            tab1DefinitionVBox.getChildren().add(label);
+
+            for (OnlineWordMeaning onlineWordMeaning : onlineWord.getMeanings()) {
+
+                label = fxmlManager.cloneLabel(onlineWordMeaning.getPartOfSpeech(), Pos.CENTER, FontWeight.BOLD, 25);
+                label.prefWidthProperty().bind(tab1DefinitionVBox.widthProperty());
+                tab1DefinitionVBox.getChildren().add(label);
+
+                if(onlineWordMeaning.getDefinitions().length != 0) {
+                    tab1DefinitionVBox.getChildren().add(fxmlManager.cloneLabel("Definitions:", Pos.CENTER_LEFT, FontWeight.BOLD, 25));
+                    for (OnlineWordDefinition onlineWordDefinition : onlineWordMeaning.getDefinitions()) {
+
+                        tab1DefinitionVBox.getChildren().add(fxmlManager.cloneLabel(onlineWordDefinition.getDefinition(), Pos.CENTER_LEFT, FontWeight.NORMAL, 25));
+                        if (onlineWordDefinition.getSynonyms().length != 0) {
+                            tab1DefinitionVBox.getChildren().add(fxmlManager.cloneLabel("Synonyms:", Pos.CENTER_LEFT, FontWeight.BOLD, 25));
+                            for (String synonym : onlineWordDefinition.getSynonyms()) {
+                                tab1DefinitionVBox.getChildren().add(fxmlManager.cloneLabel(synonym, Pos.CENTER_LEFT, FontWeight.NORMAL, 25));
+                            }
+                        }
+
+                        if (onlineWordDefinition.getAntonyms().length != 0) {
+                            tab1DefinitionVBox.getChildren().add(fxmlManager.cloneLabel("Antonyms:", Pos.CENTER_LEFT, FontWeight.BOLD, 25));
+                            for (String antonym : onlineWordDefinition.getAntonyms()) {
+                                
+                                tab1DefinitionVBox.getChildren().add(fxmlManager.cloneLabel(antonym, Pos.CENTER_LEFT, FontWeight.NORMAL, 25));
+
+                            }
+                        }
+                        tab1DefinitionVBox.getChildren().add(new Separator());
+                    }
+                }
+                tab1DefinitionVBox.getChildren().add(new Separator());
             }
         }
-        LocalDictionaryManager.getInstance().showAllEnglishWords();
     }
 
     private void translate() {
@@ -455,20 +541,182 @@ public class SceneController implements Initializable {
             tab0SpeakButton.setVisible(false);
             return;
         }
+        List<? extends Word> foundWordsList = null;
         if (onlineCheckBox.isSelected()) {
             try {
                 OnlineDictionaryManager.getInstance().dictionaryLookup(tab0searchTextField.getText(), translateFrom, translateTo);
-                myListView.setVisible(LocalDictionaryManager.getInstance().dictionaryLookup(tab0searchTextField.getText(), translateFrom, translateTo, splitPane1));
+                foundWordsList = LocalDictionaryManager.getInstance().dictionaryLookup(tab0searchTextField.getText(), translateFrom, translateTo);
             } catch (Exception e) {
 
             }
         } else {
-            myListView.setVisible(LocalDictionaryManager.getInstance().dictionaryLookup(tab0searchTextField.getText(), translateFrom, translateTo, splitPane1));
+            foundWordsList = LocalDictionaryManager.getInstance().dictionaryLookup(tab0searchTextField.getText(), translateFrom, translateTo);
+
+        }
+        setTranslateGraphic(foundWordsList);
+    }
+
+    private void setTranslateGraphic(List<? extends Word> wordList) {
+        FXMLManager fxmlManager = new FXMLManager();
+
+        myListView.getItems().clear();
+
+        tab0SpeakButton.setVisible(false);
+
+        myListView.setVisible(false);
+
+        if (wordList == null || wordList.isEmpty()) return;
+
+        myListView.setVisible(true);
+
+        if (translateFrom.equals("en")) {
+            List<EnglishWord> englishWordList = (List<EnglishWord>) wordList;
+
+            for (EnglishWord englishWord : englishWordList) {
+                SceneController.setCurrentWord(englishWord);
+                myListView.getItems().add(englishWord.getWordContent() + " " + englishWord.getWordType());
+            }
+
+            myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                    if (!tab0SpeakButton.isManaged()) {
+                        UpdateWordController.reset();
+                    }
+                    for (Node node : tab0VBox2.getChildren()) {
+                        node.setVisible(true);
+                        node.setManaged(true);
+                    }
+                    tab0DefVbox.getChildren().clear();
+                    for (EnglishWord englishWord : englishWordList) {
+                        if ((englishWord.getWordContent() + " " + englishWord.getWordType()).equals(myListView.getSelectionModel().getSelectedItem())) {
+                            Label label = fxmlManager.cloneLabel(englishWord.getWordContent() + " " + englishWord.getPhonetic()
+                                    , Pos.CENTER, FontWeight.BOLD, 25);
+                            label.prefWidthProperty().bind(tab0DefVbox.widthProperty());
+                            tab0DefVbox.getChildren().add(label);
+
+                            label = fxmlManager.cloneLabel(englishWord.getWordType(), Pos.CENTER, FontWeight.SEMI_BOLD, 25);
+                            label.prefWidthProperty().bind(tab0DefVbox.widthProperty());
+                            tab0DefVbox.getChildren().add(label);
+
+                            if (!englishWord.getVietnameseMeaningsList().isEmpty()) {
+                                tab0DefVbox.getChildren().add(fxmlManager.cloneLabel("Giải nghĩa tiếng Việt:", Pos.CENTER_LEFT, FontWeight.BOLD, 25));
+                                for (VietnameseWord v : englishWord.getVietnameseMeaningsList()) {
+                                    tab0DefVbox.getChildren().add(fxmlManager.cloneLabel(v.getWordContent()
+                                            , Pos.CENTER_LEFT, FontWeight.NORMAL, 25));
+                                }
+                            }
+
+                            tab0DefVbox.getChildren().add(new Separator());
+                            if (!englishWord.getDefinitions().isEmpty()) {
+                                tab0DefVbox.getChildren().add(fxmlManager.cloneLabel("Định nghĩa:", Pos.CENTER_LEFT, FontWeight.BOLD, 25));
+                                for (String def : englishWord.getDefinitions()) {
+                                    tab0DefVbox.getChildren().add(fxmlManager.cloneLabel(def, Pos.CENTER_LEFT, FontWeight.NORMAL, 25));
+                                    tab0DefVbox.getChildren().add(new Separator());
+                                }
+                            }
+                            if (!englishWord.getSynonyms().isEmpty()){
+                                tab0DefVbox.getChildren().add(fxmlManager.cloneLabel("Từ đồng nghĩa:", Pos.CENTER_LEFT, FontWeight.BOLD, 25));
+                                for (String synonym : englishWord.getSynonyms()) {
+                                    tab0DefVbox.getChildren().add(fxmlManager.cloneLabel(synonym, Pos.CENTER_LEFT, FontWeight.NORMAL, 25));
+                                }
+                                tab0DefVbox.getChildren().add(new Separator());
+                            }
+                            if (!englishWord.getAntonyms().isEmpty()){
+                                tab0DefVbox.getChildren().add(fxmlManager.cloneLabel("Từ trái nghĩa:", Pos.CENTER_LEFT, FontWeight.BOLD, 25));
+                                for (String antonym : englishWord.getAntonyms()) {
+                                    tab0DefVbox.getChildren().add(fxmlManager.cloneLabel(antonym, Pos.CENTER_LEFT, FontWeight.NORMAL, 25));
+                                }
+                                tab0DefVbox.getChildren().add(new Separator());
+                            }
+                            tab0DefVbox.getChildren().add(new Separator());
+                            break;
+                        }
+                    }
+                    if (tab0DefVbox.getChildren().isEmpty()) {
+                        tab0SpeakButton.setVisible(false);
+                    }
+                    updateAndDeleteHBox.setManaged(true);
+                    updateAndDeleteHBox.setVisible(true);
+                }
+            });
+        } else if (translateFrom.equals("vi")) {
+            List<VietnameseWord> vietnameseWordList = (List<VietnameseWord>) wordList;
+
+            for (VietnameseWord vietnameseWord : vietnameseWordList) {
+                SceneController.setCurrentWord(vietnameseWord);
+                myListView.getItems().add(vietnameseWord.getWordContent() + " " + vietnameseWord.getWordType());
+            }
+
+            myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+                @Override
+                public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
+                    //
+                    if (!tab0SpeakButton.isManaged()) {
+                        UpdateWordController.reset();
+                    }
+                    for (Node node : tab0VBox2.getChildren()) {
+                        node.setVisible(true);
+                        node.setManaged(true);
+                    }
+
+                    tab0DefVbox.getChildren().clear();
+                    for (VietnameseWord vietnameseWord : vietnameseWordList) {
+                        if ((vietnameseWord.getWordContent() + " " + vietnameseWord.getWordType()).equals(myListView.getSelectionModel().getSelectedItem())) {
+                            Label label = fxmlManager.cloneLabel(vietnameseWord.getWordContent(), Pos.CENTER, FontWeight.BOLD, 25);
+                            label.prefWidthProperty().bind(tab0DefVbox.widthProperty());
+                            tab0DefVbox.getChildren().add(label);
+
+                            label = fxmlManager.cloneLabel(vietnameseWord.getWordType(), Pos.CENTER, FontWeight.SEMI_BOLD, 25);
+                            label.prefWidthProperty().bind(tab0DefVbox.widthProperty());
+                            tab0DefVbox.getChildren().add(label);
+                            if (!vietnameseWord.getEnglishMeaningsList().isEmpty()) {
+                                tab0DefVbox.getChildren().add(fxmlManager.cloneLabel("Giải nghĩa tiếng Anh:"
+                                        , Pos.CENTER_LEFT, FontWeight.BOLD, 25));
+                            }
+                            for (EnglishWord e : vietnameseWord.getEnglishMeaningsList()) {
+                                tab0DefVbox.getChildren().add(new Separator());
+                                tab0DefVbox.getChildren().add(fxmlManager.cloneLabel(e.getWordContent() + " " + e.getPhonetic()
+                                        , Pos.CENTER_LEFT, FontWeight.NORMAL, 25));
+                                if (!e.getDefinitions().isEmpty()) {
+                                    tab0DefVbox.getChildren().add(fxmlManager.cloneLabel("Định nghĩa:", Pos.CENTER_LEFT, FontWeight.BOLD, 25));
+                                    for (String def : e.getDefinitions()) {
+                                        tab0DefVbox.getChildren().add(fxmlManager.cloneLabel(def
+                                                , Pos.CENTER_LEFT, FontWeight.NORMAL, 25));
+                                        tab0DefVbox.getChildren().add(new Separator());
+                                    }
+                                }
+                                if (!e.getSynonyms().isEmpty()){
+                                    tab0DefVbox.getChildren().add(fxmlManager.cloneLabel("Từ đồng nghĩa:", Pos.CENTER_LEFT, FontWeight.BOLD, 25));
+                                    for (String synonym : e.getSynonyms()) {
+                                        tab0DefVbox.getChildren().add(fxmlManager.cloneLabel(synonym, Pos.CENTER_LEFT, FontWeight.NORMAL, 25));
+                                    }
+                                    tab0DefVbox.getChildren().add(new Separator());
+                                }
+                                if (!e.getAntonyms().isEmpty()){
+                                    tab0DefVbox.getChildren().add(fxmlManager.cloneLabel("Từ trái nghĩa:", Pos.CENTER_LEFT, FontWeight.BOLD, 25));
+                                    for (String antonym : e.getAntonyms()) {
+                                        tab0DefVbox.getChildren().add(fxmlManager.cloneLabel(antonym, Pos.CENTER_LEFT, FontWeight.NORMAL, 25));
+                                    }
+                                    tab0DefVbox.getChildren().add(new Separator());
+                                }
+                                tab0DefVbox.getChildren().add(new Separator());
+                            }
+                            tab0DefVbox.getChildren().add(new Separator());
+                            break;
+                        }
+                    }
+                    if (tab0DefVbox.getChildren().isEmpty()) {
+                        tab0SpeakButton.setVisible(false);
+                    }
+                    updateAndDeleteHBox.setManaged(true);
+                    updateAndDeleteHBox.setVisible(true);
+                }
+            });
         }
     }
 
     private void showHints() {
-        System.out.println("show hints");
         if (tab0searchTextField.getText().length() >= 2) {
             Comparator<String> comparator = new Comparator<String>() {
                 @Override

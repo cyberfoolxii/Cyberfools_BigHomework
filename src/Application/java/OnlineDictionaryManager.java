@@ -85,16 +85,7 @@ public class OnlineDictionaryManager extends DictionaryManager {
      * cần có quản lí từ điển cục bộ để
      * thêm từ mới về cục bộ
      */
-    public void onlineDefinitionLookup(String whatToLook) throws Exception {
-            FXMLManager fxmlManager = new FXMLManager();
-            VBox vBox = (VBox) Objects.requireNonNull(SceneManager.getInstance().getSceneInSceneList(SceneIndex.HOMEINDEX)).getRoot();
-            TabPane tabPane = (TabPane) vBox.getChildren().get(0);
-            Tab tab = tabPane.getTabs().get(1);
-            VBox vBox1 = (VBox) tab.getContent();
-            ScrollPane scrollPane = (ScrollPane) vBox1.getChildren().get(2);
-            VBox vBox2 = (VBox) scrollPane.getContent();
-            vBox2.getChildren().clear();
-
+    public OnlineWord[] onlineDefinitionLookup(String whatToLook) throws Exception {
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create("https://api.dictionaryapi.dev/api/v2/entries/en/" + whatToLook))
                     .method("GET", HttpRequest.BodyPublishers.noBody())
@@ -106,20 +97,6 @@ public class OnlineDictionaryManager extends DictionaryManager {
 
             String audioLink = null;
             for (OnlineWord onlineWord : onlineWords) {
-                System.out.println(onlineWord.getWord());
-
-                Label label = null;
-                if (onlineWord.getPhonetic() != null) {
-                    label = fxmlManager.cloneLabel(onlineWord.getWord() + " " + onlineWord.getPhonetic(), Pos.CENTER, FontWeight.BOLD, 25);
-                    label.prefWidthProperty().bind(vBox2.widthProperty());
-                    vBox2.getChildren().add(label);
-                } else {
-                    label = fxmlManager.cloneLabel(onlineWord.getWord() + " " + "(no phonetics)", Pos.CENTER, FontWeight.BOLD, 25);
-                    label.prefWidthProperty().bind(vBox2.widthProperty());
-                    vBox2.getChildren().add(label);
-                }
-
-                System.out.println(onlineWord.getPhonetic());
 
                 for (int i = onlineWord.getPhonetics().length - 1; i >= 0; i--) {
                     if (onlineWord.getPhonetics()[i].getAudio() != null) {
@@ -129,7 +106,6 @@ public class OnlineDictionaryManager extends DictionaryManager {
                 }
 
                 for (OnlineWordMeaning onlineWordMeaning : onlineWord.getMeanings()) {
-                    System.out.println(onlineWordMeaning.getPartOfSpeech());
 
                     Dictionary.wordTypeSet.add(onlineWordMeaning.getPartOfSpeech().toUpperCase());
 
@@ -143,52 +119,25 @@ public class OnlineDictionaryManager extends DictionaryManager {
                     } else {
                         englishWord.setPhonetic("(no phonetics)");
                     }
+                    onlineWordMeaning.getDefinitions();
+                    for (OnlineWordDefinition onlineWordDefinition : onlineWordMeaning.getDefinitions()) {
 
+                        englishWord.getDefinitions().add(onlineWordDefinition.getDefinition());
 
-                    label = fxmlManager.cloneLabel(onlineWordMeaning.getPartOfSpeech(), Pos.CENTER, FontWeight.SEMI_BOLD, 25);
-                    label.prefWidthProperty().bind(vBox2.widthProperty());
-                    vBox2.getChildren().add(label);
+                        for (String synonym : onlineWordDefinition.getSynonyms()) {
+                            englishWord.getSynonyms().add(synonym);
+                        }
 
-                    if(onlineWordMeaning.getDefinitions().length != 0) {
-                        vBox2.getChildren().add(fxmlManager.cloneLabel("Definitions:", Pos.CENTER_LEFT, FontWeight.NORMAL, 25));
-                        for (OnlineWordDefinition onlineWordDefinition : onlineWordMeaning.getDefinitions()) {
-                            System.out.println(onlineWordDefinition.getDefinition());
-
-                            englishWord.getDefinitions().add(onlineWordDefinition.getDefinition());
-
-                            vBox2.getChildren().add(fxmlManager.cloneLabel(onlineWordDefinition.getDefinition(), Pos.CENTER_LEFT, FontWeight.NORMAL, 25));
-                            if (onlineWordDefinition.getSynonyms().length != 0) {
-                                vBox2.getChildren().add(fxmlManager.cloneLabel("Synonyms:", Pos.CENTER_LEFT, FontWeight.THIN, 25));
-                                for (String synonym : onlineWordDefinition.getSynonyms()) {
-                                    System.out.print(synonym + ", ");
-
-                                    englishWord.getSynonyms().add(synonym);
-                                    vBox2.getChildren().add(fxmlManager.cloneLabel(synonym, Pos.CENTER_LEFT, FontWeight.THIN, 25));
-
-                                }
-                            }
-
-                            if (onlineWordDefinition.getAntonyms().length != 0) {
-                                vBox2.getChildren().add(fxmlManager.cloneLabel("Antonyms:", Pos.CENTER_LEFT, FontWeight.THIN, 25));
-                                for (String antonym : onlineWordDefinition.getAntonyms()) {
-                                    System.out.print(antonym + ", ");
-
-                                    englishWord.getAntonyms().add(antonym);
-                                    vBox2.getChildren().add(fxmlManager.cloneLabel(antonym, Pos.CENTER_LEFT, FontWeight.THIN, 25));
-
-                                }
-                            }
-                            vBox2.getChildren().add(new Separator());
+                        onlineWordDefinition.getAntonyms();
+                        for (String antonym : onlineWordDefinition.getAntonyms()) {
+                            englishWord.getAntonyms().add(antonym);
                         }
                     }
-                    vBox2.getChildren().add(new Separator());
                     LocalDictionaryManager.getInstance().insertWordToDictionary(englishWord);
                 }
             }
             SceneController.currentAudioLink = audioLink;
-/*            for (String item : phraseTrans(eDefs, "en", "vi")) {
-                vBox1.getChildren().add(fxmlManager.cloneLabel(item, Pos.CENTER, FontPosture.ITALIC, FontWeight.THIN));
-            }*/
+        return onlineWords;
     }
 
     /** tra giải nghĩa của từ đơn,
