@@ -38,6 +38,8 @@ public class MultipleChoiceGameController implements Initializable {
     @FXML
     private Button answerButton4;
     @FXML
+    private Button gamePauseButton;
+    @FXML
     private VBox myVBox;
     @FXML
     private HBox myHBox;
@@ -59,6 +61,9 @@ public class MultipleChoiceGameController implements Initializable {
         answerButton2.fontProperty().bind(answerButton1.fontProperty());
         answerButton3.fontProperty().bind(answerButton1.fontProperty());
         answerButton4.fontProperty().bind(answerButton1.fontProperty());
+        gamePauseButton.fontProperty().bind(answerButton1.fontProperty());
+        gamePauseButton.prefWidthProperty().bind(((FlowPane) gamePauseButton.getParent()).widthProperty());
+
         //initTimerMediaView();
 
         // Load questions from file

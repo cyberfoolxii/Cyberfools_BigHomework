@@ -241,6 +241,9 @@ public class SceneController implements Initializable {
         pTransScrollPane2.setFitToHeight(true);
 
         FXMLManager fxmlManager = new FXMLManager();
+        selectGameButton1.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 30));
+        selectGameButton2.fontProperty().bind(selectGameButton1.fontProperty());
+        selectGameButton3.fontProperty().bind(selectGameButton1.fontProperty());
         languageMenuButton.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 20));
         onlineCheckBox.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 17));
         tabTitle1.setFont(fxmlManager.cloneQuicksandFont(FontWeight.SEMI_BOLD, 16));

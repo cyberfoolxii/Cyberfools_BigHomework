@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.FontWeight;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,6 +33,12 @@ public class MultipleChoiceGamePausedController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         scoreLabel.setText("Highest score: " + HighScoreOfGame.getHighestScore1());
+        FXMLManager fxmlManager = new FXMLManager();
+        scoreLabel.setFont(fxmlManager.cloneQuicksandFont(FontWeight.SEMI_BOLD, 18));
+        gamePausedLabel.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 30));
+        mainMenuButton.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 18));
+        resumeButton.fontProperty().bind(mainMenuButton.fontProperty());
+        restartGameButton.fontProperty().bind(mainMenuButton.fontProperty());
     }
 
     public void backToGameMainMenu(ActionEvent event) {
