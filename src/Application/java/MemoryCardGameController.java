@@ -7,31 +7,77 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
 import java.net.URL;
-import java.util.LinkedList;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class MemoryCardGameController implements Initializable {
     @FXML
     private GridPane myGridPane;
     private final CardQueue cardQueue = new CardQueue();
+    private List<WordInCard> allCards = CardReader.CardReader();
+    private List<WordInCard> wordCards = new ArrayList<>(10);
+    private List<Integer> wordMapIndex = new ArrayList<>(10);
+    private HashMap<String, Integer> wordMap = new HashMap<>(30);
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        for (int i = 0; i < myGridPane.getRowCount(); i++) {
-            for (int j = 0; j < myGridPane.getColumnCount(); j++) {
-                Card card = new Card();
-                card.setCardText("anh cuong dz");
-                GridPane.setFillWidth(card.getCardTarget(), true);
-                GridPane.setFillHeight(card.getCardTarget(), true);
-                GridPane.setMargin(card.getCardTarget(), new Insets(10, 10, 10, 10));
-                GridPane.setRowIndex(card.getCardTarget(), i);
-                GridPane.setColumnIndex(card.getCardTarget(), j);
-                myGridPane.getChildren().add(card.getCardTarget());
+
+
+        Collections.shuffle(allCards);
+        for (int i = 0; i < 30; i++) {
+            if(i < 10) {
+                wordCards.add(allCards.get(i));
             }
+            wordMapIndex.add(i);
+        }
+        Collections.shuffle(wordMapIndex);
+
+        for (int i = 0; i < 10; i++) {
+            wordMap.put(wordCards.get(i).getWord(), wordMapIndex.get(i * 3));
+            wordMap.put(wordCards.get(i).getPronunciation(), wordMapIndex.get(i * 3 + 1));
+            wordMap.put(wordCards.get(i).getMeaning(), wordMapIndex.get(i * 3 + 2));
+        }
+
+        int numRows = myGridPane.getRowCount();
+        int numCols = myGridPane.getColumnCount();
+
+        for (int i = 0; i < 10; i++) {
+            int row = i / numCols;
+            int col = i % numCols;
+
+            Card card = new Card();
+            card.setCardText(wordCards.get(i).getWord());
+            GridPane.setFillWidth(card.getCardTarget(), true);
+            GridPane.setFillHeight(card.getCardTarget(), true);
+            GridPane.setMargin(card.getCardTarget(), new Insets(10, 10, 10, 10));
+            GridPane.setRowIndex(card.getCardTarget(), wordMap.get(wordCards.get(i).getWord()) / numCols);
+            GridPane.setColumnIndex(card.getCardTarget(), wordMap.get(wordCards.get(i).getWord()) % numCols);
+            myGridPane.getChildren().add(card.getCardTarget());
+
+            Card card1 = new Card();
+            card1.getCardTarget().setFont(Font.font("Charis SIL", FontWeight.BOLD, 16));
+            card1.setCardText(wordCards.get(i).getPronunciation());
+            GridPane.setFillWidth(card1.getCardTarget(), true);
+            GridPane.setFillHeight(card1.getCardTarget(), true);
+            GridPane.setMargin(card1.getCardTarget(), new Insets(10, 10, 10, 10));
+            GridPane.setRowIndex(card1.getCardTarget(), wordMap.get(wordCards.get(i).getPronunciation()) / numCols);
+            GridPane.setColumnIndex(card1.getCardTarget(), wordMap.get(wordCards.get(i).getPronunciation()) % numCols);
+            myGridPane.getChildren().add(card1.getCardTarget());
+
+            Card card2 = new Card();
+            card2.setCardText(wordCards.get(i).getMeaning());
+            GridPane.setFillWidth(card2.getCardTarget(), true);
+            GridPane.setFillHeight(card2.getCardTarget(), true);
+            GridPane.setMargin(card2.getCardTarget(), new Insets(10, 10, 10, 10));
+            GridPane.setRowIndex(card2.getCardTarget(), wordMap.get(wordCards.get(i).getMeaning()) / numCols);
+            GridPane.setColumnIndex(card2.getCardTarget(), wordMap.get(wordCards.get(i).getMeaning()) % numCols);
+            myGridPane.getChildren().add(card2.getCardTarget());
         }
     }
 
@@ -44,6 +90,7 @@ public class MemoryCardGameController implements Initializable {
         public Card() {
             FXMLManager fxmlManager = new FXMLManager();
             cardTarget.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 16));
+            cardTarget.setTextAlignment(TextAlignment.CENTER);
             cardTarget.setMaxWidth(Double.MAX_VALUE);
             cardTarget.setMaxHeight(Double.MAX_VALUE);
             cardTarget.setWrapText(true);
@@ -58,6 +105,7 @@ public class MemoryCardGameController implements Initializable {
             this();
             this.cardText = cardText;
         }
+
 
         private void setUpFlipTransition1() {
             flipTransition1.setNode(cardTarget);
@@ -116,4 +164,5 @@ public class MemoryCardGameController implements Initializable {
             return cardQueue.removeFirst();
         }
     }
+
 }
