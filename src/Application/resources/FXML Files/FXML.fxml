@@ -241,20 +241,20 @@
                <content>
                   <ScrollPane fx:id="scrollPane3" prefHeight="200.0" prefWidth="200.0">
                      <content>
-                        <HBox>
+                        <VBox>
                            <children>
-                              <VBox fx:id="vBox4" prefHeight="505.0" prefWidth="734.0" HBox.hgrow="ALWAYS" />
-                              <Button mnemonicParsing="false" onAction="#showAllWords">
+                              <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showAllWords" prefHeight="42.0" prefWidth="734.0">
                                  <graphic>
-                                    <ImageView fitHeight="40.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="23.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../AppIcon/synchronize.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
                               </Button>
+                              <VBox fx:id="vBox4" prefHeight="505.0" prefWidth="734.0" />
                            </children>
-                        </HBox>
+                        </VBox>
                      </content>
                   </ScrollPane>
                </content>

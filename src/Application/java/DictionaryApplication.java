@@ -27,11 +27,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 public class DictionaryApplication extends Application {
     public void start(Stage primaryStage) throws Exception {
+        Hint.getInstance();
         StageManager stageManager = new StageManager(primaryStage, SceneManager.getInstance());
         SceneManager.getInstance().initializeScenes();
         stageManager.configure();
         LocalDictionaryManager.getInstance().insertWordFromFile();
-
         stageManager.setSceneInListToStage(SceneIndex.HOMEINDEX);
         stageManager.showStage();
 
