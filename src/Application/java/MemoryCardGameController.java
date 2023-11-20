@@ -19,11 +19,12 @@ import java.util.*;
 public class MemoryCardGameController implements Initializable {
     @FXML
     private GridPane myGridPane;
-    private final CardQueue cardQueue = new CardQueue();
     private List<WordInCard> allCards = CardReader.CardReader();
-    private List<WordInCard> wordCards = new ArrayList<>(10);
-    private List<Integer> wordMapIndex = new ArrayList<>(10);
+    private static List<WordInCard> wordCards = new ArrayList<>(10);
+    private static List<Integer> wordMapIndex = new ArrayList<>(10);
     private HashMap<String, Integer> wordMap = new HashMap<>(30);
+    private static List<Card> flippedCards = new ArrayList<>(3);
+    private static boolean gameStarted = false;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -79,6 +80,9 @@ public class MemoryCardGameController implements Initializable {
             GridPane.setColumnIndex(card2.getCardTarget(), wordMap.get(wordCards.get(i).getMeaning()) % numCols);
             myGridPane.getChildren().add(card2.getCardTarget());
         }
+
+        gameStarted = true;
+        System.out.println("Game started: " + gameStarted);
     }
 
     public static class Card {
@@ -86,6 +90,7 @@ public class MemoryCardGameController implements Initializable {
         private String cardText = "";
         private final RotateTransition flipTransition1 = new RotateTransition();
         private final RotateTransition flipTransition2 = new RotateTransition();
+        private boolean isFlipped;
 
         public Card() {
             FXMLManager fxmlManager = new FXMLManager();
@@ -99,13 +104,13 @@ public class MemoryCardGameController implements Initializable {
             cardTarget.setOnAction(event -> {
                 flip();
             });
+            isFlipped = false;
         }
 
         public Card(String cardText) {
             this();
             this.cardText = cardText;
         }
-
 
         private void setUpFlipTransition1() {
             flipTransition1.setNode(cardTarget);
@@ -138,6 +143,7 @@ public class MemoryCardGameController implements Initializable {
         }
 
         private void flip() {
+
             if (!cardTarget.getText().isEmpty()) {
                 cardTarget.setScaleX(1.0);
             } else {
@@ -152,17 +158,72 @@ public class MemoryCardGameController implements Initializable {
                 }
                 flipTransition2.play();
             });
+            isFlipped = !isFlipped;
+
+            String wordText = "";
+
+            if(gameStarted && isFlipped) {
+                flippedCards.add(this);
+                System.out.println("Flipped cards: " + flippedCards.size());
+                if(flippedCards.size() == 3) {
+                    for(Card card : flippedCards) {
+                        if(card.cardText.contains("(")) {
+                            wordText = card.cardText;
+                            System.out.println(card.cardText + " contains (");
+                        }
+                    }
+                    if(wordText.equals("")) {
+                        System.out.println("No word found");
+                        gameStarted = false;
+                        for(Card card : flippedCards) {
+                            System.out.println("Card flipped back: " + card.cardText);
+                            card.normalFlip();
+                        }
+
+                        flippedCards.clear();
+
+                        gameStarted = true;
+                        return;
+                    }
+                    for(WordInCard wordInCard : wordCards) {
+                        if(wordInCard.getWord().equals(wordText)) {
+                            System.out.println("Word in card: " + wordInCard.getWord());
+                            if((wordInCard.getPronunciation().equals(flippedCards.get(1).cardText) && wordInCard.getMeaning().equals(flippedCards.get(2).cardText))
+                            || (wordInCard.getPronunciation().equals(flippedCards.get(2).cardText) && wordInCard.getMeaning().equals(flippedCards.get(1).cardText))) {
+                                flippedCards.get(0).cardTarget.setDisable(true);
+                                flippedCards.get(1).cardTarget.setDisable(true);
+                                flippedCards.get(2).cardTarget.setDisable(true);
+                            } else {
+                                gameStarted = false;
+                                for(Card card : flippedCards) {
+                                    System.out.println("Card flipped back: " + card.cardText);
+                                    card.normalFlip();
+                                }
+                                flippedCards.clear();
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+            gameStarted = true;
+        }
+        private void normalFlip() {
+            if (!cardTarget.getText().isEmpty()) {
+                cardTarget.setScaleX(1.0);
+            } else {
+                cardTarget.setScaleX(-1.0);
+            }
+            flipTransition1.play();
+            flipTransition1.setOnFinished(event1 -> {
+                if (cardTarget.getText().isEmpty()) {
+                    cardTarget.setText(cardText);
+                } else {
+                    cardTarget.setText("");
+                }
+                flipTransition2.play();
+            });
+            isFlipped = !isFlipped;
         }
     }
-    public static class CardQueue {
-        private final LinkedList<Card> cardQueue = new LinkedList<>();
-        public void enqueue(Card card) {
-            cardQueue.addLast(card);
-        }
-
-        public Card dequeue() {
-            return cardQueue.removeFirst();
-        }
-    }
-
 }
