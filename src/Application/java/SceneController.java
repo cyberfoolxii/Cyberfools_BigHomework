@@ -12,10 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
@@ -291,6 +288,15 @@ public class SceneController implements Initializable {
 
     // viet sau
     public void switchToGame3(ActionEvent event) {
+        VBox vBox = (VBox) ((HBox)(selectGameButton3.getParent())).getParent();
+        for (Node node : vBox.getChildren()) {
+            node.setVisible(false);
+            node.setManaged(false);
+        }
+        FXMLManager fxmlManager = new FXMLManager();
+        BorderPane myBorderPane = (BorderPane) fxmlManager.getFXMLInsertedRoot("/FXML Files/MemoryCardGame.fxml");
+        VBox.setVgrow(myBorderPane, Priority.ALWAYS);
+        vBox.getChildren().add(myBorderPane);
 
     }
 

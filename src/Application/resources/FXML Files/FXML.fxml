@@ -275,7 +275,7 @@
                            <children>
                               <Button fx:id="selectGameButton1" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#switchToGame1" prefWidth="20.0" text="Multiple Choice Game" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS" />
                               <Button fx:id="selectGameButton2" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="20.0" text="Puzzle Game" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS" />
-                              <Button fx:id="selectGameButton3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefWidth="20.0" text="Memory Game" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS" />
+                              <Button fx:id="selectGameButton3" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#switchToGame3" prefWidth="20.0" text="Memory Game" textAlignment="CENTER" wrapText="true" HBox.hgrow="ALWAYS" />
                            </children>
                         </HBox>
                      </children>
@@ -289,12 +289,12 @@
                <content>
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" prefWidth="900.0" text="Button" VBox.vgrow="ALWAYS">
+                        <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="30.0" prefWidth="900.0" text="CÀI ĐẶT" VBox.vgrow="ALWAYS">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Button>
-                        <Button fx:id="exitButton" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onExitButtonClick" prefHeight="30.0" prefWidth="900.0" text="Exit!" VBox.vgrow="ALWAYS">
+                        <Button fx:id="exitButton" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onExitButtonClick" prefHeight="30.0" prefWidth="900.0" text="THOÁT" VBox.vgrow="ALWAYS">
                            <font>
                               <Font size="18.0" />
                            </font>
