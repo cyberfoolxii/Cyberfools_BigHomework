@@ -42,9 +42,23 @@ public class EnglishWord extends Word {
         this.phonetic = phonetic;
     }
 
+    /**
+     * @param wordContent
+     * @param wordType
+     */
     public EnglishWord(String wordContent, String wordType) {
         super(wordContent, wordType);
         phonetic = "(no phonetics)";
+    }
+
+    /**
+     * @param wordContent
+     * @param wordType
+     * @param wordPhonetic
+     */
+    public EnglishWord(String wordContent, String wordType, String wordPhonetic) {
+        this(wordContent, wordType);
+        this.phonetic = wordPhonetic;
     }
 
     public void addToVietnameseMeaningsList(VietnameseWord vietnameseMeaning) {

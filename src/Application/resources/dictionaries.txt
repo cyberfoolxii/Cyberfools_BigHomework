@@ -1,4 +1,504 @@
-cat	(no phonetics)	NOUN	mèo
+about	/əˈbaʊt/	ADV	khoảng
+
+
+
+null
+along	/əˈlɑːŋ/	ADV	dọc theo
+
+
+
+null
+amount	/əˈmaʊnt/	NOUN	số lượng
+
+
+
+null
+angry	/ˈæŋ.ɡri/	ADJ	giận dữ
+
+
+
+null
+another	/əˈnʌð.ɚ/	ADJ	khác
+
+
+
+null
+anytime	/ˈen.i.taɪm/	ADV	bất kỳ lúc nào
+
+
+
+null
+apartment	/əˈpɑːrt.mənt/	NOUN	căn hộ
+
+
+
+null
+appear	/əˈpɪr/	VERB	xuất hiện
+
+
+
+null
+area	/ˈer.i.ə/	NOUN	khu vực, diện tích
+
+
+
+null
+attic	/ˈæt̬.ɪk/	NOUN	gác mái
+
+
+
+null
+autumn	/ˈɑː.t̬əm/	NOUN	mùa thu
+
+
+
+null
+away	/əˈweɪ/	ADV	ở xa
+
+
+
+null
+back	/bæk/	NOUN	lưng
+
+
+
+null
+base	/beɪs/	NOUN	đáy, nền tảng
+
+
+
+null
+basket	/ˈbæs.kət/	NOUN	cái giỏ
+
+
+
+null
+bath	/bæθ/	NOUN	bồn tắm
+
+
+
+null
+bean	/biːn/	NOUN	hạt đậu
+
+
+
+null
+bear	/ber/	NOUN	con gấu
+
+
+
+null
+bear	/ber/	VERB	chịu đựng
+
+
+
+null
+bed	/bed/	NOUN	cái giường
+
+
+
+null
+beer	/bɪr/	NOUN	rượu bia
+
+
+
+null
+behave	/bɪˈheɪv/	VERB	đối xử
+
+
+
+null
+belly	/ˈbel.i ˌbʌt̬.ən/	BUTTON	lỗ rốn
+
+
+
+null
+blanket	/ˈblæŋ.kɪt/	NOUN	tấm chăn
+
+
+
+null
+bowl	/boʊl/	NOUN	cái tô
+
+
+
+null
+breathe	/briːð/	VERB	hít thở
+
+
+
+null
+bridge	/brɪdʒ/	NOUN	cây cầu
+
+
+
+null
+bright	/braɪt/	ADJ	tươi sáng
+
+
+
+null
+bring	/brɪŋ/	VERB	mang lại, mang đến
+
+
+
+null
+brother	/ˈbrʌð.ɚ/	NOUN	anh/em trai
+
+
+
+null
+brown	/braʊn/	NOUN	màu nâu
+
+
+
+null
+brush	/brʌʃ/	NOUN	bàn chải
+
+
+
+null
+build	/bɪld/	VERB	xây dựng
+
+
+
+null
+burn	/bɝːn/	VERB	đốt cháy
+
+
+
+null
+cabin	/ˈkæb.ɪn/	NOUN	buồng nhỏ
+
+
+
+null
+careless	/ˈker.ləs/	ADJ	bất cẩn
+
+
+
+null
+carry	/ˈker.i/	VERB	mang theo
+
+
+
+null
+case	/keɪs/	NOUN	tình huống
+
+
+
+null
+cat	/kæt/	NOUN	con mèo	mèo
+
+
+
+null
+catch	/kætʃ/	VERB	bắt/nắm lấy
+
+
+
+null
+central	/ˈsen.trəl/	ADJ	ở giữa, trung tâm
+
+
+
+null
+century	/ˈsen.tʃər.i/	NOUN	thế kỷ
+
+
+
+null
+certain	/ˈsɝː.tən/	ADJ	chắc chắn
+
+
+
+null
+chair	/tʃer/	NOUN	cái ghế
+
+
+
+null
+chance	/tʃæns/	NOUN	cơ hội
+
+
+
+null
+chase	/tʃeɪs/	VERB	theo đuổi
+
+
+
+null
+cheap	/tʃiːp/	ADJ	rẻ
+
+
+
+null
+chest	/tʃest/	NOUN	ngực
+
+
+
+null
+clever	/ˈklev.ɚ/	ADJ	thông minh, nhanh trí
+
+
+
+null
+clock	/klɑːk/	NOUN	đồng hồ
+
+
+
+null
+copper	/ˈkɑː.pɚ/	NOUN	kim loại đồng
+
+
+
+null
+corn	/kɔːrn/	NOUN	bắp
+
+
+
+null
+corner	/ˈkɔːr.nɚ/	NOUN	góc
+
+
+
+null
+decrease	/ˈdiː.kriːs/	VERB	làm giảm đi
+
+
+
+null
+deep	/diːp/	ADJ	sâu, sâu xa
+
+
+
+null
+deer	/dɪr/	NOUN	con hươu
+
+
+
+null
+depend	/dɪˈpend/	VERB	phụ thuộc
+
+
+
+null
+desk	/desk/	NOUN	cái bàn 
+
+
+
+null
+destroy	/dɪˈstrɔɪ/	VERB	phá hủy
+
+
+
+null
+develop	/dɪˈvel.əp/	VERB	phát triển
+
+
+
+null
+die	/daɪ/	VERB	chết
+
+
+
+null
+dining	/ˈdaɪ.nɪŋ ˌruːm/	ROOM	phòng ăn
+
+
+
+null
+direction	/daɪˈrek.ʃən/	NOUN	phương hướng
+
+
+
+null
+draw	/drɑː/	NOUN	ngăn kéo
+
+
+
+null
+drink	/drɪŋk/	NOUN	thức uống
+
+
+
+null
+earth	/ɝːθ/	NOUN	trái đất
+
+
+
+null
+east	/iːst/	NOUN	phía đông
+
+
+
+null
+elbow	/ˈel.boʊ/	NOUN	cùi chỏ
+
+
+
+null
+end	/end/	NOUN	giới hạn, sự kết thúc
+
+
+
+null
+enemy	/ˈen.ə.mi/	NOUN	kẻ địch
+
+
+
+null
+enjoy	/ɪnˈdʒɔɪ/	VERB	tận hưởng
+
+
+
+null
+enough	/əˈnʌf/	ADJ	đủ
+
+
+
+null
+enter	/ˈen.t̬ɚ/	VERB	đi vào, tham gia
+
+
+
+null
+entrance	/ˈen.trəns/	NOUN	sự tiến vào
+
+
+
+null
+equal	/ˈiː.kwəl/	ADJ	ngang bằng, bình đẳng
+
+
+
+null
+escape	/ɪˈskeɪp/	VERB	trốn thoát
+
+
+
+null
+even	/ˈiː.vən/	ADJ	ngang bằng, bằng phẳng
+
+
+
+null
+except	/ɪkˈsept/	PREP	ngoại trừ
+
+
+
+null
+excited	/ɪkˈsaɪ.t̬ɪd/	ADJ	phấn khích
+
+
+
+null
+exercise	/ˈek.sɚ.saɪz/	VERB	tập thể dục
+
+
+
+null
+expect	/ɪkˈspekt/	VERB	ngóng chờ, chờ đợi
+
+
+
+null
+expensive	/ɪkˈspen.sɪv/	ADJ	đắt đỏ
+
+
+
+null
+explain	/ɪkˈspleɪn/	VERB	giải thích
+
+
+
+null
+extremely	/ɪkˈstriːm.li/	ADV	vô cùng
+
+
+
+null
+eye	/aɪ/	NOUN	con mắt
+
+
+
+null
+face	/feɪs/	NOUN	gương mặt
+
+
+
+null
+fact	/fækt/	NOUN	sự thật
+
+
+
+null
+fail	/feɪl/	VERB	thất bại, thi trượt
+
+
+
+null
+finger	/ˈfɪŋ.ɡɚ/	NOUN	ngón tay
+
+
+
+null
+fingernail	/ˈfɪŋ.ɡɚ.neɪl/	NOUN	móng tay
+
+
+
+null
+float	/floʊt/	VERB	trôi nổi
+
+
+
+null
+floor	/flɔːr/	NOUN	tầng (nhà)
+
+
+
+null
+flour	/ˈflaʊ.ɚ/	NOUN	bột
+
+
+
+null
+fold	/foʊld/	VERB	gấp nếp
+
+
+
+null
+fool	/fuːl/	ADJ	ngốc nghếch
+
+
+
+null
+foot	/fʊt/	NOUN	bàn chân
+
+
+
+null
+force	/fɔːrs/	NOUN	sức mạnh, lực lượng
+
+
+
+null
+forearm	/ˈfɔːr.ɑːrm/	NOUN	cẳng tay
+
+
+
+null
+further	/ˈfɝː.ðɚ/	ADV	xa hơn
+
+
+
+null
+garden	/ˈɡɑːr.dən/	NOUN	khu vườn
+
+
+
+null
+gas	/ˌɡæs ˈfaɪr/	FIRE	bếp ga
 
 
 
@@ -13,7 +513,447 @@ To look; to peep; to stare about intently.	To behave geekishly or in a socially 
 
 
 https://api.dictionaryapi.dev/media/pronunciations/en/geek-us.mp3
+groin	/ɡrɔɪn/	NOUN	háng
+
+
+
+null
+hair	/her/	NOUN	tóc
+
+
+
+null
+half	/hæf/	NOUN	phân nửa, một nửa
+
+
+
+null
+hall	/hɑːl/	NOUN	đại sảnh
+
+
+
+null
+hand	/hænd/	NOUN	bàn tay
+
+
+
+null
+hat	/hæt/	NOUN	cái mũ
+
+
+
+null
+heel	/hiːl/	NOUN	gót chân
+
+
+
+null
+hip	/hɪp/	NOUN	hông
+
+
+
+null
+hold	/hoʊld/	VERB	nắm, giữ
+
+
+
+null
+hole	/hoʊl/	NOUN	lỗ, ô trống
+
+
+
+null
+hour	/aʊr/	NOUN	giờ 
+
+
+
+null
+hungry	/ˈhʌŋ.ɡri/	ADJ	đói
+
+
+
+null
+hurry	/ˈhɝː.i/	VERB	thúc giục
+
+
+
+null
+hurt	/hɝːt/	VERB	làm bị thương
+
+
+
+null
+husband	/ˈhʌz.bənd/	NOUN	chồng
+
+
+
+null
+into	/ˈɪn.tuː/	PREP	vào trong
+
+
+
+null
+invent	/ɪnˈvent/	VERB	phát minh, sáng tạo
+
+
+
+null
+iron	/aɪrn/	NOUN	bàn ủi	sắt
+
+
+
+null
+keep	/kiːp/	VERB	lưu giữ, kẹp
+
+
+
+null
+kitchen	/ˈkɪtʃ.ən/	NOUN	căn bếp, phòng bếp
+
+
+
+null
 kitty	(no phonetics)	NOUN	mèo
+
+
+
+null
+knee	/niː/	NOUN	đầu gối
+
+
+
+null
+knife	/naɪf/	NOUN	con dao
+
+
+
+null
+knock	/nɑːk/	VERB	đập vào
+
+
+
+null
+know	/noʊ/	VERB	biết
+
+
+
+null
+knuckle	/ˈnʌk.əl/	NOUN	khớp ngón tay
+
+
+
+null
+ladder	/ˈlæd.ɚ/	NOUN	cái thang
+
+
+
+null
+land	/lænd/	NOUN	đất liền
+
+
+
+null
+leg	/leɡ/	NOUN	bàn chân
+
+
+
+null
+lock	/lɑːk/	NOUN	ổ khóa
+
+
+
+null
+lose	/luːz/	VERB	đánh mất
+
+
+
+null
+mean	/miːn/	VERB	nghĩa là, dự định
+
+
+
+null
+measure	/ˈmeʒ.ɚ/	VERB	đo lường, đong đếm
+
+
+
+null
+meat	/miːt/	NOUN	thịt
+
+
+
+null
+medicine	/ˈmed.ɪ.sən/	NOUN	thuốc
+
+
+
+null
+method	/ˈmeθ.əd/	NOUN	phương thức, cách thức
+
+
+
+null
+middle	/ˈmɪd.əl/	NOUN	ở giữa
+
+
+
+null
+milk	/mɪlk/	NOUN	sữa
+
+
+
+null
+million	/ˈmɪl.jən/	NOUN	hàng triệu
+
+
+
+null
+mind	/maɪnd/	NOUN	tâm trí
+
+
+
+null
+minute	/ˈmɪn.ɪt/	NOUN	phút
+
+
+
+null
+mirror	/ˈmɪr.ɚ/	NOUN	chiếc gương
+
+
+
+null
+miss	/mɪs/	VERB	bỏ lỡ, nhỡ
+
+
+
+null
+mistake	/mɪˈsteɪk/	NOUN	sai sót, sai lầm
+
+
+
+null
+mop	/mɑːp/	NOUN	cây lau nhà
+
+
+
+null
+mouth	/maʊθ/	NOUN	cái miệng
+
+
+
+null
+move	/muːv/	VERB	di chuyển
+
+
+
+null
+much	/mʌtʃ/	ADJ	nhiều, lắm
+
+
+
+null
+museum	/mjuːˈziː.əm/	NOUN	bảo tàng
+
+
+
+null
+music	/ˈmjuː.zɪk/	NOUN	âm nhạc
+
+
+
+null
+neck	/nek/	NOUN	cổ
+
+
+
+null
+noble	/ˈnoʊ.bəl/	ADJ	quý tộc
+
+
+
+null
+noise	/nɔɪz/	NOUN	tiếng ồn
+
+
+
+null
+none	/nʌn/	PRON	không ai cả, không gì
+
+
+
+null
+nor	/nɔːr/	CONJ	cũng không
+
+
+
+null
+north	/nɔːrθ/	NOUN	hướng bắc
+
+
+
+null
+nose	/noʊz/	NOUN	cái mũi
+
+
+
+null
+not	/nɑːt/	ADV	không
+
+
+
+null
+nothing	/ˈnʌθ.ɪŋ/	NOUN	không có gì
+
+
+
+null
+notice	/ˈnoʊ.t̬ɪs/	VERB	để ý, nhận ra
+
+
+
+null
+now	/naʊ/	ADV	bây giờ, hiện tại
+
+
+
+null
+number	/ˈnʌm.bɚ/	NOUN	số đếm
+
+
+
+null
+obey	/oʊˈbeɪ/	VERB	tuân thủ
+
+
+
+null
+object	/ˈɑːb.dʒɪkt/	NOUN	đồ vật, vật thể, mục tiêu
+
+
+
+null
+ocean	/ˈoʊ.ʃən/	NOUN	đại dương
+
+
+
+null
+oil	/ɔɪl/	NOUN	dầu
+
+
+
+null
+old	/oʊld	ADJ	già, lớn tuổi
+
+
+
+null
+on	/ɑːn/	PREP	bên trên
+
+
+
+null
+one	/wʌn/	NOUN	số 1
+
+
+
+null
+oven	/ˈʌv.ən/	NOUN	lò nướng
+
+
+
+null
+palm	/pɑːm/	NOUN	lòng bàn tay
+
+
+
+null
+period	/ˈpɪr.i.əd/	NOUN	thời kỳ, giai đoạn
+
+
+
+null
+petrol	/ˈpet.rəl/	NOUN	xăng dầu
+
+
+
+null
+pig	/pɪɡ/	NOUN	con heo
+
+
+
+null
+pillow	/ˈpɪl.oʊ/	NOUN	gối
+
+
+
+null
+pin	/pɪn/	NOUN	đinh ghim
+
+
+
+null
+pink	/pɪŋk/	NOUN	màu hồng
+
+
+
+null
+place	/pleɪs/	NOUN	nơi, địa điểm
+
+
+
+null
+plane	/pleɪn/	NOUN	máy bay
+
+
+
+null
+plant	/plænt/	NOUN	thực vật, cây cối
+
+
+
+null
+plastic	/ˈplæs.tɪk/	NOUN	nhựa
+
+
+
+null
+plate	/pleɪt/	NOUN	đĩa thức ăn
+
+
+
+null
+prevent	/prɪˈvent/	VERB	ngăn chặn, ngăn cản
+
+
+
+null
+prison	/ˈprɪz.ən/	NOUN	nhà tù, ngục tù
+
+
+
+null
+private	/ˈpraɪ.vət/	ADJ	riêng tư, cá nhân
+
+
+
+null
+prize	/praɪz/	NOUN	giải thưởng
+
+
+
+null
+probably	/ˈprɑː.bə.bli/	ADV	có thể
+
+
+
+null
+problem	/ˈprɑː.bləm/	NOUN	vấn đề
+
+
+
+null
+produce	/prəˈduːs/	VERB	sản xuất, tạo ra
 
 
 
@@ -23,8 +963,658 @@ pussy	(no phonetics)	NOUN	mèo
 
 
 null
+quite	/kwaɪt/	ADV	tương đối, khá
+
+
+
+null
+radiator	/ˈreɪ.di.eɪ.t̬ɚ/	NOUN	lò sưởi
+
+
+
+null
+radio	/ˈreɪ.di.oʊ/	NOUN	đài radio
+
+
+
+null
+rain	/reɪn/	NOUN	cơn mưa
+
+
+
+null
+rainy	/ˈreɪ.ni/	ADJ	hay mưa
+
+
+
+null
+raise	/reɪz/	VERB	tăng lên
+
+
+
+null
+refrigerator	/rɪˈfrɪdʒ.ə.reɪ.t̬ɚ/	NOUN	tủ lạnh
+
+
+
+null
+rise	/raɪz/	NOUN	sự tăng lên
+
+
+
+null
+road	/roʊd/	NOUN	con đường
+
+
+
+null
+rob	/rɑːb/	VERB	lấy trộm
+
+
+
+null
+rock	/rɑːk/	NOUN	đá
+
+
+
+null
+room	/ruːm//rʊm/	NOUN	buồng, phòng, chỗ
+
+
+
+null
+round	/raʊnd/	NOUN	vòng tròn
+
+
+
+null
+rubber	/ˈrʌb.ɚ/	NOUN	cao su
+
+
+
+null
+rude	/ruːd/	ADJ	khiếm nhã
+
+
+
+null
+rug	/rʌɡ/	NOUN	thảm chùi chân
+
+
+
+null
+rush	/rʌʃ/	NOUN	sự vội vàng
+
+
+
+null
+rush	/rʌʃ/	VERB	vội vàng
+
+
+
+null
+sad	/sæd/	ADJ	buồn bã
+
+
+
+null
+search	/sɝːtʃ/	NOUN	sự tìm kiếm
+
+
+
+null
+seat	/siːt/	NOUN	chỗ ngồi
+
+
+
+null
+sex	/seks/	NOUN	giới tính
+
+
+
+null
+shade	/ʃeɪd/	NOUN	bóng râm
+
+
+
+null
+shadow	/ˈʃæd.oʊ/	NOUN	bóng tối
+
+
+
+null
+shake	/ʃeɪk/	VERB	rung, lắc
+
+
+
+null
+shape	/ʃeɪp/	NOUN	hình dáng
+
+
+
+null
+share	/ʃer/	VERB	chia sẻ
+
+
+
+null
+sharp	/ʃɑːrp/	ADJ	sắc bén, nhọn
+
+
+
+null
+shoot	/ʃuːt/	NOUN	cuộc săn bắn
+
+
+
+null
+shoot	/ʃuːt/	VERB	bắn
+
+
+
+null
+shoulder	/ˈʃoʊl.dɚ/	NOUN	vai
+
+
+
+null
+silly	/ˈsɪl.i/	ADJ	ngốc nghếch
+
+
+
+null
+silver	/ˈsɪl.vɚ/	ADJ	làm bằng bạc
+
+
+
+null
+silver	/ˈsɪl.vɚ/	NOUN	kim loại bạc
+
+
+
+null
+similar	/ˈsɪm.ə.lɚ/	ADJ	giống nhau
+
+
+
+null
+sink	/sɪŋk/	NOUN	bồn rửa
+
+
+
+null
+sink	/sɪŋk/	VERB	chìm
+
+
+
+null
+slip	/slɪp/	NOUN	sự trượt chân
+
+
+
+null
+slip	/slɪp/	VERB	trượt
+
+
+
+null
 slothful	(no phonetics)	ADJECTIVE
 Lazy; idle; tending to sloth.
 inactive	indolent	sluggish
 unslothful	active
+null
+slow	/sloʊ/	ADJ	chậm chạp
+
+
+
+null
+small	/smɑːl/	ADJ	nhỏ bé
+
+
+
+null
+so	/soʊ/	ADV	vậy
+
+
+
+null
+soap	/soʊp/	VERB	xà phòng
+
+
+
+null
+sock	/sɑːk/	NOUN	vớ
+
+
+
+null
+sponge	/spʌndʒ/	NOUN	đồ rửa chén
+
+
+
+null
+stool	/stuːl/	NOUN	ghế đẩu
+
+
+
+null
+stop	/stɑːp/	NOUN	điểm dừng
+
+
+
+null
+stop	/stɑːp/	VERB	dừng lại
+
+
+
+null
+storm	/stɔːrm/	NOUN	cơn bão
+
+
+
+null
+storm	/stɔːrm/	VERB	xông vào
+
+
+
+null
+story	/ˈstɔːr.i/	NOUN	câu chuyện
+
+
+
+null
+strange	/streɪndʒ/	ADJ	kỳ lạ
+
+
+
+null
+strawberry	/ˈstrɑːˌber.i/	NOUN	quả dâu tây
+
+
+
+null
+street	/striːt/	NOUN	đường phố
+
+
+
+null
+strong	/strɑːŋ/	ADJ	mạnh mẽ
+
+
+
+null
+structure	/ˈstrʌk.tʃɚ/	NOUN	cấu trúc
+
+
+
+null
+student	/ˈstuː.dənt/	NOUN	học sinh, sinh viên
+
+
+
+null
+sweet	/swiːt/	NOUN	sự ngọt ngào
+
+
+
+null
+swim	/swɪm/	VERB	bơi
+
+
+
+null
+switch	/swɪtʃ/	NOUN	công tắc
+
+
+
+null
+sword	/sɔːrd/	NOUN	gươm, kiếm, đao
+
+
+
+null
+table	/ˈteɪ.bəl/	NOUN	cái bàn
+
+
+
+null
+take	/teɪk/	NOUN	sự cầm nắm
+
+
+
+null
+take	/teɪk/	VERB	cầm, nắm, lấy
+
+
+
+null
+thin	/θɪn/	ADJ	mỏng manh 
+
+
+
+null
+thing	/θɪŋ/	NOUN	cái, đồ, vật, thứ
+
+
+
+null
+think	/θɪŋk/	VERB	suy nghĩ
+
+
+
+null
+though	/ðoʊ/	CONJ	mặc dù, tuy vậy, tuy nhiên
+
+
+
+null
+threat	/θret/	NOUN	sự đe dọa
+
+
+
+null
+three	/θriː/	NOUN	số 3
+
+
+
+null
+throat	/θroʊt/	NOUN	cổ họng
+
+
+
+null
+thumb	/θʌm/	NOUN	ngón cái
+
+
+
+null
+tidy	/ˈtaɪ.di/	ADJ	sạch sẽ, ngăn nắp
+
+
+
+null
+tidy	/ˈtaɪ.di/	VERB	dọn dẹp
+
+
+
+null
+tie	/taɪ/	NOUN	cà vạt
+
+
+
+null
+title	/ˈtaɪ.t̬əl/	NOUN	danh hiệu
+
+
+
+null
+to	/tuː/	PREP	theo, tới, để
+
+
+
+null
+today	/təˈdeɪ/	NOUN	hôm nay
+
+
+
+null
+toe	/toʊ/	NOUN	ngón chân
+
+
+
+null
+together	/təˈɡeð.ɚ/	ADV	cùng nhau
+
+
+
+null
+tomorrow	/təˈmɔːr.oʊ/	NOUN	ngày mai
+
+
+
+null
+torch	/tɔːrtʃ/	NOUN	đèn pin
+
+
+
+null
+towel	/taʊəl/	NOUN	khăn tắm
+
+
+
+null
+town	/taʊn/	NOUN	thị trấn
+
+
+
+null
+train	/treɪn/	NOUN	xe lửa
+
+
+
+null
+tram	/træm/	NOUN	xe điện
+
+
+
+null
+travel	/ˈtræv.əl/	NOUN	chuyến đi
+
+
+
+null
+travel	/ˈtræv.əl/	VERB	đi du lịch
+
+
+
+null
+tree	/triː/	NOUN	cái cây
+
+
+
+null
+trouble	/ˈtrʌb.əl/	NOUN	vấn đề
+
+
+
+null
+true	/truː/	ADJ	đúng
+
+
+
+null
+trust	/trʌst/	NOUN	lòng tin
+
+
+
+null
+trust	/trʌst/	VERB	tin
+
+
+
+null
+try	/traɪ/	NOUN	sự thử sức
+
+
+
+null
+try	/traɪ/	VERB	thử, làm thử
+
+
+
+null
+twice	/twaɪs/	ADV	hai lần, gấp đôi
+
+
+
+null
+uncle	/ˈʌŋ.kəl/	NOUN	chú, bác, cậu
+
+
+
+null
+under	/ˈʌn.dɚ/	PREP	ở dưới
+
+
+
+null
+understand	/ˌʌn.dɚˈstænd/	VERB	hiểu, thông cảm
+
+
+
+null
+unit	/ˈjuː.nɪt/	NOUN	đơn vị, một khối
+
+
+
+null
+until	/ʌnˈtɪl/	PREP	cho đến khi
+
+
+
+null
+usual	/ˈjuː.ʒu.əl/	ADJ	như mọi khi
+
+
+
+null
+villa	/ˈvɪl.ə/	NOUN	biệt thự
+
+
+
+null
+village	/ˈvɪl.ɪdʒ/	NOUN	làng, xã
+
+
+
+null
+visit	/ˈvɪz.ɪt/	NOUN	chuyến thăm
+
+
+
+null
+voice	/vɔɪs/	NOUN	tiếng nói
+
+
+
+null
+waist	/weɪst/	NOUN	eo
+
+
+
+null
+washing	/ˈwɑː.ʃɪŋ məˌʃiːn/	MACHINE	máy giặt
+
+
+
+null
+waste	/weɪst/	NOUN	rác
+
+
+
+null
+weather	/ˈweð.ɚ/	NOUN	thời tiết
+
+
+
+null
+wedding	/ˈwed.ɪŋ/	NOUN	đám cưới
+
+
+
+null
+week	/wiːk/	NOUN	tuần
+
+
+
+null
+weight	/weɪt/	NOUN	trọng lượng, cân nặng
+
+
+
+null
+welcome	/ˈwel.kəm/	ADJ	được chào đón
+
+
+
+null
+welcome	/ˈwel.kəm/	VERB	chào đón, tiếp đón
+
+
+
+null
+wife	/waɪf/	NOUN	vợ, phu nhân
+
+
+
+null
+wild	/waɪld/	ADJ	hoang dã, hoang dại
+
+
+
+null
+will	/wɪl/	VERB	sẽ
+
+
+
+null
+win	/wɪn/	NOUN	sự chiến thắng
+
+
+
+null
+win	/wɪn/	VERB	chiến thắng
+
+
+
+null
+wind	/wɪnd/	NOUN	gió
+
+
+
+null
+wire	/waɪr	NOUN	dây nối 
+
+
+
+null
+wise	/waɪz/	ADJ	khôn ngoan, sáng suốt
+
+
+
+null
+wrist	/rɪst/	NOUN	cổ tay
+
+
+
+null
+yell	/jel/	VERB	la hét
+
+
+
+null
+yesterday	/ˈjes.tɚ.deɪ/	NOUN	ngày hôm qua
+
+
+
+null
+yet	/jet/	ADV	còn, chưa kết thúc
+
+
+
+null
+young	/jʌŋ/	ADJ	trẻ
+
+
+
+null
+zero	/ˈzɪr.oʊ/	NOUN	số 0
+
+
+
+null
+zoo	/zuː/	NOUN	sở thú
+
+
+
 null
