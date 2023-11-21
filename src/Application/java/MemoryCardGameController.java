@@ -24,8 +24,7 @@ import java.util.*;
 public class MemoryCardGameController implements Initializable {
     @FXML
     private GridPane myGridPane;
-    private final List<Card> cardList = new ArrayList<>();
-    private final Player player = new Player();
+    MemoryGame memoryGame = new MemoryGame();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -55,16 +54,15 @@ public class MemoryCardGameController implements Initializable {
                 meaning = iterator.next().getWordContent();
             }
             Card meaningCard = new Card(i, meaning);
-            cardList.add(contentCard);
-            cardList.add(phoneticCard);
-            cardList.add(meaningCard);
+            memoryGame.cardList.add(contentCard);
+            memoryGame.cardList.add(phoneticCard);
+            memoryGame.cardList.add(meaningCard);
         }
-        Collections.shuffle(cardList);
-        System.out.println(cardList.size());
+        memoryGame.shuffleCardList();
 
         for (int row = 0; row < myGridPane.getRowCount(); row++) {
             for (int col = 0; col < myGridPane.getColumnCount(); col++) {
-                Card card = cardList.get(row * myGridPane.getColumnCount() + col);
+                Card card = memoryGame.cardList.get(row * myGridPane.getColumnCount() + col);
                 card.cardTarget.setMaxWidth(Double.MAX_VALUE);
                 card.cardTarget.setMaxHeight(Double.MAX_VALUE);
                 GridPane.setMargin(card.cardTarget, new Insets(10, 10, 10, 10));
@@ -74,37 +72,61 @@ public class MemoryCardGameController implements Initializable {
         }
     }
 
-    private void triadsCheck() {
-        if (Card.numberOfFlippedCards / 3 > 0) {
-            List<Card> cards = new ArrayList<>();
-            for (Card card : cardList) {
-                if (card.isFlipped) cards.add(card);
-                if (cards.size() >= 3) break;
+
+    private class MemoryGame {
+        private final List<Card> cardList = new ArrayList<>();
+        private final Player player = new Player();
+
+        private void triadsCheck() {
+            if (Card.numberOfFlippedCards / 3 > 0) {
+                List<Card> cards = new ArrayList<>();
+                for (Card card : cardList) {
+                    if (card.isFlipped) cards.add(card);
+                    if (cards.size() >= 3) break;
+                }
+                if (cards.get(0).equals(cards.get(1)) && cards.get(1).equals(cards.get(2))) {
+                    // lật 3 thẻ đúng thì làm gì đó :v
+                    player.gainScore();
+                    Card.synchronizedDisappear(cards);
+                    return;
+                }
+                player.loseLive();
+                Card.synchronizedRevertFlip(cards);
             }
-            if (cards.get(0).equals(cards.get(1)) && cards.get(1).equals(cards.get(2))) {
-                // lật 3 thẻ đúng thì làm gì đó :v
-            }
-            cards.get(0).delayedRevertFlip(true);
-            cards.get(1).delayedRevertFlip(true);
-            cards.get(2).delayedRevertFlip(true);
-            cards.get(0).isFlipped = false;
-            cards.get(1).isFlipped = false;
-            cards.get(2).isFlipped = false;
-            Card.numberOfFlippedCards -= 3;
+        }
+
+        private void shuffleCardList() {
+            Collections.shuffle(cardList);
         }
     }
 
-    public class Player {
+    private class Player {
         private int score;
         private int lives;
+
+        private void gainScore() {
+            score++;
+        }
+
+        private void loseScore() {
+            score--;
+        }
+
+        private void gainLive() {
+            lives++;
+        }
+
+        private void loseLive() {
+            lives--;
+        }
     }
 
-    public class Card {
+    private class Card {
         private Button cardTarget = new Button();
         private String cardText = "";
         private Integer cardId;
         private boolean isFlipped;
-        private final static double FLIP_RATE = 0.5;
+        private final static double FLIP_RATE = 0.1;
         private final static double DELAY_RATE = 2.0;
         private static int numberOfFlippedCards = 0;
         private final EventHandler<ActionEvent> cardPickEventHandler = event -> {
@@ -179,6 +201,28 @@ public class MemoryCardGameController implements Initializable {
             this.cardText = cardText;
         }
 
+        private static void synchronizedRevertFlip(List<Card> cards) {
+            for (Card card : cards) {
+                card.isFlipped = false;
+                card.delayedRevertFlip(true);
+            }
+            Card.numberOfFlippedCards -= cards.size();
+        }
+
+        private static void synchronizedDisappear(List<Card> cards) {
+            SequentialTransition s =
+                    new SequentialTransition(new PauseTransition(Duration.seconds(Card.DELAY_RATE)));
+            s.play();
+            s.setOnFinished(event -> {
+                for (Card card : cards) {
+                    card.isFlipped = false;
+                    card.flipTransition3.setOnFinished(event1 -> {});
+                    card.flipTransition3.play();
+                }
+                Card.numberOfFlippedCards -= cards.size();
+            });
+        }
+
         private void autoFlip() {
             if (isFlipped) {
                 numberOfFlippedCards--;
@@ -188,7 +232,7 @@ public class MemoryCardGameController implements Initializable {
                 numberOfFlippedCards++;
                 isFlipped = true;
                 flip();
-                MemoryCardGameController.this.triadsCheck();
+                MemoryCardGameController.this.memoryGame.triadsCheck();
             }
             System.out.println("flipped : " + numberOfFlippedCards + " cards");
         }
