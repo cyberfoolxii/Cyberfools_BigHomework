@@ -288,7 +288,7 @@ public class SceneController implements Initializable {
 
     // viet sau
     public void switchToGame3(ActionEvent event) {
-        VBox vBox = (VBox) ((HBox)(selectGameButton3.getParent())).getParent();
+        VBox vBox = (VBox) selectGameButton3.getParent().getParent();
         for (Node node : vBox.getChildren()) {
             node.setVisible(false);
             node.setManaged(false);

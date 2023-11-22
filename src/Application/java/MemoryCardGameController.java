@@ -5,26 +5,44 @@ import javafx.animation.PauseTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.Label;
+import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.net.URL;
 import java.util.*;
 
 public class MemoryCardGameController implements Initializable {
     @FXML
     private GridPane myGridPane;
-    MemoryGame memoryGame = new MemoryGame();
+    @FXML
+    private BorderPane myBorderPane;
+    @FXML
+            private Button pauseButton;
+    @FXML
+            private Label livesLabel;
+    @FXML
+            private Label scoreLabel;
+    @FXML
+            private Label timeLabel;
+    @FXML
+            private VBox myVBox;
+    public static MediaPlayer mediaPlayer;
+    MemoryGame memoryGame = new MemoryGame(MemoryGame.Difficulty.HELL);
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -36,6 +54,17 @@ public class MemoryCardGameController implements Initializable {
                     + "từ tiếng Anh để bắt đầu!");
             return;
         }
+
+        File file = new File("src\\Application\\resources\\Sound\\DVRST-Close_Eyes.mp3");
+        Media media = new Media(file.toURI().toString());
+        mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.play();
+
+        FXMLManager fxmlManager = new FXMLManager();
+        pauseButton.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 20));
+        livesLabel.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 18));
+        scoreLabel.fontProperty().bind(livesLabel.fontProperty());
+        timeLabel.fontProperty().bind(livesLabel.fontProperty());
 
         int randomStartIndex = (int) (Math.random()
                 * (Dictionary.getInstance().getEnglishWordsArrayList().size()
@@ -72,10 +101,49 @@ public class MemoryCardGameController implements Initializable {
         }
     }
 
+    public void showPausedMenu(ActionEvent event) {
+        FXMLManager fxmlManager = new FXMLManager();
+        myGridPane.getParent().setVisible(false);
+        myGridPane.getParent().setManaged(false);
+        VBox vBox = (VBox) fxmlManager.getFXMLInsertedRoot("/FXML Files/MemoryGameMenu.fxml");
+        VBox parentVBox = (VBox) myBorderPane.getParent();
+        vBox.setMaxWidth(Double.MAX_VALUE);
+        vBox.setMaxHeight(Double.MAX_VALUE);
+        VBox.setVgrow(vBox, Priority.ALWAYS);
+        parentVBox.getChildren().add(vBox);
+    }
+
 
     private class MemoryGame {
         private final List<Card> cardList = new ArrayList<>();
         private final Player player = new Player();
+        public enum Difficulty {
+            EASY,
+            MEDIUM,
+            HARD,
+            HELL
+        }
+
+        public MemoryGame(Difficulty difficulty) {
+            switch (difficulty) {
+                case EASY:
+                    Card.flipRate = 0.4;
+                    Card.delayRate = 2;
+                    break;
+                case MEDIUM:
+                    Card.flipRate = 0.3;
+                    Card.delayRate = 1;
+                    break;
+                case HARD:
+                    Card.flipRate = 0.2;
+                    Card.delayRate = 0.5;
+                    break;
+                case HELL:
+                    Card.flipRate = 0.1;
+                    Card.delayRate = 0.25;
+                    break;
+            }
+        }
 
         private void triadsCheck() {
             if (Card.numberOfFlippedCards / 3 > 0) {
@@ -126,8 +194,8 @@ public class MemoryCardGameController implements Initializable {
         private String cardText = "";
         private Integer cardId;
         private boolean isFlipped;
-        private final static double FLIP_RATE = 0.1;
-        private final static double DELAY_RATE = 2.0;
+        private static double flipRate = 0.1;
+        private static double delayRate = 2.0;
         private static int numberOfFlippedCards = 0;
         private final EventHandler<ActionEvent> cardPickEventHandler = event -> {
             autoFlip();
@@ -173,7 +241,7 @@ public class MemoryCardGameController implements Initializable {
 
         private void setUpFlipTransition1() {
             flipTransition1.setNode(cardTarget);
-            flipTransition1.setDuration(Duration.seconds(Card.FLIP_RATE));
+            flipTransition1.setDuration(Duration.seconds(Card.flipRate));
             flipTransition1.setAxis(Rotate.Y_AXIS);
             flipTransition1.setInterpolator(Interpolator.LINEAR);
             flipTransition1.setFromAngle(0);
@@ -182,7 +250,7 @@ public class MemoryCardGameController implements Initializable {
 
         private void setUpFlipTransition2() {
             flipTransition2.setNode(cardTarget);
-            flipTransition2.setDuration(Duration.seconds(Card.FLIP_RATE));
+            flipTransition2.setDuration(Duration.seconds(Card.flipRate));
             flipTransition2.setAxis(Rotate.Y_AXIS);
             flipTransition2.setInterpolator(Interpolator.LINEAR);
             flipTransition2.setFromAngle(90);
@@ -211,7 +279,7 @@ public class MemoryCardGameController implements Initializable {
 
         private static void synchronizedDisappear(List<Card> cards) {
             SequentialTransition s =
-                    new SequentialTransition(new PauseTransition(Duration.seconds(Card.DELAY_RATE)));
+                    new SequentialTransition(new PauseTransition(Duration.seconds(Card.delayRate)));
             s.play();
             s.setOnFinished(event -> {
                 for (Card card : cards) {
@@ -256,7 +324,7 @@ public class MemoryCardGameController implements Initializable {
         private void delayedFlip(boolean isDelayed) {
             if (isDelayed) {
                 SequentialTransition s =
-                        new SequentialTransition(new PauseTransition(Duration.seconds(DELAY_RATE)));
+                        new SequentialTransition(new PauseTransition(Duration.seconds(delayRate)));
                 s.setOnFinished(event -> {
                     flip();
                 });
@@ -269,7 +337,7 @@ public class MemoryCardGameController implements Initializable {
         private void delayedRevertFlip(boolean isDelayed) {
             if (isDelayed) {
                 SequentialTransition s =
-                        new SequentialTransition(new PauseTransition(Duration.seconds(DELAY_RATE)));
+                        new SequentialTransition(new PauseTransition(Duration.seconds(delayRate)));
                 s.setOnFinished(event -> {
                     revertFlip();
                 });
@@ -295,7 +363,7 @@ public class MemoryCardGameController implements Initializable {
 
         private void setUpFlipTransition3() {
             flipTransition3.setNode(cardTarget);
-            flipTransition3.setDuration(Duration.seconds(Card.FLIP_RATE));
+            flipTransition3.setDuration(Duration.seconds(Card.flipRate));
             flipTransition3.setAxis(Rotate.Y_AXIS);
             flipTransition3.setInterpolator(Interpolator.LINEAR);
             flipTransition3.setFromAngle(180);
@@ -304,7 +372,7 @@ public class MemoryCardGameController implements Initializable {
 
         private void setUpFlipTransition4() {
             flipTransition4.setNode(cardTarget);
-            flipTransition4.setDuration(Duration.seconds(Card.FLIP_RATE));
+            flipTransition4.setDuration(Duration.seconds(Card.flipRate));
             flipTransition4.setAxis(Rotate.Y_AXIS);
             flipTransition4.setInterpolator(Interpolator.LINEAR);
             flipTransition4.setFromAngle(90);

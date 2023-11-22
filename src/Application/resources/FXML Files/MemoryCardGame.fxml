@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.java.MemoryCardGameController">
+<BorderPane fx:id="myBorderPane" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.java.MemoryCardGameController">
    <center>
       <GridPane fx:id="myGridPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="512.0" prefWidth="709.0">
         <columnConstraints>
@@ -25,4 +30,30 @@
         </rowConstraints>
       </GridPane>
    </center>
+   <top>
+      <VBox fx:id="myVBox" prefHeight="74.0" prefWidth="710.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="pauseButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showPausedMenu" prefHeight="42.0" prefWidth="710.0" text="Pause" VBox.vgrow="ALWAYS" />
+            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="42.0" prefWidth="710.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <FlowPane alignment="CENTER" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label fx:id="livesLabel" alignment="CENTER" prefHeight="38.0" prefWidth="236.0" text="Lives : " textAlignment="JUSTIFY" />
+                     </children>
+                  </FlowPane>
+                  <FlowPane alignment="CENTER" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label fx:id="timeLabel" alignment="CENTER" maxHeight="1.7976931348623157E308" prefHeight="29.0" prefWidth="164.0" text="Remaining time : " textAlignment="JUSTIFY" />
+                     </children>
+                  </FlowPane>
+                  <FlowPane alignment="CENTER" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label fx:id="scoreLabel" alignment="CENTER" maxHeight="1.7976931348623157E308" prefHeight="34.0" prefWidth="173.0" text="Score : " textAlignment="JUSTIFY" />
+                     </children>
+                  </FlowPane>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </top>
 </BorderPane>

@@ -49,7 +49,7 @@ public class StageManager {
         //stage.setHeight(CommonConstants.MAX_SCREEN_HEIGHT/1.5);
         //stage.setX((CommonConstants.MAX_SCREEN_WIDTH - CommonConstants.MAX_SCREEN_WIDTH/1.5)/2);
         //stage.setY((CommonConstants.MAX_SCREEN_HEIGHT - CommonConstants.MAX_SCREEN_HEIGHT/1.5)/2);
-        Image appIcon = new Image("file:src/Application/resources/AppIcon/AppIcon.jpg");
+        Image appIcon = new Image("file:src/Application/resources/AppIcon/AppIcon.png");
         stage.getIcons().add(appIcon);
         //stage.setFullScreen(true);
 /*        RootManager rootManager = new RootManager();
