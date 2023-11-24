@@ -4,6 +4,12 @@ import javafx.animation.Interpolator;
 import javafx.animation.PauseTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
+import javafx.application.Platform;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableStringValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -34,13 +40,35 @@ public class MemoryCardGameController implements Initializable {
     @FXML
             private Button pauseButton;
     @FXML
-            private Label livesLabel;
-    @FXML
             private Label scoreLabel;
     @FXML
             private Label timeLabel;
     @FXML
             private VBox myVBox;
+    @FXML
+    private StackPane myStackPane;
+    Thread timeThread = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            memoryGame.updateRemainingTime();
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    timeLabel.setText("RemainingTime : " + memoryGame.remainingTime);
+                }
+            });
+            if (memoryGame.isPlayerLost() || memoryGame.isPlayerWon()) {
+                return;
+            }
+            try {
+                Thread.sleep(500);
+                System.out.println("continue");
+            } catch (Exception e) {
+                System.out.println("catch exception");
+            }
+            run();
+        }
+    });
     public static MediaPlayer mediaPlayer;
     MemoryGame memoryGame = new MemoryGame(MemoryGame.Difficulty.HELL);
     @Override
@@ -62,9 +90,10 @@ public class MemoryCardGameController implements Initializable {
 
         FXMLManager fxmlManager = new FXMLManager();
         pauseButton.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 20));
-        livesLabel.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 18));
-        scoreLabel.fontProperty().bind(livesLabel.fontProperty());
-        timeLabel.fontProperty().bind(livesLabel.fontProperty());
+        scoreLabel.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 18));
+        //scoreLabel.textProperty().bind(new SimpleStringProperty("Score : " + memoryGame.player.score));
+        timeLabel.fontProperty().bind(scoreLabel.fontProperty());
+        //timeLabel.textProperty().bind(new SimpleStringProperty("RemainingTime : " + memoryGame.remainingTime));
 
         int randomStartIndex = (int) (Math.random()
                 * (Dictionary.getInstance().getEnglishWordsArrayList().size()
@@ -99,14 +128,17 @@ public class MemoryCardGameController implements Initializable {
                 myGridPane.getChildren().add(card.cardTarget);
             }
         }
+
+        // phải gọi thread ở dưới vì khi này cardlist mới khởi tạo xong
+        timeThread.start();
     }
 
     public void showPausedMenu(ActionEvent event) {
         FXMLManager fxmlManager = new FXMLManager();
-        myGridPane.getParent().setVisible(false);
-        myGridPane.getParent().setManaged(false);
+        myGridPane.getParent().getParent().setVisible(false);
+        myGridPane.getParent().getParent().setManaged(false);
         VBox vBox = (VBox) fxmlManager.getFXMLInsertedRoot("/FXML Files/MemoryGameMenu.fxml");
-        VBox parentVBox = (VBox) myBorderPane.getParent();
+        VBox parentVBox = (VBox) myStackPane.getParent();
         vBox.setMaxWidth(Double.MAX_VALUE);
         vBox.setMaxHeight(Double.MAX_VALUE);
         VBox.setVgrow(vBox, Priority.ALWAYS);
@@ -117,6 +149,16 @@ public class MemoryCardGameController implements Initializable {
     private class MemoryGame {
         private final List<Card> cardList = new ArrayList<>();
         private final Player player = new Player();
+        private final int TIME_LIMIT;
+        private int remainingTime;
+        private int flipTimeLimit;
+        private static final long STARTED_TIME = System.currentTimeMillis();
+
+        private void updateRemainingTime() {
+            remainingTime = (TIME_LIMIT - (int) ((System.currentTimeMillis() - STARTED_TIME) / 1000));
+            System.out.println(remainingTime);
+        }
+
         public enum Difficulty {
             EASY,
             MEDIUM,
@@ -129,19 +171,25 @@ public class MemoryCardGameController implements Initializable {
                 case EASY:
                     Card.flipRate = 0.4;
                     Card.delayRate = 2;
+                    TIME_LIMIT = 30;
                     break;
                 case MEDIUM:
                     Card.flipRate = 0.3;
                     Card.delayRate = 1;
+                    TIME_LIMIT = 20;
                     break;
                 case HARD:
                     Card.flipRate = 0.2;
                     Card.delayRate = 0.5;
+                    TIME_LIMIT = 10;
                     break;
                 case HELL:
                     Card.flipRate = 0.1;
                     Card.delayRate = 0.25;
+                    TIME_LIMIT = 5;
                     break;
+                default:
+                    TIME_LIMIT = 30;
             }
         }
 
@@ -158,9 +206,22 @@ public class MemoryCardGameController implements Initializable {
                     Card.synchronizedDisappear(cards);
                     return;
                 }
-                player.loseLive();
                 Card.synchronizedRevertFlip(cards);
             }
+        }
+
+        private boolean isPlayerWon() {
+            for (Card card : cardList) {
+                if (card.cardTarget.isVisible()) return false;
+            }
+            return true;
+        }
+
+        private boolean isPlayerLost() {
+            if (!isPlayerWon() && remainingTime <= 0) {
+                return true;
+            }
+            return false;
         }
 
         private void shuffleCardList() {
@@ -170,7 +231,10 @@ public class MemoryCardGameController implements Initializable {
 
     private class Player {
         private int score;
-        private int lives;
+
+        public Player() {
+
+        }
 
         private void gainScore() {
             score++;
@@ -180,13 +244,6 @@ public class MemoryCardGameController implements Initializable {
             score--;
         }
 
-        private void gainLive() {
-            lives++;
-        }
-
-        private void loseLive() {
-            lives--;
-        }
     }
 
     private class Card {
@@ -284,7 +341,9 @@ public class MemoryCardGameController implements Initializable {
             s.setOnFinished(event -> {
                 for (Card card : cards) {
                     card.isFlipped = false;
-                    card.flipTransition3.setOnFinished(event1 -> {});
+                    card.flipTransition3.setOnFinished(event1 -> {
+                        card.cardTarget.setVisible(false);
+                    });
                     card.flipTransition3.play();
                 }
                 Card.numberOfFlippedCards -= cards.size();

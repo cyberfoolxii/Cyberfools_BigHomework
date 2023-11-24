@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -20,6 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Scanner;
+import java.util.Stack;
 
 public class MemoryGamePausedController implements Initializable {
     @FXML
@@ -67,12 +69,9 @@ public class MemoryGamePausedController implements Initializable {
         parentVBox.getChildren().remove(parentVBox.getChildren().size() - 1);
         parentVBox.getChildren().remove(parentVBox.getChildren().size() - 1);
         FXMLManager fxmlManager = new FXMLManager();
-        BorderPane myBorderPane = (BorderPane) fxmlManager.getFXMLInsertedRoot("/FXML Files/MemoryCardGame.fxml");
-        VBox.setVgrow(myBorderPane, Priority.ALWAYS);
-        parentVBox.getChildren().add(myBorderPane);
-
-        MemoryCardGameController.mediaPlayer.stop();
-        MemoryCardGameController.mediaPlayer.play();
+        StackPane myStackPane = (StackPane) fxmlManager.getFXMLInsertedRoot("/FXML Files/MemoryCardGame.fxml");
+        VBox.setVgrow(myStackPane, Priority.ALWAYS);
+        parentVBox.getChildren().add(myStackPane);
     }
 
     public void resumeGame(ActionEvent event) {

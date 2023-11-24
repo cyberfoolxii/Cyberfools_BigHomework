@@ -294,9 +294,9 @@ public class SceneController implements Initializable {
             node.setManaged(false);
         }
         FXMLManager fxmlManager = new FXMLManager();
-        BorderPane myBorderPane = (BorderPane) fxmlManager.getFXMLInsertedRoot("/FXML Files/MemoryCardGame.fxml");
-        VBox.setVgrow(myBorderPane, Priority.ALWAYS);
-        vBox.getChildren().add(myBorderPane);
+        StackPane myStackPane = (StackPane) fxmlManager.getFXMLInsertedRoot("/FXML Files/MemoryCardGame.fxml");
+        VBox.setVgrow(myStackPane, Priority.ALWAYS);
+        vBox.getChildren().add(myStackPane);
 
     }
 
