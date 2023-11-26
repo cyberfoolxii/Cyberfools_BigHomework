@@ -197,7 +197,9 @@ public class MemoryCardGameController implements Initializable {
             if (Card.numberOfFlippedCards / 3 > 0) {
                 List<Card> cards = new ArrayList<>();
                 for (Card card : cardList) {
-                    if (card.isFlipped) cards.add(card);
+                    if (card.isFlipped) {
+                        cards.add(card);
+                    }
                     if (cards.size() >= 3) break;
                 }
                 if (cards.get(0).equals(cards.get(1)) && cards.get(1).equals(cards.get(2))) {

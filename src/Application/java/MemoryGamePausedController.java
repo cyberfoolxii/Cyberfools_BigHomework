@@ -65,6 +65,7 @@ public class MemoryGamePausedController implements Initializable {
     }
 
     public void restartGame(ActionEvent event) {
+        MemoryCardGameController.mediaPlayer.stop();
         VBox parentVBox = (VBox) myGamePausedVBox.getParent();
         parentVBox.getChildren().remove(parentVBox.getChildren().size() - 1);
         parentVBox.getChildren().remove(parentVBox.getChildren().size() - 1);
