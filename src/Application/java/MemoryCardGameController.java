@@ -47,6 +47,8 @@ public class MemoryCardGameController implements Initializable {
             private VBox myVBox;
     @FXML
     private StackPane myStackPane;
+
+    private final List<WordInCard> allDataOfGame = CardDataReader.CardReader();
     Thread timeThread = new Thread(new Runnable() {
         @Override
         public void run() {
@@ -74,19 +76,11 @@ public class MemoryCardGameController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        if (Dictionary.getInstance().getEnglishWordsArrayList().size()
-                < (myGridPane.getRowCount() * myGridPane.getColumnCount()) / 3) {
-            // hiện ra menu gì đó cho người dùng
-            System.out.println("bạn cần có tối thiểu "
-                    + ((myGridPane.getRowCount() * myGridPane.getColumnCount()) / 3)
-                    + "từ tiếng Anh để bắt đầu!");
-            return;
-        }
-
         File file = new File("src\\Application\\resources\\Sound\\DVRST-Close_Eyes.mp3");
         Media media = new Media(file.toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.play();
+        mediaPlayer.setVolume(0.1);
 
         FXMLManager fxmlManager = new FXMLManager();
         pauseButton.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 20));
@@ -96,22 +90,14 @@ public class MemoryCardGameController implements Initializable {
         //timeLabel.textProperty().bind(new SimpleStringProperty("RemainingTime : " + memoryGame.remainingTime));
 
         int randomStartIndex = (int) (Math.random()
-                * (Dictionary.getInstance().getEnglishWordsArrayList().size()
+                * (allDataOfGame.size()
                 - (myGridPane.getRowCount() * myGridPane.getColumnCount()) / 3));
         for (int i = randomStartIndex; i < randomStartIndex + (myGridPane.getRowCount() * myGridPane.getColumnCount()) / 3; i++) {
-            Card contentCard = new Card(i, Dictionary.getInstance()
-                    .getEnglishWordsArrayList().get(i).getWordContent());
+            Card contentCard = new Card(i, allDataOfGame.get(i).getWordContent());
 
-            Card phoneticCard = new Card(i, Dictionary.getInstance()
-                    .getEnglishWordsArrayList().get(i).getPhonetic());
+            Card phoneticCard = new Card(i, allDataOfGame.get(i).getPhonetic());
 
-            Iterator<VietnameseWord> iterator = Dictionary.getInstance()
-                    .getEnglishWordsArrayList().get(i).getVietnameseMeaningsList().iterator();
-            String meaning = "";
-            if (iterator.hasNext()) {
-                meaning = iterator.next().getWordContent();
-            }
-            Card meaningCard = new Card(i, meaning);
+            Card meaningCard = new Card(i, allDataOfGame.get(i).getVietnameseMeanings());
             memoryGame.cardList.add(contentCard);
             memoryGame.cardList.add(phoneticCard);
             memoryGame.cardList.add(meaningCard);
