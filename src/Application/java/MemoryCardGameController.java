@@ -5,18 +5,11 @@ import javafx.animation.PauseTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
 import javafx.application.Platform;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableStringValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
@@ -47,6 +40,11 @@ public class MemoryCardGameController implements Initializable {
             private VBox myVBox;
     @FXML
     private StackPane myStackPane;
+    public static MemoryGame.Difficulty difficulty;
+    public static MediaPlayer mediaPlayer;
+    MemoryGame memoryGame = new MemoryGame(difficulty);
+
+    private final List<WordInCard> allDataOfGame = CardDataReader.CardReader();
     Thread timeThread = new Thread(new Runnable() {
         @Override
         public void run() {
@@ -57,7 +55,16 @@ public class MemoryCardGameController implements Initializable {
                     timeLabel.setText("RemainingTime : " + memoryGame.remainingTime);
                 }
             });
-            if (memoryGame.isPlayerLost() || memoryGame.isPlayerWon()) {
+            if (memoryGame.isPlayerLost()) {
+                Platform.runLater(() -> {
+                    showLostMenu();
+                });
+                return;
+            }
+            if (memoryGame.isPlayerWon()) {
+                Platform.runLater(() -> {
+                    showWonMenu();
+                });
                 return;
             }
             try {
@@ -69,49 +76,29 @@ public class MemoryCardGameController implements Initializable {
             run();
         }
     });
-    public static MediaPlayer mediaPlayer;
-    MemoryGame memoryGame = new MemoryGame(MemoryGame.Difficulty.HELL);
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        if (Dictionary.getInstance().getEnglishWordsArrayList().size()
-                < (myGridPane.getRowCount() * myGridPane.getColumnCount()) / 3) {
-            // hiện ra menu gì đó cho người dùng
-            System.out.println("bạn cần có tối thiểu "
-                    + ((myGridPane.getRowCount() * myGridPane.getColumnCount()) / 3)
-                    + "từ tiếng Anh để bắt đầu!");
-            return;
-        }
 
         File file = new File("src\\Application\\resources\\Sound\\DVRST-Close_Eyes.mp3");
         Media media = new Media(file.toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.play();
+        mediaPlayer.setVolume(0.1);
 
         FXMLManager fxmlManager = new FXMLManager();
         pauseButton.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 20));
         scoreLabel.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 18));
-        //scoreLabel.textProperty().bind(new SimpleStringProperty("Score : " + memoryGame.player.score));
         timeLabel.fontProperty().bind(scoreLabel.fontProperty());
-        //timeLabel.textProperty().bind(new SimpleStringProperty("RemainingTime : " + memoryGame.remainingTime));
 
         int randomStartIndex = (int) (Math.random()
-                * (Dictionary.getInstance().getEnglishWordsArrayList().size()
+                * (allDataOfGame.size()
                 - (myGridPane.getRowCount() * myGridPane.getColumnCount()) / 3));
         for (int i = randomStartIndex; i < randomStartIndex + (myGridPane.getRowCount() * myGridPane.getColumnCount()) / 3; i++) {
-            Card contentCard = new Card(i, Dictionary.getInstance()
-                    .getEnglishWordsArrayList().get(i).getWordContent());
+            Card contentCard = new Card(i, allDataOfGame.get(i).getWordContent());
 
-            Card phoneticCard = new Card(i, Dictionary.getInstance()
-                    .getEnglishWordsArrayList().get(i).getPhonetic());
+            Card phoneticCard = new Card(i, allDataOfGame.get(i).getPhonetic());
 
-            Iterator<VietnameseWord> iterator = Dictionary.getInstance()
-                    .getEnglishWordsArrayList().get(i).getVietnameseMeaningsList().iterator();
-            String meaning = "";
-            if (iterator.hasNext()) {
-                meaning = iterator.next().getWordContent();
-            }
-            Card meaningCard = new Card(i, meaning);
+            Card meaningCard = new Card(i, allDataOfGame.get(i).getVietnameseMeanings());
             memoryGame.cardList.add(contentCard);
             memoryGame.cardList.add(phoneticCard);
             memoryGame.cardList.add(meaningCard);
@@ -135,8 +122,8 @@ public class MemoryCardGameController implements Initializable {
 
     public void showPausedMenu(ActionEvent event) {
         FXMLManager fxmlManager = new FXMLManager();
-        myGridPane.getParent().getParent().setVisible(false);
-        myGridPane.getParent().getParent().setManaged(false);
+        myStackPane.setVisible(false);
+        myStackPane.setManaged(false);
         VBox vBox = (VBox) fxmlManager.getFXMLInsertedRoot("/FXML Files/MemoryGameMenu.fxml");
         VBox parentVBox = (VBox) myStackPane.getParent();
         vBox.setMaxWidth(Double.MAX_VALUE);
@@ -145,25 +132,59 @@ public class MemoryCardGameController implements Initializable {
         parentVBox.getChildren().add(vBox);
     }
 
+    public void showLostMenu() {
+        FXMLManager fxmlManager = new FXMLManager();
+        myStackPane.setVisible(false);
+        myStackPane.setManaged(false);
+        VBox vBox = (VBox) fxmlManager.getFXMLInsertedRoot("/FXML Files/MemoryGameMenu.fxml");
+        VBox parentVBox = (VBox) myStackPane.getParent();
+        vBox.setMaxWidth(Double.MAX_VALUE);
+        vBox.setMaxHeight(Double.MAX_VALUE);
+        VBox.setVgrow(vBox, Priority.ALWAYS);
+        ((Label) vBox.getChildren().get(0)).setText("YOU LOST!");
+        ((Label) vBox.getChildren().get(0)).setStyle("-fx-text-fill: #FF0000;");
 
-    private class MemoryGame {
+        HBox hBox = (HBox) vBox.getChildren().get(vBox.getChildren().size() - 1);
+        hBox.getChildren().get(hBox.getChildren().size() - 1).setVisible(false);
+        hBox.getChildren().get(hBox.getChildren().size() - 1).setManaged(false);
+        parentVBox.getChildren().add(vBox);
+    }
+
+    public void showWonMenu() {
+        FXMLManager fxmlManager = new FXMLManager();
+        myStackPane.setVisible(false);
+        myStackPane.setManaged(false);
+        VBox vBox = (VBox) fxmlManager.getFXMLInsertedRoot("/FXML Files/MemoryGameMenu.fxml");
+        VBox parentVBox = (VBox) myStackPane.getParent();
+        vBox.setMaxWidth(Double.MAX_VALUE);
+        vBox.setMaxHeight(Double.MAX_VALUE);
+        VBox.setVgrow(vBox, Priority.ALWAYS);
+        ((Label) vBox.getChildren().get(0)).setText("YOU WON!");
+        ((Label) vBox.getChildren().get(0)).setStyle("-fx-text-fill: #1ad963;");
+
+        HBox hBox = (HBox) vBox.getChildren().get(vBox.getChildren().size() - 1);
+        hBox.getChildren().get(hBox.getChildren().size() - 1).setVisible(false);
+        hBox.getChildren().get(hBox.getChildren().size() - 1).setManaged(false);
+        parentVBox.getChildren().add(vBox);
+    }
+
+
+    public class MemoryGame {
         private final List<Card> cardList = new ArrayList<>();
         private final Player player = new Player();
-        private final int TIME_LIMIT;
+        private final int timeLimit;
         private int remainingTime;
-        private int flipTimeLimit;
-        private static final long STARTED_TIME = System.currentTimeMillis();
+        private final long startTime = System.currentTimeMillis();
 
         private void updateRemainingTime() {
-            remainingTime = (TIME_LIMIT - (int) ((System.currentTimeMillis() - STARTED_TIME) / 1000));
+            remainingTime = (timeLimit - (int) ((System.currentTimeMillis() - startTime) / 1000));
             System.out.println(remainingTime);
         }
 
         public enum Difficulty {
             EASY,
             MEDIUM,
-            HARD,
-            HELL
+            HARD
         }
 
         public MemoryGame(Difficulty difficulty) {
@@ -171,25 +192,20 @@ public class MemoryCardGameController implements Initializable {
                 case EASY:
                     Card.flipRate = 0.4;
                     Card.delayRate = 2;
-                    TIME_LIMIT = 30;
+                    timeLimit = 900;
                     break;
                 case MEDIUM:
                     Card.flipRate = 0.3;
                     Card.delayRate = 1;
-                    TIME_LIMIT = 20;
+                    timeLimit = 600;
                     break;
                 case HARD:
                     Card.flipRate = 0.2;
                     Card.delayRate = 0.5;
-                    TIME_LIMIT = 10;
-                    break;
-                case HELL:
-                    Card.flipRate = 0.1;
-                    Card.delayRate = 0.25;
-                    TIME_LIMIT = 5;
+                    timeLimit = 300;
                     break;
                 default:
-                    TIME_LIMIT = 30;
+                    timeLimit = 30;
             }
         }
 
@@ -197,12 +213,15 @@ public class MemoryCardGameController implements Initializable {
             if (Card.numberOfFlippedCards / 3 > 0) {
                 List<Card> cards = new ArrayList<>();
                 for (Card card : cardList) {
-                    if (card.isFlipped) cards.add(card);
+                    if (card.isFlipped) {
+                        cards.add(card);
+                    }
                     if (cards.size() >= 3) break;
                 }
                 if (cards.get(0).equals(cards.get(1)) && cards.get(1).equals(cards.get(2))) {
                     // lật 3 thẻ đúng thì làm gì đó :v
                     player.gainScore();
+                    scoreLabel.setText("Score : " + player.score);
                     Card.synchronizedDisappear(cards);
                     return;
                 }
@@ -230,6 +249,7 @@ public class MemoryCardGameController implements Initializable {
     }
 
     private class Player {
+        private String playerName;
         private int score;
 
         public Player() {

@@ -65,6 +65,7 @@ public class MemoryGamePausedController implements Initializable {
     }
 
     public void restartGame(ActionEvent event) {
+        MemoryCardGameController.mediaPlayer.stop();
         VBox parentVBox = (VBox) myGamePausedVBox.getParent();
         parentVBox.getChildren().remove(parentVBox.getChildren().size() - 1);
         parentVBox.getChildren().remove(parentVBox.getChildren().size() - 1);
@@ -72,6 +73,7 @@ public class MemoryGamePausedController implements Initializable {
         StackPane myStackPane = (StackPane) fxmlManager.getFXMLInsertedRoot("/FXML Files/MemoryCardGame.fxml");
         VBox.setVgrow(myStackPane, Priority.ALWAYS);
         parentVBox.getChildren().add(myStackPane);
+
     }
 
     public void resumeGame(ActionEvent event) {
