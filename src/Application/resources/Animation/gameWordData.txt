@@ -146,7 +146,7 @@ obey (v)	/oʊˈbeɪ/	tuân thủ
 object (n)	/ˈɑːb.dʒɪkt/	đồ vật, vật thể, mục tiêu
 ocean (n)	/ˈoʊ.ʃən/	đại dương
 oil (n)	/ɔɪl/	dầu
-old (adj)	/oʊld	già, lớn tuổi
+old (adj)	/oʊld/	già, lớn tuổi
 on (prep)	/ɑːn/	bên trên
 one (n)	/wʌn/	số 1
 period (n)	/ˈpɪr.i.əd/	thời kỳ, giai đoạn
