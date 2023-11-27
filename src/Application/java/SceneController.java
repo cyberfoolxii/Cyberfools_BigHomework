@@ -294,10 +294,11 @@ public class SceneController implements Initializable {
             node.setManaged(false);
         }
         FXMLManager fxmlManager = new FXMLManager();
-        StackPane myStackPane = (StackPane) fxmlManager.getFXMLInsertedRoot("/FXML Files/MemoryCardGame.fxml");
-        VBox.setVgrow(myStackPane, Priority.ALWAYS);
-        vBox.getChildren().add(myStackPane);
-
+        VBox myMenuVBox = (VBox) fxmlManager.getFXMLInsertedRoot("/FXML Files/MemoryGameStartMenu.fxml");
+        VBox.setVgrow(myMenuVBox, Priority.ALWAYS);
+        myMenuVBox.setMaxHeight(Double.MAX_VALUE);
+        myMenuVBox.setMaxWidth(Double.MAX_VALUE);
+        vBox.getChildren().add(myMenuVBox);
     }
 
     public void updateWord(ActionEvent event) {

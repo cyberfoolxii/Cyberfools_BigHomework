@@ -73,6 +73,7 @@ public class MemoryGamePausedController implements Initializable {
         StackPane myStackPane = (StackPane) fxmlManager.getFXMLInsertedRoot("/FXML Files/MemoryCardGame.fxml");
         VBox.setVgrow(myStackPane, Priority.ALWAYS);
         parentVBox.getChildren().add(myStackPane);
+
     }
 
     public void resumeGame(ActionEvent event) {
