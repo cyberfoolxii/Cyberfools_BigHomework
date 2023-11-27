@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -40,14 +41,22 @@ public class MemoryCardGameController implements Initializable {
             private VBox myVBox;
     @FXML
     private StackPane myStackPane;
+
     public static MemoryGame.Difficulty difficulty;
     public static MediaPlayer mediaPlayer;
+    public static boolean isGamePaused = false;
+    public static boolean isResume = false;
     MemoryGame memoryGame = new MemoryGame(difficulty);
 
     private final List<WordInCard> allDataOfGame = CardDataReader.CardReader();
     Thread timeThread = new Thread(new Runnable() {
         @Override
         public void run() {
+            if(isGamePaused) {
+                return;
+            } else if (isResume){
+                unPauseGame();
+            }
             memoryGame.updateRemainingTime();
             Platform.runLater(new Runnable() {
                 @Override
@@ -121,6 +130,7 @@ public class MemoryCardGameController implements Initializable {
     }
 
     public void showPausedMenu(ActionEvent event) {
+        isGamePaused = true;
         FXMLManager fxmlManager = new FXMLManager();
         myStackPane.setVisible(false);
         myStackPane.setManaged(false);
@@ -168,6 +178,13 @@ public class MemoryCardGameController implements Initializable {
         parentVBox.getChildren().add(vBox);
     }
 
+    public void unPauseGame() {
+        if(!isGamePaused && isResume) {
+            isGamePaused = false;
+            isResume = false;
+            timeThread.start();
+        }
+    }
 
     public class MemoryGame {
         private final List<Card> cardList = new ArrayList<>();
@@ -177,7 +194,7 @@ public class MemoryCardGameController implements Initializable {
         private final long startTime = System.currentTimeMillis();
 
         private void updateRemainingTime() {
-            remainingTime = (timeLimit - (int) ((System.currentTimeMillis() - startTime) / 1000));
+            remainingTime = (timeLimit - (int) ((System.currentTimeMillis() - startTime ) / 1000));
             System.out.println(remainingTime);
         }
 
@@ -192,17 +209,17 @@ public class MemoryCardGameController implements Initializable {
                 case EASY:
                     Card.flipRate = 0.4;
                     Card.delayRate = 2;
-                    timeLimit = 900;
+                    timeLimit = 1200;
                     break;
                 case MEDIUM:
                     Card.flipRate = 0.3;
                     Card.delayRate = 1;
-                    timeLimit = 600;
+                    timeLimit = 900;
                     break;
                 case HARD:
                     Card.flipRate = 0.2;
                     Card.delayRate = 0.5;
-                    timeLimit = 300;
+                    timeLimit = 600;
                     break;
                 default:
                     timeLimit = 30;

@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -40,6 +41,11 @@ public class MemoryGamePausedController implements Initializable {
     private Button speakerButton;
     @FXML
     private ImageView myImageView;
+    @FXML
+    private Slider volumeSlider;
+
+    private int musicVolume = 50;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         scoreLabel.setText("Highest score: " + HighScoreOfGame.getHighestScore1());
@@ -50,6 +56,9 @@ public class MemoryGamePausedController implements Initializable {
         resumeButton.fontProperty().bind(mainMenuButton.fontProperty());
         restartGameButton.fontProperty().bind(mainMenuButton.fontProperty());
 
+        volumeSlider.valueProperty().addListener((observableValue, number, t1) -> {
+            MemoryCardGameController.mediaPlayer.setVolume((int) volumeSlider.getValue() / 100.0);
+        });
     }
 
     public void backToGameMainMenu(ActionEvent event) {
@@ -81,6 +90,10 @@ public class MemoryGamePausedController implements Initializable {
         parentVBox.getChildren().remove(parentVBox.getChildren().size() - 1);
         parentVBox.getChildren().get(parentVBox.getChildren().size() - 1).setManaged(true);
         parentVBox.getChildren().get(parentVBox.getChildren().size() - 1).setVisible(true);
+        MemoryCardGameController.isGamePaused = false;
+        MemoryCardGameController.isResume = true;
+
+
     }
 
     public void mute(ActionEvent event) {
@@ -89,9 +102,12 @@ public class MemoryGamePausedController implements Initializable {
                 Image image = new Image(new FileInputStream("src/Application/resources/AppIcon/volume.png"));
                 myImageView.setImage(image);
                 MemoryCardGameController.mediaPlayer.setMute(false);
+                volumeSlider.setValue(musicVolume);
             } else {
+                musicVolume = (int) volumeSlider.getValue();
                 Image image = new Image(new FileInputStream("src/Application/resources/AppIcon/mute.png"));
                 myImageView.setImage(image);
+                volumeSlider.setValue(0);
                 MemoryCardGameController.mediaPlayer.setMute(true);
             }
         } catch (Exception e) {

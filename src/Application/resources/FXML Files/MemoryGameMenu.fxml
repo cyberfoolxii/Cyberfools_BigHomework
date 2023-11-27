@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="myGamePausedVBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.java.MemoryGamePausedController">
+<VBox fx:id="myGamePausedVBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.java.MemoryGamePausedController">
    <children>
       <Label fx:id="gamePausedLabel" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="120.0" prefWidth="600.0" text="Game Paused" VBox.vgrow="ALWAYS">
          <font>
@@ -37,7 +37,7 @@
       </FlowPane>
       <FlowPane alignment="CENTER">
          <children>
-            <Slider prefHeight="47.0" prefWidth="194.0" showTickLabels="true" />
+            <Slider fx:id="volumeSlider" prefHeight="47.0" prefWidth="194.0" showTickLabels="true" showTickMarks="true" value="50.0" />
          </children>
       </FlowPane>
       <HBox prefHeight="38.0" prefWidth="440.0" VBox.vgrow="NEVER">
