@@ -11,10 +11,13 @@
    <children>
       <Label fx:id="gamePausedLabel" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="120.0" prefWidth="600.0" text="Game Paused" VBox.vgrow="ALWAYS">
          <font>
-            <Font size="30.0" />
+            <Font size="48.0" />
          </font>
       </Label>
-      <Label fx:id="scoreLabel" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="0.0" prefWidth="600.0" text="Highest Score" textAlignment="CENTER" VBox.vgrow="ALWAYS" />
+      <Label fx:id="scoreLabel" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="0.0" prefWidth="600.0" text="Highest Score" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+         <font>
+            <Font size="24.0" />
+         </font></Label>
       <HBox prefHeight="38.0" prefWidth="440.0" VBox.vgrow="NEVER">
          <children>
             <Button fx:id="mainMenuButton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#backToGameMainMenu" prefWidth="50.0" text="Main menu" HBox.hgrow="ALWAYS">

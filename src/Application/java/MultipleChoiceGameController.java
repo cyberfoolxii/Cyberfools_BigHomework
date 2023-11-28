@@ -45,6 +45,10 @@ public class MultipleChoiceGameController implements Initializable {
     private HBox myHBox;
     @FXML
     private FlowPane myFlowPane;
+    @FXML
+    private Label scoreLabel;
+    @FXML
+    private Label livesLabel;
 
     private List<Question> questions;
     private int currentQuestionIndex;
@@ -75,6 +79,10 @@ public class MultipleChoiceGameController implements Initializable {
 
         // Display the first question
         displayQuestion();
+        scoreLabel.setText("Score: " + score);
+        scoreLabel.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 20));
+        livesLabel.setText("Lives: " + lives);
+        livesLabel.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 20));
     }
 
 /*    private void initTimerMediaView() {
@@ -121,6 +129,10 @@ public class MultipleChoiceGameController implements Initializable {
 
         if (selectedAnswer == questions.get(currentQuestionIndex).getCorrectAnswer()) {
             score++;
+            scoreLabel.setText("Score: " + score);
+            if(score > highestScore) {
+                scoreLabel.setStyle("-fx-text-fill: #1ad963;");
+            }
             currentQuestionIndex++;
 
             System.out.println("Correct! Score: " + score);
@@ -132,7 +144,10 @@ public class MultipleChoiceGameController implements Initializable {
             }
         } else {
             lives--;
-
+            livesLabel.setText("Lives: " + lives);
+            if(lives == 1) {
+                livesLabel.setStyle("-fx-text-fill: #FF0000;");
+            }
             System.out.println("Wrong! Lives: " + lives);
             if (lives > 0) {
                 currentQuestionIndex++;
@@ -188,8 +203,10 @@ public class MultipleChoiceGameController implements Initializable {
         Label gameOverLabel;
         if(score <= highestScore) {
             gameOverLabel = new Label("Game Over! Your final score is " + score);
+            gameOverLabel.setStyle("-fx-text-fill: #FF0000;");
         } else {
             gameOverLabel = new Label("Congratulation!\nYou have set new highest score: " + score);
+            gameOverLabel.setStyle("-fx-text-fill: #1ad963;");
             HighScoreOfGame.updateHighScore(score);
         }
         gameOverLabel.prefWidthProperty().bind(questionLabel.widthProperty());

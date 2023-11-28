@@ -49,9 +49,10 @@ public class MemoryGamePausedController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         scoreLabel.setText("Highest score: " + HighScoreOfGame.getHighestScore1());
+        scoreLabel.setStyle("-fx-text-fill: yellow;");
         FXMLManager fxmlManager = new FXMLManager();
-        scoreLabel.setFont(fxmlManager.cloneQuicksandFont(FontWeight.SEMI_BOLD, 18));
-        gamePausedLabel.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 30));
+        scoreLabel.setFont(fxmlManager.cloneQuicksandFont(FontWeight.SEMI_BOLD, 24));
+        gamePausedLabel.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 48));
         mainMenuButton.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 18));
         resumeButton.fontProperty().bind(mainMenuButton.fontProperty());
         restartGameButton.fontProperty().bind(mainMenuButton.fontProperty());

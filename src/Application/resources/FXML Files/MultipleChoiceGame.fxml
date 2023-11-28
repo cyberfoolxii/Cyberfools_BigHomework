@@ -7,11 +7,17 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="myVBox" prefHeight="402.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.java.MultipleChoiceGameController">
+<VBox fx:id="myVBox" prefHeight="402.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.java.MultipleChoiceGameController">
    <children>
-      <FlowPane alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="39.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+      <FlowPane alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="39.0" prefWidth="146.0" VBox.vgrow="ALWAYS">
          <children>
             <Button fx:id="gamePauseButton" maxHeight="1.7976931348623157E308" mnemonicParsing="false" onAction="#showPausedMenu" prefHeight="40.0" prefWidth="73.0" text="Pause" />
+            <Label fx:id="scoreLabel" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" prefHeight="40.0" prefWidth="100.0" text="Score: " textAlignment="CENTER">
+               <FlowPane.margin>
+                  <Insets left="15.0" />
+               </FlowPane.margin>
+            </Label>
+            <Label fx:id="livesLabel" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" prefHeight="40.0" prefWidth="94.0" text="Lives: " />
          </children>
       </FlowPane>
       <FlowPane fx:id="myFlowPane" alignment="CENTER" prefHeight="234.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
