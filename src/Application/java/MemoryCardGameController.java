@@ -254,7 +254,7 @@ public class MemoryCardGameController implements Initializable {
                     }
                     if (cards.size() >= 3) break;
                 }
-                if (cards.get(0).equals(cards.get(1)) && cards.get(1).equals(cards.get(2))) {
+                if ((cards.size() == 3) && cards.get(0).equals(cards.get(1)) && cards.get(1).equals(cards.get(2))) {
                     // lật 3 thẻ đúng thì làm gì đó :v
                     player.gainScore();
                     scoreLabel.setText("Score : " + player.score + "/10");
