@@ -391,12 +391,12 @@ public class MemoryCardGameController implements Initializable {
         }
 
         private static void synchronizedDisappear(List<Card> cards) {
+            for (Card card : cards) card.isFlipped = false;
             SequentialTransition s =
                     new SequentialTransition(new PauseTransition(Duration.seconds(Card.delayRate)));
             s.play();
             s.setOnFinished(event -> {
                 for (Card card : cards) {
-                    card.isFlipped = false;
                     card.flipTransition3.setOnFinished(event1 -> {
                         card.cardTarget.setVisible(false);
                     });
