@@ -12,7 +12,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
 import javafx.scene.layout.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -45,46 +44,63 @@ public class MemoryCardGameController implements Initializable {
     public static MemoryGame.Difficulty difficulty;
     public static MediaPlayer mediaPlayer;
     public static boolean isGamePaused = false;
-    public static boolean isResume = false;
+    public static boolean isGameRestarted = false;
+    public static Thread timeThread;
     MemoryGame memoryGame = new MemoryGame(difficulty);
 
     private final List<WordInCard> allDataOfGame = CardDataReader.CardReader();
-    Thread timeThread = new Thread(new Runnable() {
-        @Override
-        public void run() {
-            if(isGamePaused) {
-                return;
-            } else if (isResume){
-                unPauseGame();
-            }
-            memoryGame.updateRemainingTime();
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    timeLabel.setText("RemainingTime : " + memoryGame.remainingTime);
-                }
-            });
-            if (memoryGame.isPlayerLost()) {
-                Platform.runLater(() -> {
-                    showLostMenu();
-                });
-                return;
-            }
-            if (memoryGame.isPlayerWon()) {
-                Platform.runLater(() -> {
-                    showWonMenu();
-                });
-                return;
-            }
+
+    private void startGameThread() {
+        if (timeThread != null && timeThread.isAlive()) {
+            // If the thread is still running, interrupt it and wait for it to finish
+            timeThread.interrupt();
             try {
-                Thread.sleep(500);
-                System.out.println("continue");
-            } catch (Exception e) {
-                System.out.println("catch exception");
+                timeThread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();  // Handle the exception if needed
             }
-            run();
         }
-    });
+        timeThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    memoryGame.updateRemainingTime();
+                    if (!isGamePaused) {
+                        memoryGame.pauseTime = 0;
+                    } else {
+                        memoryGame.updatePauseTime();
+                    }
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            timeLabel.setText("RemainingTime : " + memoryGame.remainingTime);
+                        }
+                    });
+                    if (memoryGame.isPlayerLost()) {
+                        Platform.runLater(() -> {
+                            showLostMenu();
+                        });
+                        return;
+                    }
+                    if (memoryGame.isPlayerWon()) {
+                        Platform.runLater(() -> {
+                            showWonMenu();
+                        });
+                        return;
+                    }
+                    try {
+                        Thread.sleep(500);
+                        System.out.println("continue");
+                    } catch (Exception e) {
+                        System.out.println("catch exception");
+                        break;
+                    }
+                }
+            }
+        });
+        timeThread.start();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -126,7 +142,7 @@ public class MemoryCardGameController implements Initializable {
         }
 
         // phải gọi thread ở dưới vì khi này cardlist mới khởi tạo xong
-        timeThread.start();
+        startGameThread();
     }
 
     public void showPausedMenu(ActionEvent event) {
@@ -140,6 +156,8 @@ public class MemoryCardGameController implements Initializable {
         vBox.setMaxHeight(Double.MAX_VALUE);
         VBox.setVgrow(vBox, Priority.ALWAYS);
         parentVBox.getChildren().add(vBox);
+
+        memoryGame.pauseTime = System.currentTimeMillis();
     }
 
     public void showLostMenu() {
@@ -178,24 +196,25 @@ public class MemoryCardGameController implements Initializable {
         parentVBox.getChildren().add(vBox);
     }
 
-    public void unPauseGame() {
-        if(!isGamePaused && isResume) {
-            isGamePaused = false;
-            isResume = false;
-            timeThread.start();
-        }
-    }
 
     public class MemoryGame {
         private final List<Card> cardList = new ArrayList<>();
         private final Player player = new Player();
-        private final int timeLimit;
-        private int remainingTime;
-        private final long startTime = System.currentTimeMillis();
+        private long timeLimit;
+        private long remainingTime;
+        private long startTime = System.currentTimeMillis();
+        private long pauseTime;
 
         private void updateRemainingTime() {
-            remainingTime = (timeLimit - (int) ((System.currentTimeMillis() - startTime ) / 1000));
+            remainingTime = (timeLimit - ((System.currentTimeMillis() - startTime ) / 1000));
             System.out.println(remainingTime);
+        }
+
+        private void updatePauseTime() {
+            if((int) ((System.currentTimeMillis() - pauseTime ) / 1000) >= 1) {
+                timeLimit += (System.currentTimeMillis() - pauseTime) / 1000;
+                pauseTime = System.currentTimeMillis();
+            }
         }
 
         public enum Difficulty {
@@ -207,19 +226,19 @@ public class MemoryCardGameController implements Initializable {
         public MemoryGame(Difficulty difficulty) {
             switch (difficulty) {
                 case EASY:
-                    Card.flipRate = 0.4;
-                    Card.delayRate = 2;
-                    timeLimit = 1200;
+                    Card.flipRate = 0.3;
+                    Card.delayRate = 1.2;
+                    timeLimit = 900;
                     break;
                 case MEDIUM:
-                    Card.flipRate = 0.3;
-                    Card.delayRate = 1;
-                    timeLimit = 900;
+                    Card.flipRate = 0.25;
+                    Card.delayRate = 0.8;
+                    timeLimit = 600;
                     break;
                 case HARD:
                     Card.flipRate = 0.2;
                     Card.delayRate = 0.5;
-                    timeLimit = 600;
+                    timeLimit = 300;
                     break;
                 default:
                     timeLimit = 30;
@@ -238,7 +257,7 @@ public class MemoryCardGameController implements Initializable {
                 if (cards.get(0).equals(cards.get(1)) && cards.get(1).equals(cards.get(2))) {
                     // lật 3 thẻ đúng thì làm gì đó :v
                     player.gainScore();
-                    scoreLabel.setText("Score : " + player.score);
+                    scoreLabel.setText("Score : " + player.score + "/10");
                     Card.synchronizedDisappear(cards);
                     return;
                 }

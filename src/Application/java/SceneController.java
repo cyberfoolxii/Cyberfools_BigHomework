@@ -927,8 +927,7 @@ public class SceneController implements Initializable {
         if (alert.showAndWait().get() == ButtonType.OK) {
             System.out.println("exit");
             LocalDictionaryManager.getInstance().exportWordToFile();
-            stage = (Stage) tab0searchTextField.getScene().getWindow();
-            stage.close();
+            System.exit(0);
         }
     }
 }

@@ -51,7 +51,7 @@ public class DictionaryApplication extends Application {
         if (alert.showAndWait().get() == ButtonType.OK) {
             System.out.println("exit");
             LocalDictionaryManager.getInstance().exportWordToFile();
-            stage.close();
+            System.exit(0);
         }
     }
     public static void main(String[] args) {
