@@ -45,6 +45,10 @@ public class MemoryGameStartMenuController implements Initializable {
         easyDifButton.fontProperty().bind(backToMenuButton.fontProperty());
         mediumDifButton.fontProperty().bind(backToMenuButton.fontProperty());
         hardDifButton.fontProperty().bind(backToMenuButton.fontProperty());
+
+        easyDifButton.setStyle("-fx-text-fill: LimeGreen;");
+        mediumDifButton.setStyle("-fx-text-fill: yellow;");
+        hardDifButton.setStyle("-fx-text-fill: red;");
     }
 
     public void startEasyGame(ActionEvent event) {

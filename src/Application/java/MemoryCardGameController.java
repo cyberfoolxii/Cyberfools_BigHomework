@@ -161,6 +161,12 @@ public class MemoryCardGameController implements Initializable {
     }
 
     public void showLostMenu() {
+        int timeLeft;
+        if (memoryGame.remainingTime <= 0) {
+            timeLeft = 0;
+        } else {
+            timeLeft = (int) memoryGame.remainingTime;
+        }
         FXMLManager fxmlManager = new FXMLManager();
         myStackPane.setVisible(false);
         myStackPane.setManaged(false);
@@ -179,6 +185,12 @@ public class MemoryCardGameController implements Initializable {
     }
 
     public void showWonMenu() {
+        int timeLeft;
+        if (memoryGame.remainingTime <= 0) {
+            timeLeft = 0;
+        } else {
+            timeLeft = (int) memoryGame.remainingTime;
+        }
         FXMLManager fxmlManager = new FXMLManager();
         myStackPane.setVisible(false);
         myStackPane.setManaged(false);
@@ -226,18 +238,18 @@ public class MemoryCardGameController implements Initializable {
         public MemoryGame(Difficulty difficulty) {
             switch (difficulty) {
                 case EASY:
-                    Card.flipRate = 0.3;
-                    Card.delayRate = 1.2;
+                    Card.flipRate = 0.25;
+                    Card.delayRate = 0.75;
                     timeLimit = 900;
                     break;
                 case MEDIUM:
-                    Card.flipRate = 0.25;
-                    Card.delayRate = 0.8;
+                    Card.flipRate = 0.22;
+                    Card.delayRate = 0.6;
                     timeLimit = 600;
                     break;
                 case HARD:
                     Card.flipRate = 0.2;
-                    Card.delayRate = 0.5;
+                    Card.delayRate = 0.45;
                     timeLimit = 300;
                     break;
                 default:
@@ -302,14 +314,14 @@ public class MemoryCardGameController implements Initializable {
 
     }
 
-    private class Card {
+    class Card {
         private Button cardTarget = new Button();
         private String cardText = "";
         private Integer cardId;
         private boolean isFlipped;
         private static double flipRate = 0.1;
         private static double delayRate = 2.0;
-        private static int numberOfFlippedCards = 0;
+        public static int numberOfFlippedCards = 0;
         private final EventHandler<ActionEvent> cardPickEventHandler = event -> {
             autoFlip();
         };
@@ -383,14 +395,15 @@ public class MemoryCardGameController implements Initializable {
         }
 
         private static void synchronizedRevertFlip(List<Card> cards) {
+            numberOfFlippedCards = 0;
             for (Card card : cards) {
                 card.isFlipped = false;
                 card.delayedRevertFlip(true);
             }
-            Card.numberOfFlippedCards -= cards.size();
         }
 
         private static void synchronizedDisappear(List<Card> cards) {
+            numberOfFlippedCards = 0;
             for (Card card : cards) card.isFlipped = false;
             SequentialTransition s =
                     new SequentialTransition(new PauseTransition(Duration.seconds(Card.delayRate)));
@@ -402,7 +415,6 @@ public class MemoryCardGameController implements Initializable {
                     });
                     card.flipTransition3.play();
                 }
-                Card.numberOfFlippedCards -= cards.size();
             });
         }
 

@@ -6,24 +6,19 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 
-import java.io.*;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 
 public class MultipleChoiceGameController implements Initializable {
 
@@ -207,7 +202,7 @@ public class MultipleChoiceGameController implements Initializable {
         } else {
             gameOverLabel = new Label("Congratulation!\nYou have set new highest score: " + score);
             gameOverLabel.setStyle("-fx-text-fill: #1ad963;");
-            HighScoreOfGame.updateHighScore(score);
+            HighScoreOfGame.updateHighScore1(score);
         }
         gameOverLabel.prefWidthProperty().bind(questionLabel.widthProperty());
         gameOverLabel.prefHeightProperty().bind(questionLabel.heightProperty());

@@ -24,6 +24,8 @@ import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.Stack;
 
+import static Application.java.MemoryCardGameController.Card.numberOfFlippedCards;
+
 public class MemoryGamePausedController implements Initializable {
     @FXML
     private Button mainMenuButton;
@@ -63,6 +65,8 @@ public class MemoryGamePausedController implements Initializable {
     }
 
     public void backToGameMainMenu(ActionEvent event) {
+        numberOfFlippedCards = 0;
+        MemoryCardGameController.isGameRestarted = true;
         MemoryCardGameController.isGamePaused = false;
         VBox parentVBox = (VBox) myGamePausedVBox.getParent();
         parentVBox.getChildren().remove(parentVBox.getChildren().size() - 1);
@@ -76,6 +80,7 @@ public class MemoryGamePausedController implements Initializable {
     }
 
     public void restartGame(ActionEvent event) {
+        numberOfFlippedCards = 0;
         MemoryCardGameController.isGameRestarted = true;
         MemoryCardGameController.isGamePaused = false;
         MemoryCardGameController.mediaPlayer.stop();
