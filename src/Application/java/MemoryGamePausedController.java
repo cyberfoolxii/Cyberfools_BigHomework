@@ -85,9 +85,6 @@ public class MemoryGamePausedController implements Initializable {
         }
 
         volumeSlider.valueProperty().addListener((observableValue, number, t1) -> {
-            MemoryCardGameController.mediaPlayer.setOnEndOfMedia(() -> {
-                MemoryCardGameController.mediaPlayer.seek(Duration.ZERO);
-            });
             MemoryCardGameController.mediaPlayer.setVolume((int) volumeSlider.getValue() / 100.0);
             if ((int) volumeSlider.getValue() == 0) {
                 isMuted = true;

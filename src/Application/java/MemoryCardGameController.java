@@ -64,12 +64,10 @@ public class MemoryCardGameController implements Initializable {
             @Override
             public void run() {
                 while (true) {
-                    mediaPlayer.setOnEndOfMedia(() -> {
-                        mediaPlayer.seek(Duration.ZERO);
-                    });
                     memoryGame.updateRemainingTime();
                     if (!isGamePaused) {
                         memoryGame.pauseTime = 0;
+                        memoryGame.pauseDuration = 0;
                     } else {
                         memoryGame.updatePauseTime();
                     }
@@ -110,8 +108,9 @@ public class MemoryCardGameController implements Initializable {
         File file = new File("src\\Application\\resources\\Sound\\DVRST-Close_Eyes.mp3");
         Media media = new Media(file.toURI().toString());
         mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.play();
-        mediaPlayer.setVolume(0.1);
+        mediaPlayer.setAutoPlay(true);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        mediaPlayer.setVolume(0.5);
 
         FXMLManager fxmlManager = new FXMLManager();
         pauseButton.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 20));
@@ -253,6 +252,7 @@ public class MemoryCardGameController implements Initializable {
         private long remainingTime;
         private long startTime = System.currentTimeMillis();
         private long pauseTime;
+        private long pauseDuration;
 
         private void updateRemainingTime() {
             remainingTime = (timeLimit - ((System.currentTimeMillis() - startTime ) / 1000));
@@ -260,8 +260,11 @@ public class MemoryCardGameController implements Initializable {
         }
 
         private void updatePauseTime() {
-            if((long) ((System.currentTimeMillis() - pauseTime ) / 1000) >= 0.25) {
-                timeLimit += (System.currentTimeMillis() - pauseTime) / 1000;
+            if((long) ((System.currentTimeMillis() - pauseTime ) / 1000) >= 0.3) {
+                pauseDuration = (System.currentTimeMillis() - pauseTime) / 1000;
+                if(pauseDuration < 10) {
+                    timeLimit += (System.currentTimeMillis() - pauseTime) / 1000;
+                }
                 pauseTime = System.currentTimeMillis();
             }
         }
