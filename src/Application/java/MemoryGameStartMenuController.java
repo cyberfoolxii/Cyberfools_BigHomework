@@ -80,7 +80,7 @@ public class MemoryGameStartMenuController implements Initializable {
             name = playerNameField.getText().substring(0, 8);
         }
         if (name.trim().isEmpty()) {
-            name = "Player";
+            name = "player";
         }
         VBox vBox = (VBox) myVBox.getParent();
         vBox.getChildren().remove(vBox.getChildren().size() - 1);

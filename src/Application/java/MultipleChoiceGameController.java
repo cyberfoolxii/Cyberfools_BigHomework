@@ -245,9 +245,12 @@ public class MultipleChoiceGameController implements Initializable {
             node.setManaged(true);
         }
 
-        Button selectGameButton1 = (Button) vBox.lookup("#selectGameButton1");
-        if (selectGameButton1 != null) {
-            selectGameButton1.setText("Multiple Choice Game\nHighest score: " + HighScoreOfGame.getHighestScore1());
+        Label infoGame1 = (Label) vBox.lookup("#infoGame1");
+        if (infoGame1 != null) {
+            infoGame1.setText(" Multiple Choice Game(Trò chơi câu hỏi trắc nghiệm)\n\n Highest score: " + HighScoreOfGame.getHighestScore1() + "."
+                    + "\n\n Mô tả: Trò chơi lựa chọn 1 đáp án đúng từ 4 đáp án A, B,\nC, D được hiển thị " +
+                    "để điền vào chỗ trống trong câu. Khi\ntrả lời đúng, bạn sẽ được cộng 1 điểm." +
+                    " Khi trả lời sai, bạn\nsẽ bị trừ 1 mạng. Trò chơi kết thúc khi bạn trả lời sai 3 lần.");
         }
     }
 

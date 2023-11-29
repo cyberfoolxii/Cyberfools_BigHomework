@@ -14,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.event.*;
@@ -99,6 +100,10 @@ public class SceneController implements Initializable {
     private Label infoGame1;
     @FXML
     private Label infoGame3;
+    @FXML
+    private Label gameName1;
+    @FXML
+    private Label gameName3;
     @FXML
     private VBox tab1DefinitionVBox;
     private static Word currentWord;
@@ -270,28 +275,34 @@ public class SceneController implements Initializable {
         textArea2.fontProperty().bind(textArea1.fontProperty());
         translateButtonTab3.fontProperty().bind(tabTitle1.fontProperty());
 
-        selectGameButton1.setText("Multiple Choice Game");
+        Font italicFont = Font.font("Montserrat", FontWeight.BOLD, FontPosture.ITALIC, 24);
+        Font normalFont = Font.font("Open Sans", FontWeight.BOLD, 13.5);
 
-        infoGame1.setText(" Multiple Choice Game\n\n Highest score: " + HighScoreOfGame.getHighestScore1()
+        gameName1.setFont(italicFont);
+        gameName3.fontProperty().bind(gameName1.fontProperty());
+
+        infoGame1.setText(" Multiple Choice Game (Trò chơi câu hỏi trắc nghiệm)\n\n Highest score: " + HighScoreOfGame.getHighestScore1() + "."
                 + "\n\n Mô tả: Trò chơi lựa chọn 1 đáp án đúng từ 4 đáp án A, B,\nC, D được hiển thị " +
                 "để điền vào chỗ trống trong câu. Khi\ntrả lời đúng, bạn sẽ được cộng 1 điểm." +
                 " Khi trả lời sai, bạn\nsẽ bị trừ 1 mạng. Trò chơi kết thúc khi bạn trả lời sai 3 lần.");
 
-        infoGame1.setFont(fxmlManager.cloneQuicksandFont(FontWeight.SEMI_BOLD, 13.5));
+        infoGame1.setFont(normalFont);
 
         List<String> highestScore2Easy = HighScoreOfGame.getHighestScore2(MemoryCardGameController.MemoryGame.Difficulty.EASY);
         List<String> highestScore2Medium = HighScoreOfGame.getHighestScore2(MemoryCardGameController.MemoryGame.Difficulty.MEDIUM);
         List<String> highestScore2Hard = HighScoreOfGame.getHighestScore2(MemoryCardGameController.MemoryGame.Difficulty.HARD);
 
-        infoGame3.setText(" Memory Game\n\n Highest score: \n"
+        infoGame3.setText(" Memory Game (Trò chơi lật thẻ bài)\n\n Highest score: \n"
                 + "-Player: " + highestScore2Easy.get(0) + " - Easy - Score: " + highestScore2Easy.get(1) + "/10 - Time left: " + highestScore2Easy.get(2) + "s"
                 + "\n-Player: " + highestScore2Medium.get(0) + " - Medium - Score: " + highestScore2Medium.get(1) + "/10 - Time left: " + highestScore2Medium.get(2) + "s"
                 + "\n-Player: " + highestScore2Hard.get(0) + " - Hard - Score: " + highestScore2Hard.get(1) + "/10 - Time left: " + highestScore2Hard.get(2) + "s"
-                + "\n\n Mô tả: Trò chơi lật các thẻ bài để tìm ra các cặp thẻ bài\ngiống nhau. " +
-                "Khi tìm được cặp thẻ bài giống nhau, bạn sẽ\nđược cộng 1 điểm. " +
-                "Trò chơi kết thúc khi bạn tìm được hết\ncác cặp thẻ bài.");
+                + "\n\n Mô tả: Trò chơi lật các thẻ bài để tìm ra các cặp 3 thẻ bài\nkết hợp. "
+                + "Khi tìm được cặp thẻ bài sao cho trong đó có\n"
+                + "thẻ chứa từ tiếng Anh và 2 thẻ còn lại lần lượt chứa phiên\n"
+                + "âm và nghĩa tiếng Việt của từ đó, bạn sẽ được cộng 1 \n"
+                + "điểm. Trò chơi kết thúc khi bạn tìm được hết các cặp thẻ\nbài.");
 
-        infoGame3.setFont(fxmlManager.cloneQuicksandFont(FontWeight.SEMI_BOLD, 13.5));
+        infoGame3.setFont(normalFont);
     }
 
     public void switchToGame1(ActionEvent event) {

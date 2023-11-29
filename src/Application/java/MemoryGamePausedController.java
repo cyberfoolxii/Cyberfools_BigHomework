@@ -107,8 +107,24 @@ public class MemoryGamePausedController implements Initializable {
             node.setManaged(true);
             node.setVisible(true);
         }
-
         MemoryCardGameController.mediaPlayer.stop();
+
+        List<String> highestScore2Easy = HighScoreOfGame.getHighestScore2(MemoryCardGameController.MemoryGame.Difficulty.EASY);
+        List<String> highestScore2Medium = HighScoreOfGame.getHighestScore2(MemoryCardGameController.MemoryGame.Difficulty.MEDIUM);
+        List<String> highestScore2Hard = HighScoreOfGame.getHighestScore2(MemoryCardGameController.MemoryGame.Difficulty.HARD);
+
+        Label infoGame3 = (Label) parentVBox.lookup("#infoGame3");
+        if (infoGame3 != null) {
+            infoGame3.setText(" Memory Game(Trò chơi lật thẻ bài)\n\n Highest score: \n"
+                    + "-Player: " + highestScore2Easy.get(0) + " - Easy - Score: " + highestScore2Easy.get(1) + "/10 - Time left: " + highestScore2Easy.get(2) + "s"
+                    + "\n-Player: " + highestScore2Medium.get(0) + " - Medium - Score: " + highestScore2Medium.get(1) + "/10 - Time left: " + highestScore2Medium.get(2) + "s"
+                    + "\n-Player: " + highestScore2Hard.get(0) + " - Hard - Score: " + highestScore2Hard.get(1) + "/10 - Time left: " + highestScore2Hard.get(2) + "s"
+                    + "\n\n Mô tả: Trò chơi lật các thẻ bài để tìm ra các cặp 3 thẻ bài\nkết hợp. "
+                    + "Khi tìm được cặp thẻ bài sao cho trong đó có\n"
+                    + "thẻ chứa từ tiếng Anh và 2 thẻ còn lại lần lượt chứa phiên\n"
+                    + "âm và nghĩa tiếng Việt của từ đó, bạn sẽ được cộng 1 \n"
+                    + "điểm. Trò chơi kết thúc khi bạn tìm được hết các cặp thẻ\nbài.");
+        }
     }
 
     public void restartGame(ActionEvent event) {
