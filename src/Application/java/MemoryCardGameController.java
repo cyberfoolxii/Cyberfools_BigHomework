@@ -263,7 +263,7 @@ public class MemoryCardGameController implements Initializable {
             if((long) ((System.currentTimeMillis() - pauseTime ) / 1000) >= 0.3) {
                 pauseDuration = (System.currentTimeMillis() - pauseTime) / 1000;
                 if(pauseDuration < 10) {
-                    timeLimit += (System.currentTimeMillis() - pauseTime) / 1000;
+                    timeLimit += pauseDuration;
                 }
                 pauseTime = System.currentTimeMillis();
             }
