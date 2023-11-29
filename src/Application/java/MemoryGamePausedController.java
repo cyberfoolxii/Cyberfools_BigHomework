@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.Stack;
@@ -38,6 +39,8 @@ public class MemoryGamePausedController implements Initializable {
     @FXML
     private Label scoreLabel;
     @FXML
+    private Label scoreLabel1;
+    @FXML
     private VBox myGamePausedVBox;
     @FXML
     private Button speakerButton;
@@ -50,8 +53,16 @@ public class MemoryGamePausedController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        scoreLabel.setText("Highest score: " + HighScoreOfGame.getHighestScore1());
-        scoreLabel.setStyle("-fx-text-fill: yellow;");
+        List<String> highestScore2 = HighScoreOfGame.getHighestScore2(MemoryCardGameController.difficulty);
+
+        String level = switch (MemoryCardGameController.difficulty) {
+            case EASY -> "easy";
+            case MEDIUM -> "medium";
+            case HARD -> "hard";
+        };
+        scoreLabel.setText("Highest score of " + level + " level:");
+        scoreLabel1.setText("Player: " + highestScore2.get(0) + " - Score: " + highestScore2.get(1) + "/10 - Time left: " + highestScore2.get(2) + "s");
+        scoreLabel1.setStyle("-fx-text-fill: yellow;");
         FXMLManager fxmlManager = new FXMLManager();
         scoreLabel.setFont(fxmlManager.cloneQuicksandFont(FontWeight.SEMI_BOLD, 24));
         gamePausedLabel.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 48));

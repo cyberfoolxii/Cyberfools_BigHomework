@@ -33,7 +33,7 @@ public class MultipleChoiceGamePausedController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        scoreLabel.setText("Highest score: " + HighScoreOfGame.getHighestScore1());
+        scoreLabel.setText("Current highest score: " + HighScoreOfGame.getHighestScore1());
         FXMLManager fxmlManager = new FXMLManager();
         scoreLabel.setFont(fxmlManager.cloneQuicksandFont(FontWeight.SEMI_BOLD, 24));
         scoreLabel.setStyle("-fx-text-fill: yellow;");

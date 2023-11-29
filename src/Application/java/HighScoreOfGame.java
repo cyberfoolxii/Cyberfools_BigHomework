@@ -46,11 +46,11 @@ public class HighScoreOfGame {
         List<String> highestScores = new ArrayList<>();
         int n;
         if(difficulty == MemoryCardGameController.MemoryGame.Difficulty.EASY) {
-            n = 0;
-        } else if(difficulty == MemoryCardGameController.MemoryGame.Difficulty.MEDIUM) {
             n = 1;
-        } else {
+        } else if(difficulty == MemoryCardGameController.MemoryGame.Difficulty.MEDIUM) {
             n = 2;
+        } else {
+            n = 3;
         }
 
         try (Scanner scanner = new Scanner(file2)) {

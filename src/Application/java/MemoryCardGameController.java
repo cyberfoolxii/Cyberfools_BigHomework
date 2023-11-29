@@ -167,6 +167,7 @@ public class MemoryCardGameController implements Initializable {
         } else {
             timeLeft = (int) memoryGame.remainingTime;
         }
+        HighScoreOfGame.updateHighScore2(difficulty, "Player", memoryGame.player.score, timeLeft);
         FXMLManager fxmlManager = new FXMLManager();
         myStackPane.setVisible(false);
         myStackPane.setManaged(false);
@@ -191,6 +192,7 @@ public class MemoryCardGameController implements Initializable {
         } else {
             timeLeft = (int) memoryGame.remainingTime;
         }
+        HighScoreOfGame.updateHighScore2(difficulty, "Player", memoryGame.player.score, timeLeft);
         FXMLManager fxmlManager = new FXMLManager();
         myStackPane.setVisible(false);
         myStackPane.setManaged(false);
@@ -296,14 +298,13 @@ public class MemoryCardGameController implements Initializable {
         }
     }
 
-    private class Player {
-        private String playerName;
+    class Player {
+        public static String playerName;
         private int score;
 
         public Player() {
 
         }
-
         private void gainScore() {
             score++;
         }

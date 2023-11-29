@@ -73,6 +73,7 @@ public class MemoryGameStartMenuController implements Initializable {
     }
 
     private void startGame(MemoryCardGameController.MemoryGame.Difficulty difficulty) {
+        String name = playerNameField.getText();
         VBox vBox = (VBox) myVBox.getParent();
         vBox.getChildren().remove(vBox.getChildren().size() - 1);
         MemoryCardGameController.difficulty = difficulty;
@@ -80,5 +81,6 @@ public class MemoryGameStartMenuController implements Initializable {
         StackPane myStackPane = (StackPane) fxmlManager.getFXMLInsertedRoot("/FXML Files/MemoryCardGame.fxml");
         VBox.setVgrow(myStackPane, Priority.ALWAYS);
         vBox.getChildren().add(myStackPane);
+        MemoryCardGameController.Player.playerName = name;
     }
 }
