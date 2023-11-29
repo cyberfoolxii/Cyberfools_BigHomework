@@ -19,7 +19,7 @@
          </font>
       </Label>
       <Label fx:id="scoreLabel" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="0.0" prefWidth="600.0" text="Highest Score" textAlignment="CENTER" VBox.vgrow="ALWAYS" />
-      <Label fx:id="scoreLabel1" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="0.0" prefWidth="600.0" text="Highest Score" textAlignment="CENTER" />
+      <Label fx:id="scoreLabel1" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="0.0" prefWidth="600.0" text="Highest Score1" textAlignment="CENTER" />
       <FlowPane alignment="CENTER" VBox.vgrow="ALWAYS">
          <children>
             <Button fx:id="speakerButton" mnemonicParsing="false" onAction="#mute">

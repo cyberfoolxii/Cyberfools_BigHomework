@@ -73,11 +73,11 @@ public class HighScoreOfGame {
     public static boolean updateHighScore2 (MemoryCardGameController.MemoryGame.Difficulty difficulty, String name, int score, int timeLeft) {
         int n;
         if(difficulty == MemoryCardGameController.MemoryGame.Difficulty.EASY) {
-            n = 0;
-        } else if(difficulty == MemoryCardGameController.MemoryGame.Difficulty.MEDIUM) {
             n = 1;
-        } else {
+        } else if(difficulty == MemoryCardGameController.MemoryGame.Difficulty.MEDIUM) {
             n = 2;
+        } else {
+            n = 3;
         }
 
         List<String> oldHighestScores = getHighestScore2(difficulty);
@@ -86,17 +86,17 @@ public class HighScoreOfGame {
         int oldTimeLeft = Integer.parseInt(oldHighestScores.get(2));
 
         if( (score > oldScore && timeLeft <= 0) || (score == 10 && timeLeft > oldTimeLeft) ) {
-
+            System.out.println("Update high score 2");
             try (Scanner scanner = new Scanner(file2)) {
                 StringBuilder content = new StringBuilder();
 
-                for (int i = 1; i <= 3; i++) {
+                for (int i = 0; i < 3; i++) {
                     String line = scanner.nextLine();
 
-                    if (i == n) {
-                        line = String.format("%d %s %d %d\n", name, score, timeLeft);
+                    if (i == n - 1) {
+                        line = String.format("%s %d %d", name, score, timeLeft);
                     }
-                    content.append(line);
+                    content.append(line).append("\n");
                 }
 
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter(file2))) {

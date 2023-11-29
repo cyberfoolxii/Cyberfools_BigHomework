@@ -17,6 +17,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 
 import java.net.URL;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -135,7 +136,10 @@ public class MultipleChoiceGameController implements Initializable {
                 displayQuestion();
                 System.out.println("Right answer: " + questions.get(currentQuestionIndex).getCorrectAnswer());
             } else {
-                endGame(true);
+                Collections.shuffle(questions);
+                currentQuestionIndex = 0;
+                displayQuestion();
+                System.out.println("Right answer: " + questions.get(currentQuestionIndex).getCorrectAnswer());
             }
         } else {
             lives--;

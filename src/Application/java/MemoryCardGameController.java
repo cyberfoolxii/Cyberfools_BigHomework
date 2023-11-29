@@ -64,6 +64,9 @@ public class MemoryCardGameController implements Initializable {
             @Override
             public void run() {
                 while (true) {
+                    mediaPlayer.setOnEndOfMedia(() -> {
+                        mediaPlayer.seek(Duration.ZERO);
+                    });
                     memoryGame.updateRemainingTime();
                     if (!isGamePaused) {
                         memoryGame.pauseTime = 0;
@@ -167,7 +170,7 @@ public class MemoryCardGameController implements Initializable {
         } else {
             timeLeft = (int) memoryGame.remainingTime;
         }
-        HighScoreOfGame.updateHighScore2(difficulty, "Player", memoryGame.player.score, timeLeft);
+        boolean isUpdated = HighScoreOfGame.updateHighScore2(difficulty, Player.playerName, memoryGame.player.score, timeLeft);
         FXMLManager fxmlManager = new FXMLManager();
         myStackPane.setVisible(false);
         myStackPane.setManaged(false);
@@ -176,8 +179,24 @@ public class MemoryCardGameController implements Initializable {
         vBox.setMaxWidth(Double.MAX_VALUE);
         vBox.setMaxHeight(Double.MAX_VALUE);
         VBox.setVgrow(vBox, Priority.ALWAYS);
-        ((Label) vBox.getChildren().get(0)).setText("YOU LOST!");
+
+        String level = "";
+
+        switch (difficulty) {
+            case EASY -> level = "Easy";
+            case MEDIUM -> level = "Medium";
+            case HARD -> level = "Hard";
+        }
+        ((Label) vBox.getChildren().get(0)).setText("GAME OVER!");
         ((Label) vBox.getChildren().get(0)).setStyle("-fx-text-fill: #FF0000;");
+        if(isUpdated) {
+            ((Label) vBox.getChildren().get(1)).setText("YOU LOST! BUT YOU HAVE SET NEW HIGH SCORE:");
+        } else {
+            ((Label) vBox.getChildren().get(1)).setText("YOU LOST! YOUR SCORE:");
+        }
+        ((Label) vBox.getChildren().get(2)).setText("Player: " + Player.playerName + " - " + level + " - Score: " + memoryGame.player.score + "/10 - Time left: " + timeLeft + "s");
+        ((Label) vBox.getChildren().get(2)).setFont(fxmlManager.cloneQuicksandFont(FontWeight.SEMI_BOLD, 18));
+        ((Label) vBox.getChildren().get(2)).setStyle("-fx-text-fill: yellow;");
 
         HBox hBox = (HBox) vBox.getChildren().get(vBox.getChildren().size() - 1);
         hBox.getChildren().get(hBox.getChildren().size() - 1).setVisible(false);
@@ -192,7 +211,7 @@ public class MemoryCardGameController implements Initializable {
         } else {
             timeLeft = (int) memoryGame.remainingTime;
         }
-        HighScoreOfGame.updateHighScore2(difficulty, "Player", memoryGame.player.score, timeLeft);
+        boolean isUpdated = HighScoreOfGame.updateHighScore2(difficulty, Player.playerName, memoryGame.player.score, timeLeft);
         FXMLManager fxmlManager = new FXMLManager();
         myStackPane.setVisible(false);
         myStackPane.setManaged(false);
@@ -201,8 +220,24 @@ public class MemoryCardGameController implements Initializable {
         vBox.setMaxWidth(Double.MAX_VALUE);
         vBox.setMaxHeight(Double.MAX_VALUE);
         VBox.setVgrow(vBox, Priority.ALWAYS);
+        String level = "";
+        switch (difficulty) {
+            case EASY -> level = "Easy";
+            case MEDIUM -> level = "Medium";
+            case HARD -> level = "Hard";
+        }
+
+
         ((Label) vBox.getChildren().get(0)).setText("YOU WON!");
         ((Label) vBox.getChildren().get(0)).setStyle("-fx-text-fill: #1ad963;");
+        if(isUpdated) {
+            ((Label) vBox.getChildren().get(1)).setText("CONGRATULATION! YOU HAVE SET NEW HIGH SCORE:");
+        } else {
+            ((Label) vBox.getChildren().get(1)).setText("GOOD JOB! YOUR SCORE:");
+        }
+        ((Label) vBox.getChildren().get(2)).setText("Player: " + Player.playerName + " - " + level + " - Score: " + memoryGame.player.score + "/10 - Time left: " + timeLeft + "s");
+        ((Label) vBox.getChildren().get(2)).setFont(fxmlManager.cloneQuicksandFont(FontWeight.SEMI_BOLD, 18));
+        ((Label) vBox.getChildren().get(2)).setStyle("-fx-text-fill: yellow;");
 
         HBox hBox = (HBox) vBox.getChildren().get(vBox.getChildren().size() - 1);
         hBox.getChildren().get(hBox.getChildren().size() - 1).setVisible(false);
@@ -225,7 +260,7 @@ public class MemoryCardGameController implements Initializable {
         }
 
         private void updatePauseTime() {
-            if((int) ((System.currentTimeMillis() - pauseTime ) / 1000) >= 1) {
+            if((long) ((System.currentTimeMillis() - pauseTime ) / 1000) >= 0.25) {
                 timeLimit += (System.currentTimeMillis() - pauseTime) / 1000;
                 pauseTime = System.currentTimeMillis();
             }
@@ -242,17 +277,17 @@ public class MemoryCardGameController implements Initializable {
                 case EASY:
                     Card.flipRate = 0.25;
                     Card.delayRate = 0.75;
-                    timeLimit = 900;
+                    timeLimit = 600;
                     break;
                 case MEDIUM:
                     Card.flipRate = 0.22;
                     Card.delayRate = 0.6;
-                    timeLimit = 600;
+                    timeLimit = 400;
                     break;
                 case HARD:
                     Card.flipRate = 0.2;
                     Card.delayRate = 0.45;
-                    timeLimit = 300;
+                    timeLimit = 250;
                     break;
                 default:
                     timeLimit = 30;

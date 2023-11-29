@@ -73,7 +73,15 @@ public class MemoryGameStartMenuController implements Initializable {
     }
 
     private void startGame(MemoryCardGameController.MemoryGame.Difficulty difficulty) {
-        String name = playerNameField.getText();
+        String name;
+        if (playerNameField.getText().length() <= 9) {
+            name = playerNameField.getText();
+        } else {
+            name = playerNameField.getText().substring(0, 8);
+        }
+        if (name.trim().isEmpty()) {
+            name = "Player";
+        }
         VBox vBox = (VBox) myVBox.getParent();
         vBox.getChildren().remove(vBox.getChildren().size() - 1);
         MemoryCardGameController.difficulty = difficulty;

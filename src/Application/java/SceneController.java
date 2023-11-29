@@ -74,6 +74,8 @@ public class SceneController implements Initializable {
     @FXML
     private HBox updateAndDeleteHBox;
     @FXML
+    private VBox infoGameVBox;
+    @FXML
     private Label tabTitle1;
     @FXML
     private Label tabTitle2;
@@ -92,12 +94,15 @@ public class SceneController implements Initializable {
     @FXML
     private Button selectGameButton1;
     @FXML
-    private Button selectGameButton2;
-    @FXML
     private Button selectGameButton3;
+    @FXML
+    private Label infoGame1;
+    @FXML
+    private Label infoGame3;
     @FXML
     private VBox tab1DefinitionVBox;
     private static Word currentWord;
+    private static boolean isHintShowed;
 
     static class Cell extends ListCell<String> {
         VBox vBox = new VBox();
@@ -239,7 +244,6 @@ public class SceneController implements Initializable {
 
         FXMLManager fxmlManager = new FXMLManager();
         selectGameButton1.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 30));
-        selectGameButton2.fontProperty().bind(selectGameButton1.fontProperty());
         selectGameButton3.fontProperty().bind(selectGameButton1.fontProperty());
         languageMenuButton.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 20));
         onlineCheckBox.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 17));
@@ -266,7 +270,28 @@ public class SceneController implements Initializable {
         textArea2.fontProperty().bind(textArea1.fontProperty());
         translateButtonTab3.fontProperty().bind(tabTitle1.fontProperty());
 
-        selectGameButton1.setText("Multiple Choice Game\nHighest score: " + HighScoreOfGame.getHighestScore1());
+        selectGameButton1.setText("Multiple Choice Game");
+
+        infoGame1.setText(" Multiple Choice Game\n\n Highest score: " + HighScoreOfGame.getHighestScore1()
+                + "\n\n Mô tả: Trò chơi lựa chọn 1 đáp án đúng từ 4 đáp án A, B,\nC, D được hiển thị " +
+                "để điền vào chỗ trống trong câu. Khi\ntrả lời đúng, bạn sẽ được cộng 1 điểm." +
+                " Khi trả lời sai, bạn\nsẽ bị trừ 1 mạng. Trò chơi kết thúc khi bạn trả lời sai 3 lần.");
+
+        infoGame1.setFont(fxmlManager.cloneQuicksandFont(FontWeight.SEMI_BOLD, 13.5));
+
+        List<String> highestScore2Easy = HighScoreOfGame.getHighestScore2(MemoryCardGameController.MemoryGame.Difficulty.EASY);
+        List<String> highestScore2Medium = HighScoreOfGame.getHighestScore2(MemoryCardGameController.MemoryGame.Difficulty.MEDIUM);
+        List<String> highestScore2Hard = HighScoreOfGame.getHighestScore2(MemoryCardGameController.MemoryGame.Difficulty.HARD);
+
+        infoGame3.setText(" Memory Game\n\n Highest score: \n"
+                + "-Player: " + highestScore2Easy.get(0) + " - Easy - Score: " + highestScore2Easy.get(1) + "/10 - Time left: " + highestScore2Easy.get(2) + "s"
+                + "\n-Player: " + highestScore2Medium.get(0) + " - Medium - Score: " + highestScore2Medium.get(1) + "/10 - Time left: " + highestScore2Medium.get(2) + "s"
+                + "\n-Player: " + highestScore2Hard.get(0) + " - Hard - Score: " + highestScore2Hard.get(1) + "/10 - Time left: " + highestScore2Hard.get(2) + "s"
+                + "\n\n Mô tả: Trò chơi lật các thẻ bài để tìm ra các cặp thẻ bài\ngiống nhau. " +
+                "Khi tìm được cặp thẻ bài giống nhau, bạn sẽ\nđược cộng 1 điểm. " +
+                "Trò chơi kết thúc khi bạn tìm được hết\ncác cặp thẻ bài.");
+
+        infoGame3.setFont(fxmlManager.cloneQuicksandFont(FontWeight.SEMI_BOLD, 13.5));
     }
 
     public void switchToGame1(ActionEvent event) {
@@ -543,6 +568,7 @@ public class SceneController implements Initializable {
     }
 
     private void translate() {
+        isHintShowed = false;
         if (!tab0VBox2.getChildren().get(0).isManaged()) {
             UpdateWordController.reset();
         }
@@ -598,6 +624,9 @@ public class SceneController implements Initializable {
                         node.setManaged(true);
                     }
                     tab0DefVbox.getChildren().clear();
+
+                    if (isHintShowed) return;
+
                     for (EnglishWord englishWord : englishWordList) {
                         if ((englishWord.getWordContent() + " " + englishWord.getWordType()).equals(myListView.getSelectionModel().getSelectedItem())) {
                             Label label = fxmlManager.cloneLabel(englishWord.getWordContent() + " " + englishWord.getPhonetic()
@@ -661,7 +690,6 @@ public class SceneController implements Initializable {
             myListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
                 @Override
                 public void changed(ObservableValue<? extends String> observableValue, String s, String t1) {
-                    //
                     if (!tab0SpeakButton.isManaged()) {
                         UpdateWordController.reset();
                     }
@@ -671,6 +699,9 @@ public class SceneController implements Initializable {
                     }
 
                     tab0DefVbox.getChildren().clear();
+
+                    if (isHintShowed) return;
+
                     for (VietnameseWord vietnameseWord : vietnameseWordList) {
                         if ((vietnameseWord.getWordContent() + " " + vietnameseWord.getWordType()).equals(myListView.getSelectionModel().getSelectedItem())) {
                             Label label = fxmlManager.cloneLabel(vietnameseWord.getWordContent(), Pos.CENTER, FontWeight.BOLD, 25);
@@ -727,6 +758,9 @@ public class SceneController implements Initializable {
     }
 
     private void showHints() {
+
+        isHintShowed = true;
+
         if (tab0searchTextField.getText().length() >= 2) {
             Comparator<String> comparator = new Comparator<String>() {
                 @Override
@@ -798,14 +832,19 @@ public class SceneController implements Initializable {
 
     public void speak(ActionEvent event) {
         if (myListView.getItems().get(0) != null) {
-            SpeechManager speechManager = new SpeechManager();
-            speechManager.speak(myListView.getItems().get(0).split(" ")[0], translateFrom);
+            speak(myListView.getItems().get(0).split(" ")[0], translateFrom);
         }
+    }
+
+    private void speak(String content, String languageType) {
+        SpeechManager speechManager = new SpeechManager();
+        speechManager.speak(content, languageType);
     }
 
     public void speak1(ActionEvent event) {
         SpeechManager speechManager = new SpeechManager();
         if (currentAudioLink != null && !currentAudioLink.isEmpty()) speechManager.speak(currentAudioLink);
+        else speak(tab1SearchTextField.getText(), "en");
     }
 
     /** sửa sau. */
