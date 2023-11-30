@@ -108,6 +108,12 @@ public class SceneController implements Initializable {
     private VBox tab1DefinitionVBox;
     @FXML
     private TextArea copyRightTextArea;
+    @FXML
+    private Button infoButton;
+    @FXML
+    private Button exitButton;
+    @FXML
+    private Button infoBackButton;
     private static Word currentWord;
     private static boolean isHintShowed;
 
@@ -145,6 +151,23 @@ public class SceneController implements Initializable {
                 setGraphic(label);
             }
         }
+    }
+
+    public void showInfo(ActionEvent event) {
+        showInfo(true);
+    }
+
+    private void showInfo(boolean isShowed) {
+        infoBackButton.setVisible(isShowed);
+        infoButton.setVisible(!isShowed);
+        infoButton.setManaged(!isShowed);
+        exitButton.setManaged(!isShowed);
+        exitButton.setVisible(!isShowed);
+        copyRightTextArea.setVisible(isShowed);
+    }
+
+    public void backToSetting(ActionEvent event) {
+        showInfo(false);
     }
 
     public static void setCurrentWord(Word currentWord) {
@@ -200,15 +223,6 @@ public class SceneController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-/*        EventHandler<KeyEvent> keyEventEventHandler = new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if (event.getCode() == KeyCode.ENTER) {
-                    translate();
-                }
-            }
-        };
-        searchTextField1.setOnKeyPressed(keyEventEventHandler);*/
         myListView.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
             @Override
             public ListCell<String> call(ListView<String> param) {
@@ -253,6 +267,9 @@ public class SceneController implements Initializable {
         selectGameButton1.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 30));
         selectGameButton3.fontProperty().bind(selectGameButton1.fontProperty());
         languageMenuButton.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 20));
+        infoBackButton.fontProperty().bind(languageMenuButton.fontProperty());
+        exitButton.fontProperty().bind(languageMenuButton.fontProperty());
+        infoButton.fontProperty().bind(languageMenuButton.fontProperty());
         onlineCheckBox.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 17));
         tabTitle1.setFont(fxmlManager.cloneQuicksandFont(FontWeight.SEMI_BOLD, 16));
         tabTitle2.fontProperty().bind(tabTitle1.fontProperty());

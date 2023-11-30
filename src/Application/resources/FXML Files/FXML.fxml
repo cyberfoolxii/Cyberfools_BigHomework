@@ -22,7 +22,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="924.0" stylesheets="@../CSS%20Styles/nord-dark.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.java.SceneController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="924.0" stylesheets="@../CSS%20Styles/nord-dark.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Application.java.SceneController">
    <children>
       <TabPane prefHeight="568.0" prefWidth="756.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
          <tabs>
@@ -306,12 +306,14 @@
                <content>
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Button fx:id="exitButton" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onExitButtonClick" prefHeight="30.0" prefWidth="900.0" text="THOÁT" VBox.vgrow="ALWAYS">
+                        <Button fx:id="infoButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#showInfo" prefHeight="40.0" text="INFO" />
+                        <Button fx:id="exitButton" alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#onExitButtonClick" prefHeight="40.0" prefWidth="900.0" text="THOÁT" VBox.vgrow="ALWAYS">
                            <font>
                               <Font size="18.0" />
                            </font>
                         </Button>
-                        <TextArea fx:id="copyRightTextArea" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" text="Copyright © [2023] by Nguyen Manh Cuong and Nguyen Do Quang Dai. All rights reserved.&#10;&#10;Title: [Dictionary Application]&#10;&#10;This application, including its content, features, dictionary, and games, is the intellectual property of Nguyen Manh Cuong and Nguyen Do Quang Dai. The content provided within this application is protected by copyright law and international treaties.&#10;&#10;Users of this application are granted a non-exclusive, non-transferable license to use the application for personal, non-commercial purposes. Any unauthorized use, reproduction, or distribution of this application or its content without the express written permission of the authors is strictly prohibited.&#10;&#10;The authors, Nguyen Manh Cuong and Nguyen Do Quang Dai, reserve the right to update, modify, or discontinue the application at any time without prior notice. They shall not be liable for any direct, indirect, special, incidental, or consequential damages arising out of the use or inability to use this application.&#10;&#10;For inquiries regarding licensing, permissions, or any other matters, please contact the authors at 22028327@vnu.edu.vn.&#10;&#10;Thank you for using Dictionary Application and for respecting the intellectual property rights of Nguyen Manh Cuong and Nguyen Do Quang Dai.&#10;" wrapText="true" VBox.vgrow="ALWAYS" />
+                        <Button fx:id="infoBackButton" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#backToSetting" prefHeight="40.0" text="BACK" visible="false" />
+                        <TextArea fx:id="copyRightTextArea" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" text="Copyright © [2023] by Nguyen Manh Cuong and Nguyen Do Quang Dai. All rights reserved.&#10;&#10;Title: [Dictionary Application]&#10;&#10;This application, including its content, features, dictionary, and games, is the intellectual property of Nguyen Manh Cuong and Nguyen Do Quang Dai. The content provided within this application is protected by copyright law and international treaties.&#10;&#10;Users of this application are granted a non-exclusive, non-transferable license to use the application for personal, non-commercial purposes. Any unauthorized use, reproduction, or distribution of this application or its content without the express written permission of the authors is strictly prohibited.&#10;&#10;The authors, Nguyen Manh Cuong and Nguyen Do Quang Dai, reserve the right to update, modify, or discontinue the application at any time without prior notice. They shall not be liable for any direct, indirect, special, incidental, or consequential damages arising out of the use or inability to use this application.&#10;&#10;For inquiries regarding licensing, permissions, or any other matters, please contact the authors at 22028327@vnu.edu.vn.&#10;&#10;Thank you for using Dictionary Application and for respecting the intellectual property rights of Nguyen Manh Cuong and Nguyen Do Quang Dai.&#10;" visible="false" wrapText="true" VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
                </content>
