@@ -16,6 +16,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 
+import java.io.File;
 import java.net.URL;
 import java.util.Collections;
 import java.util.List;
@@ -51,7 +52,12 @@ public class MultipleChoiceGameController implements Initializable {
     private int score;
     private int lives;
     private int highestScore;
-    private MediaPlayer mediaPlayer;
+
+    private final MediaPlayer mediaPlayerW = new MediaPlayer(new javafx.scene.media.Media(new File("src/Application/resources/Animation/wrong-answer.mp3").toURI().toString()));
+    private final MediaPlayer mediaPlayerR = new MediaPlayer(new javafx.scene.media.Media(new File("src/Application/resources/Animation/right-answer.mp3").toURI().toString()));
+
+    private final MediaPlayer mediaPlayerWG = new MediaPlayer(new javafx.scene.media.Media(new File("src/Application/resources/Animation/game-over.wav").toURI().toString()));
+    private final MediaPlayer mediaPlayerLG = new MediaPlayer(new javafx.scene.media.Media(new File("src/Application/resources/Animation/game-completed.wav").toURI().toString()));
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -79,6 +85,12 @@ public class MultipleChoiceGameController implements Initializable {
         scoreLabel.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 20));
         livesLabel.setText("Lives: " + lives);
         livesLabel.setFont(fxmlManager.cloneQuicksandFont(FontWeight.BOLD, 20));
+
+        if(mediaPlayerWG.getStatus() == MediaPlayer.Status.PLAYING) {
+            mediaPlayerWG.stop();
+        } else if(mediaPlayerLG.getStatus() == MediaPlayer.Status.PLAYING) {
+            mediaPlayerLG.stop();
+        }
     }
 
 /*    private void initTimerMediaView() {
@@ -97,7 +109,6 @@ public class MultipleChoiceGameController implements Initializable {
             if (currentQuestionIndex < questions.size()) {
                 displayQuestion();
                 System.out.println("Right answer: " + questions.get(currentQuestionIndex).getCorrectAnswer());
-                mediaPlayer.play();
             } else {
                 endGame(true);
             }
@@ -124,6 +135,12 @@ public class MultipleChoiceGameController implements Initializable {
         char selectedAnswer = clickedButton.getText().charAt(0);
 
         if (selectedAnswer == questions.get(currentQuestionIndex).getCorrectAnswer()) {
+            if(mediaPlayerW.getStatus() == MediaPlayer.Status.PLAYING) {
+                mediaPlayerW.stop();
+            } else if(mediaPlayerR.getStatus() == MediaPlayer.Status.PLAYING) {
+                mediaPlayerR.stop();
+            }
+            mediaPlayerR.play();
             score++;
             scoreLabel.setText("Score: " + score);
             if(score > highestScore) {
@@ -142,7 +159,13 @@ public class MultipleChoiceGameController implements Initializable {
                 System.out.println("Right answer: " + questions.get(currentQuestionIndex).getCorrectAnswer());
             }
         } else {
+            if(mediaPlayerW.getStatus() == MediaPlayer.Status.PLAYING) {
+                mediaPlayerW.stop();
+            } else if(mediaPlayerR.getStatus() == MediaPlayer.Status.PLAYING) {
+                mediaPlayerR.stop();
+            }
             lives--;
+            if(lives >= 1) mediaPlayerW.play();
             livesLabel.setText("Lives: " + lives);
             if(lives == 1) {
                 livesLabel.setStyle("-fx-text-fill: #FF0000;");
@@ -153,8 +176,6 @@ public class MultipleChoiceGameController implements Initializable {
                 if (currentQuestionIndex < questions.size()) {
                     displayQuestion();
                     System.out.println("Right answer: " + questions.get(currentQuestionIndex).getCorrectAnswer());
-                } else {
-                    endGame(true);
                 }
             } else {
                 endGame(false);
@@ -201,9 +222,11 @@ public class MultipleChoiceGameController implements Initializable {
 
         Label gameOverLabel;
         if(score <= highestScore) {
+            mediaPlayerWG.play();
             gameOverLabel = new Label("Game Over! Your final score is " + score);
             gameOverLabel.setStyle("-fx-text-fill: #FF0000;");
         } else {
+            mediaPlayerLG.play();
             gameOverLabel = new Label("Congratulation!\nYou have set new highest score: " + score);
             gameOverLabel.setStyle("-fx-text-fill: #1ad963;");
             HighScoreOfGame.updateHighScore1(score);
@@ -238,6 +261,11 @@ public class MultipleChoiceGameController implements Initializable {
 
 
     private void backToMenu() {
+        if(mediaPlayerWG.getStatus() == MediaPlayer.Status.PLAYING) {
+            mediaPlayerWG.stop();
+        } else if(mediaPlayerLG.getStatus() == MediaPlayer.Status.PLAYING) {
+            mediaPlayerLG.stop();
+        }
         VBox vBox = (VBox) myVBox.getParent();
         vBox.getChildren().remove(vBox.getChildren().size() - 1);
         for (Node node : vBox.getChildren()) {
@@ -255,6 +283,11 @@ public class MultipleChoiceGameController implements Initializable {
     }
 
     private void reset() {
+        if(mediaPlayerWG.getStatus() == MediaPlayer.Status.PLAYING) {
+            mediaPlayerWG.stop();
+        } else if(mediaPlayerLG.getStatus() == MediaPlayer.Status.PLAYING) {
+            mediaPlayerLG.stop();
+        }
         myVBox.getChildren().remove(myVBox.getChildren().size() - 1);
         setInitialGameStates();
         displayQuestion();

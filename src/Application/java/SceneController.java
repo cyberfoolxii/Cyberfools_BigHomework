@@ -293,9 +293,9 @@ public class SceneController implements Initializable {
         List<String> highestScore2Hard = HighScoreOfGame.getHighestScore2(MemoryCardGameController.MemoryGame.Difficulty.HARD);
 
         infoGame3.setText(" Memory Game (Trò chơi lật thẻ bài)\n\n Highest score: \n"
-                + "-Player: " + highestScore2Easy.get(0) + " - Easy - Score: " + highestScore2Easy.get(1) + "/10 - Time left: " + highestScore2Easy.get(2) + "s"
-                + "\n-Player: " + highestScore2Medium.get(0) + " - Medium - Score: " + highestScore2Medium.get(1) + "/10 - Time left: " + highestScore2Medium.get(2) + "s"
-                + "\n-Player: " + highestScore2Hard.get(0) + " - Hard - Score: " + highestScore2Hard.get(1) + "/10 - Time left: " + highestScore2Hard.get(2) + "s"
+                + "-Player: " + highestScore2Easy.get(0) + " - Easy - Score: " + highestScore2Easy.get(1) + "/10 - Time left: " + highestScore2Easy.get(2) + "s."
+                + "\n-Player: " + highestScore2Medium.get(0) + " - Medium - Score: " + highestScore2Medium.get(1) + "/10 - Time left: " + highestScore2Medium.get(2) + "s."
+                + "\n-Player: " + highestScore2Hard.get(0) + " - Hard - Score: " + highestScore2Hard.get(1) + "/10 - Time left: " + highestScore2Hard.get(2) + "s."
                 + "\n\n Mô tả: Trò chơi lật các thẻ bài để tìm ra các cặp 3 thẻ bài\nkết hợp. "
                 + "Khi tìm được cặp thẻ bài sao cho trong đó có\n"
                 + "thẻ chứa từ tiếng Anh và 2 thẻ còn lại lần lượt chứa phiên\n"
