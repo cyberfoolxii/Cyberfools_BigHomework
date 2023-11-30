@@ -521,9 +521,7 @@ public class MemoryCardGameController implements Initializable {
                 cardTarget.setText("");
                 flipTransition4.play();
             });
-            flipTransition4.setOnFinished(event -> {
-                cardTarget.setOnAction(cardPickEventHandler);
-            });
+            flipTransition4.setOnFinished(event -> cardTarget.setOnAction(cardPickEventHandler));
             flipTransition3.play();
         }
 

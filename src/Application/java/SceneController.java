@@ -106,6 +106,8 @@ public class SceneController implements Initializable {
     private Label gameName3;
     @FXML
     private VBox tab1DefinitionVBox;
+    @FXML
+    private TextArea copyRightTextArea;
     private static Word currentWord;
     private static boolean isHintShowed;
 
@@ -274,6 +276,8 @@ public class SceneController implements Initializable {
         textArea1.fontProperty().bind(tab0searchTextField.fontProperty());
         textArea2.fontProperty().bind(textArea1.fontProperty());
         translateButtonTab3.fontProperty().bind(tabTitle1.fontProperty());
+
+        copyRightTextArea.setFont(fxmlManager.cloneQuicksandFont(FontWeight.NORMAL, 20));
 
         Font italicFont = Font.font("Montserrat", FontWeight.BOLD, FontPosture.ITALIC, 24);
         Font normalFont = Font.font("Open Sans", FontWeight.BOLD, 13.5);
